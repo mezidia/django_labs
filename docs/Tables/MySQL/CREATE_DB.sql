@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema DJango
+-- Schema medivac
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema DJango
+-- Schema medivac
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `DJango` DEFAULT CHARACTER SET utf8 ;
-USE `DJango` ;
+CREATE SCHEMA IF NOT EXISTS `medivac` DEFAULT CHARACTER SET utf8 ;
+USE `medivac` ;
 
 -- -----------------------------------------------------
--- Table `DJango`.`CAR`
+-- Table `medivac`.`CAR`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `DJango`.`CAR` (
+CREATE TABLE IF NOT EXISTS `medivac`.`CAR` (
   `ID` INT NOT NULL,
   `NAME` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`ID`),
@@ -26,9 +26,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `DJango`.`ROUTES`
+-- Table `medivac`.`ROUTES`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `DJango`.`ROUTES` (
+CREATE TABLE IF NOT EXISTS `medivac`.`ROUTES` (
   `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `NAME` VARCHAR(45) NOT NULL,
   `PLACE_FROM` VARCHAR(45) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `DJango`.`ROUTES` (
   INDEX `CAR_idx` (`CAR` ASC) VISIBLE,
   CONSTRAINT `CAR`
     FOREIGN KEY (`CAR`)
-    REFERENCES `DJango`.`CAR` (`ID`)
+    REFERENCES `medivac`.`CAR` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
