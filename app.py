@@ -1,5 +1,5 @@
 from tkinter import Tk, Label, Entry, Button, Listbox
-import tkinter.messagebox as MessageBox
+import tkinter.messagebox as message_box
 
 
 # import mysql
@@ -10,26 +10,26 @@ def insert():
     phone = e_phone.get()
 
     if id == '' or name == '' or phone == '':
-        MessageBox.showerror('Insert Status', 'All fields are required')
+        message_box.showerror('Insert Status', 'All fields are required')
     else:
         # mysql
         e_id.delete(0, 'end')
         e_name.delete(0, 'end')
         e_phone.delete(0, 'end')
         show()
-        MessageBox.showinfo('Insert Status', 'Inserted successfully')
+        message_box.showinfo('Insert Status', 'Inserted successfully')
 
 
 def delete():
     if e_id.get() == '':
-        MessageBox.showerror('Delete Status', 'ID is compulsory for delete')
+        message_box.showerror('Delete Status', 'ID is compulsory for delete')
     else:
         # mysql
         e_id.delete(0, 'end')
         e_name.delete(0, 'end')
         e_phone.delete(0, 'end')
         show()
-        MessageBox.showinfo('Delete Status', 'Deleted successfully')
+        message_box.showinfo('Delete Status', 'Deleted successfully')
 
 
 def update():
@@ -38,22 +38,22 @@ def update():
     phone = e_phone.get()
 
     if id == '' or name == '' or phone == '':
-        MessageBox.showerror('Update Status', 'All fields are required')
+        message_box.showerror('Update Status', 'All fields are required')
     else:
         # mysql
         e_id.delete(0, 'end')
         e_name.delete(0, 'end')
         e_phone.delete(0, 'end')
         show()
-        MessageBox.showinfo('Update Status', 'Updated successfully')
+        message_box.showinfo('Update Status', 'Updated successfully')
 
 
 def get():
     if e_id.get() == '':
-        MessageBox.showerror('Fetch Status', 'ID is compulsory for fetch')
+        message_box.showerror('Fetch Status', 'ID is compulsory for fetch')
     else:
         # mysql
-        MessageBox.showinfo('Fetch Status', e_id)
+        message_box.showinfo('Fetch Status', e_id)
 
 
 def show():
@@ -66,6 +66,7 @@ def show():
     for row in rows:
         insertData = str(row[0]) + ' ' * 10 + str(row[1])
         list.insert(list.size() + 1, insertData)
+
 
 root = Tk()
 root.geometry('600x300')
