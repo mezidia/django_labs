@@ -11,12 +11,23 @@ def insert():
     if id == '' or name == '' or phone == '':
         MessageBox.showerror('Insert Status', 'All fields are required')
     else:
-        print('mysql')
+        # mysql
         e_id.delete(0, 'end')
         e_name.delete(0, 'end')
         e_phone.delete(0, 'end')
         MessageBox.showinfo('Insert Status', 'Inserted successfully')
+
+
+def delete():
+    if e_id.get() == '':
+        MessageBox.showerror('Delete Status', 'ID is compolsary for delete')
+    else:
         # mysql
+        e_id.delete(0, 'end')
+        e_name.delete(0, 'end')
+        e_phone.delete(0, 'end')
+        MessageBox.showinfo('Delete Status', 'Deleted successfully')
+
 
 root = Tk()
 root.geometry('600x300')
@@ -44,7 +55,7 @@ e_phone.place(x=150, y=90)
 insert = Button(root, text='insert', font=('italic', 10), bg='white', command=insert)
 insert.place(x=20, y=140)
 
-delete = Button(root, text='delete', font=('italic', 10), bg='white', command=insert)
+delete = Button(root, text='delete', font=('italic', 10), bg='white', command=delete)
 delete.place(x=70, y=140)
 
 update = Button(root, text='update', font=('italic', 10), bg='white', command=insert)
