@@ -1,4 +1,8 @@
-CREATE TABLE `routes` (
+USE MEDIVAC;
+
+DROP TABLE ROUTES;
+
+CREATE TABLE `ROUTES` (
   `ID` int unsigned NOT NULL AUTO_INCREMENT,
   `NAME` varchar(45) NOT NULL,
   `PLACE_FROM` varchar(45) NOT NULL,

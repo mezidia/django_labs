@@ -1,4 +1,8 @@
-CREATE TABLE `car` (
+USE MEDIVAC;
+
+DROP TABLE CAR;
+
+CREATE TABLE `CAR` (
   `ID` int NOT NULL,
   `NAME` varchar(45) NOT NULL,
   PRIMARY KEY (`ID`),
