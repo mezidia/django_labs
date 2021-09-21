@@ -1,6 +1,7 @@
 from tkinter import Tk, Label, Entry, Button
 import tkinter.messagebox as MessageBox
 
+
 # import mysql
 
 def insert():
@@ -27,6 +28,21 @@ def delete():
         e_name.delete(0, 'end')
         e_phone.delete(0, 'end')
         MessageBox.showinfo('Delete Status', 'Deleted successfully')
+
+
+def update():
+    id = e_id.get()
+    name = e_name.get()
+    phone = e_phone.get()
+
+    if id == '' or name == '' or phone == '':
+        MessageBox.showerror('Update Status', 'All fields are required')
+    else:
+        # mysql
+        e_id.delete(0, 'end')
+        e_name.delete(0, 'end')
+        e_phone.delete(0, 'end')
+        MessageBox.showinfo('Update Status', 'Updated successfully')
 
 
 root = Tk()
