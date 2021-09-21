@@ -20,7 +20,7 @@ class SQLite:
             connection = sqlite3.connect(path)
             print('Connection to SQLite DB is successful')
         except Error as e:
-            raise f"The error '{e}' occurred"
+            raise Exception(f"The error '{e}' occurred")
         self.connection = connection
 
     def create_table(self, table_name: str, fields: List[str]):
@@ -52,6 +52,40 @@ class SQLite:
         try:
             cursor.execute(query)
             self.connection.commit()
-            print("Query executed successfully")
+            print(f'Table {table_name} was successfully created')
         except Error as e:
-            raise f"The error '{e}' occurred"
+            raise Exception(f"The error '{e}' occurred")
+
+    def insert(self, table_name: str, fields_names: tuple, fields_values: List[tuple]):
+        """
+        Method for inserting data into the table
+
+        Example:
+            SQLite().insert('users', ('name', 'age', 'gender', 'nationality'), [
+                ('James', 25, 'male', 'USA'),
+                ('Leila', 32, 'female', 'France'),
+                ('Brigitte', 35, 'female', 'England'),
+                ('Mike', 40, 'male', 'Denmark'),
+                ('Elizabeth', 21, 'female', 'Canada')
+            ])
+
+        :param table_name: name of the table, in that you to want to insert
+        :param fields_names: names of the fields you want to insert
+        :param fields_values: list of tuples with the values of the fields
+        :return:
+        """
+        cursor = self.connection.cursor()
+        fields_string = ''
+        for index in range(len(fields_values)):
+            if index == len(fields_values) - 1:
+                fields_string += str(fields_values[index])
+            else:
+                fields_string += str(fields_values[index]) + ',\n'
+        print(fields_string)
+        query = f'INSERT INTO {table_name} {str(fields_names)} VALUES {fields_string};'
+        try:
+            cursor.execute(query)
+            self.connection.commit()
+            print('Data was successfully inserted')
+        except Error as e:
+            raise Exception(f"The error '{e}' occurred")

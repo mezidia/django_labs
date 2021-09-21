@@ -8,3 +8,10 @@ database.create_table('users', [
                 'gender TEXT',
                 'nationality TEXT'
             ])
+database.insert('users', ('name', 'age', 'gender', 'nationality'), [
+    ('James', 25, 'male', 'USA'),
+    ('Leila', 32, 'female', 'France'),
+    ('Brigitte', 35, 'female', 'England'),
+    ('Mike', 40, 'male', 'Denmark'),
+    ('Elizabeth', 21, 'female', 'Canada')
+])
