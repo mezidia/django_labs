@@ -92,7 +92,22 @@ class SQLite:
 
     def get(self, query: str) -> list:
         """
-        Function to fetch 
+        Function to fetch data
+
+        Example:
+            data = database.get('SELECT * from users')
+            print(data)
+
+        :param query: SQL-query to get data
+        :return: list of the fetched data
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            result = cursor.fetchall()
+            return result
+        except Error as e:
+            raise Exception(f"The error '{e}' occurred")
         :param query:
         :return:
         """
