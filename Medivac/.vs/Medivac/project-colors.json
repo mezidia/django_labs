@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "039d92c6-9b82-411a-96ae-fcafe6dfb9df": {
+      "ProjectGuid": "039d92c6-9b82-411a-96ae-fcafe6dfb9df",
+      "DisplayName": "Medivac",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
