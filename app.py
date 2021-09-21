@@ -21,7 +21,7 @@ def insert():
 
 def delete():
     if e_id.get() == '':
-        MessageBox.showerror('Delete Status', 'ID is compolsary for delete')
+        MessageBox.showerror('Delete Status', 'ID is compulsory for delete')
     else:
         # mysql
         e_id.delete(0, 'end')
@@ -43,6 +43,14 @@ def update():
         e_name.delete(0, 'end')
         e_phone.delete(0, 'end')
         MessageBox.showinfo('Update Status', 'Updated successfully')
+
+
+def get():
+    if e_id.get() == '':
+        MessageBox.showerror('Fetch Status', 'ID is compulsory for fetch')
+    else:
+        # mysql
+        MessageBox.showinfo('Fetch Status', e_id)
 
 
 root = Tk()
@@ -74,10 +82,10 @@ insert.place(x=20, y=140)
 delete = Button(root, text='delete', font=('italic', 10), bg='white', command=delete)
 delete.place(x=70, y=140)
 
-update = Button(root, text='update', font=('italic', 10), bg='white', command=insert)
+update = Button(root, text='update', font=('italic', 10), bg='white', command=update)
 update.place(x=130, y=140)
 
-get = Button(root, text='get', font=('italic', 10), bg='white', command=insert)
+get = Button(root, text='get', font=('italic', 10), bg='white', command=get)
 get.place(x=190, y=140)
 
 root.mainloop()
