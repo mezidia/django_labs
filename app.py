@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Entry, Button
+from tkinter import Tk, Label, Entry, Button, Listbox
 import tkinter.messagebox as MessageBox
 
 
@@ -16,6 +16,7 @@ def insert():
         e_id.delete(0, 'end')
         e_name.delete(0, 'end')
         e_phone.delete(0, 'end')
+        show()
         MessageBox.showinfo('Insert Status', 'Inserted successfully')
 
 
@@ -27,6 +28,7 @@ def delete():
         e_id.delete(0, 'end')
         e_name.delete(0, 'end')
         e_phone.delete(0, 'end')
+        show()
         MessageBox.showinfo('Delete Status', 'Deleted successfully')
 
 
@@ -42,6 +44,7 @@ def update():
         e_id.delete(0, 'end')
         e_name.delete(0, 'end')
         e_phone.delete(0, 'end')
+        show()
         MessageBox.showinfo('Update Status', 'Updated successfully')
 
 
@@ -52,6 +55,17 @@ def get():
         # mysql
         MessageBox.showinfo('Fetch Status', e_id)
 
+
+def show():
+    list.delete(0, list.size())
+    rows = [
+        [1, 'dasdasdad'],
+        [2, 'dadaddad']
+    ]
+    list.delete(0, list.size())
+    for row in rows:
+        insertData = str(row[0]) + ' ' * 10 + str(row[1])
+        list.insert(list.size() + 1, insertData)
 
 root = Tk()
 root.geometry('600x300')
@@ -87,5 +101,9 @@ update.place(x=130, y=140)
 
 get = Button(root, text='get', font=('italic', 10), bg='white', command=get)
 get.place(x=190, y=140)
+
+list = Listbox(root)
+list.place(x=290, y=30)
+show()
 
 root.mainloop()
