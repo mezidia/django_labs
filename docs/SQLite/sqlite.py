@@ -89,3 +89,17 @@ class SQLite:
             print('Data was successfully inserted')
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
+
+    def get(self, query: str) -> list:
+        """
+        Function to fetch 
+        :param query:
+        :return:
+        """
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            result = cursor.fetchall()
+            return result
+        except Error as e:
+            raise Exception(f"The error '{e}' occurred")

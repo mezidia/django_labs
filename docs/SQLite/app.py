@@ -15,3 +15,6 @@ database.insert('users', ('name', 'age', 'gender', 'nationality'), [
     ('Mike', 40, 'male', 'Denmark'),
     ('Elizabeth', 21, 'female', 'Canada')
 ])
+
+data = database.get('SELECT * from users')
+print(data)
