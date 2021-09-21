@@ -1,0 +1,6 @@
+CREATE TABLE `car` (
+  `ID` int NOT NULL,
+  `NAME` varchar(45) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ID_UNIQUE` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
