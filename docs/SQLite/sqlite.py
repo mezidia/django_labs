@@ -126,5 +126,22 @@ class SQLite:
             self.connection.commit()
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
+
+    def delete(self, table_name: str, condition: str):
+        """
+        Function to delete field in the table
+
+        Example:
+            SQLite().delete('users', 'id = 5')
+
+        :param table_name: name of the table
+        :param condition: condition to find necessary field
+        :return:
+        """
+        cursor = self.connection.cursor()
+        try:
+            query = f'DELETE FROM {table_name} WHERE {condition}'
+            cursor.execute(query)
+            self.connection.commit()
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
