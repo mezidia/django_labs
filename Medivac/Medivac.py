@@ -8,12 +8,15 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
-mycursor.execute("CREATE TABLE IF NOT EXISTS `MYDATABASE`.`CAR` (`ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,`NAME` VARCHAR(45) NOT NULL,PRIMARY KEY (`ID`),UNIQUE INDEX `ID_UNIQUE` (`ID` ASC) VISIBLE)")
 
-sql = "INSERT INTO `MYDATABASE`.`CAR` (`NAME`) VALUES (%s);"
-val = ('Full Phylactery')
-params = (val,)
-mycursor.execute(sql, params)
+# sql = "INSERT INTO `MYDATABASE`.`CAR` (`NAME`) VALUES (%s);"
+# val = ('Full Phylactery')
+
+sql = "INSERT INTO `MYDATABASE`.`ROUTES`(`NAME`,`PLACE_FROM`,`PLACE_TO`,`PRICE`,`TIME`,`CAR`) VALUES (%s,%s,%s,%s,%s,%s);"
+id = mycursor.execute("SELECT ID FROM MYDATABASE.CAR WHERE ID = 2")
+rows = mycursor.fetchone()
+val = ('FOURTH GOLD EXPRESS ROUTE','HANAMURA TEMPLE','BRAXIS HOLDOUT',400,'2021-09-21 13:25:00',rows[0])
+mycursor.execute(sql, val)
 
 mydb.commit()
 
