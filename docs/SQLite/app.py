@@ -1,6 +1,6 @@
 from sqlite import SQLite
 
-database = SQLite('./app.sqlite')
+database = SQLite('./sqlite3.db')
 database.create_table('users', [
                 'id INTEGER PRIMARY KEY AUTOINCREMENT',
                 'name TEXT NOT NULL',
@@ -16,5 +16,7 @@ database.insert('users', ('name', 'age', 'gender', 'nationality'), [
     ('Elizabeth', 21, 'female', 'Canada')
 ])
 
-data = database.get('SELECT * from users')
+data = database.get('SELECT * from users WHERE id = 2')
 print(data)
+updated_data = database.update('users', 'name = "Maxim"', 'id = 2')
+print(updated_data)

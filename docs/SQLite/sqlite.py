@@ -47,7 +47,6 @@ class SQLite:
                 fields_string += fields[index]
             else:
                 fields_string += fields[index] + ',\n'
-        print(fields_string)
         query = f'CREATE TABLE IF NOT EXISTS {table_name} ({fields_string});'
         try:
             cursor.execute(query)
@@ -81,7 +80,6 @@ class SQLite:
                 fields_string += str(fields_values[index])
             else:
                 fields_string += str(fields_values[index]) + ',\n'
-        print(fields_string)
         query = f'INSERT INTO {table_name} {str(fields_names)} VALUES {fields_string};'
         try:
             cursor.execute(query)
@@ -95,7 +93,7 @@ class SQLite:
         Function to fetch data
 
         Example:
-            data = database.get('SELECT * from users')
+            data = SQLite().get('SELECT * from users')
             print(data)
 
         :param query: SQL-query to get data
@@ -108,13 +106,25 @@ class SQLite:
             return result
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
-        :param query:
+
+    def update(self, table_name: str, updated_value: str, condition: str):
+        """
+        Function to update field in the table
+
+        Example:
+            SQLite().update('users', 'name = "Maxim"', 'id = 2')
+
+        :param table_name: name of the table
+        :param updated_value: field name and the value
+        :param condition: condition to find necessary field
         :return:
         """
         cursor = self.connection.cursor()
         try:
+            query = f'UPDATE {table_name} SET {updated_value} WHERE {condition}'
             cursor.execute(query)
-            result = cursor.fetchall()
-            return result
+            self.connection.commit()
+        except Error as e:
+            raise Exception(f"The error '{e}' occurred")
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
