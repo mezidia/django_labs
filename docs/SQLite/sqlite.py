@@ -23,22 +23,23 @@ class SQLite:
             raise Exception(f"The error '{e}' occurred")
         self.connection = connection
 
-    def create_table(self, table_name: str, fields: List[str]):
+    def create_table(self, table_name: str, fields: List[str]) -> bool:
         """
         Method for creating the table
 
         Example:
-            SQLite().create_table('users', [
+            result = SQLite().create_table('users', [
                 'id INTEGER PRIMARY KEY AUTOINCREMENT',
                 'name TEXT NOT NULL',
                 'age INTEGER',
                 'gender TEXT',
                 'nationality TEXT'
             ])
+            assert result == True
 
         :param table_name: name of the table, that you want to create
         :param fields: list of the fields as strings
-        :return:
+        :return: result of the execution
         """
         cursor = self.connection.cursor()
         fields_string = ''
@@ -51,27 +52,28 @@ class SQLite:
         try:
             cursor.execute(query)
             self.connection.commit()
-            print(f'Table {table_name} was successfully created')
+            return True
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
 
-    def insert(self, table_name: str, fields_names: tuple, fields_values: List[tuple]):
+    def insert(self, table_name: str, fields_names: tuple, fields_values: List[tuple]) -> bool:
         """
         Method for inserting data into the table
 
         Example:
-            SQLite().insert('users', ('name', 'age', 'gender', 'nationality'), [
+            result = SQLite().insert('users', ('name', 'age', 'gender', 'nationality'), [
                 ('James', 25, 'male', 'USA'),
                 ('Leila', 32, 'female', 'France'),
                 ('Brigitte', 35, 'female', 'England'),
                 ('Mike', 40, 'male', 'Denmark'),
                 ('Elizabeth', 21, 'female', 'Canada')
             ])
+            assert result == True
 
         :param table_name: name of the table, in that you to want to insert
         :param fields_names: names of the fields you want to insert
         :param fields_values: list of tuples with the values of the fields
-        :return:
+        :return: result of the execution
         """
         cursor = self.connection.cursor()
         fields_string = ''
@@ -84,7 +86,7 @@ class SQLite:
         try:
             cursor.execute(query)
             self.connection.commit()
-            print('Data was successfully inserted')
+            return True
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
 
@@ -107,41 +109,45 @@ class SQLite:
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
 
-    def update(self, table_name: str, updated_value: str, condition: str):
+    def update(self, table_name: str, updated_value: str, condition: str) -> bool:
         """
         Function to update field in the table
 
         Example:
-            SQLite().update('users', 'name = "Maxim"', 'id = 2')
+            result = SQLite().update('users', 'name = "Maxim"', 'id = 2')
+            assert result == True
 
         :param table_name: name of the table
         :param updated_value: field name and the value
         :param condition: condition to find necessary field
-        :return:
+        :return: result of the execution
         """
         cursor = self.connection.cursor()
         try:
             query = f'UPDATE {table_name} SET {updated_value} WHERE {condition}'
             cursor.execute(query)
             self.connection.commit()
+            return True
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
 
-    def delete(self, table_name: str, condition: str):
+    def delete(self, table_name: str, condition: str) -> bool:
         """
         Function to delete field in the table
 
         Example:
-            SQLite().delete('users', 'id = 5')
+            result = SQLite().delete('users', 'id = 5')
+            assert result == True
 
         :param table_name: name of the table
         :param condition: condition to find necessary field
-        :return:
+        :return: result of the execution
         """
         cursor = self.connection.cursor()
         try:
             query = f'DELETE FROM {table_name} WHERE {condition}'
             cursor.execute(query)
             self.connection.commit()
+            return True
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
