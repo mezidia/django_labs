@@ -2,6 +2,7 @@ from sqlalchemy import Integer, String, Column, DateTime, \
  ForeignKeyConstraint, Float, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
+from config import *
 
 Base = declarative_base()
 
@@ -27,17 +28,17 @@ class Car(Base):
     name = Column(String(45), nullable=False)
 
 
-engine = create_engine('')
+engine = create_engine(f'mysql://{user}:{password}@{localhost}/{db_name}')
 Base.metadata.create_all(engine)
 session = Session(bind=engine)
 
 car_Medivac = Car(
-    id = 3,
+    id = 4,
     name = 'medivac'
 )
 
 route_Dragon_Shrine = Route(
-    id = 4,
+    id = 5,
     name = 'FIRST SILVER EXPRESS',
     place_from = 'ALTERAC PASS',
     place_to = 'DRAGON SHRINE',
