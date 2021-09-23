@@ -233,3 +233,4 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 docs/Tables/config.py
+docs/Tables/MySQL/config.py
