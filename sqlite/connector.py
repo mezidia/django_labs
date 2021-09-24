@@ -150,3 +150,9 @@ class SQLite:
             return True
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
+
+    def close(self):
+        """
+        Method for closing the connection
+        """
+        self.connection.close()
