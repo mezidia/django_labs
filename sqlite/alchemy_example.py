@@ -1,24 +1,7 @@
-from sqlalchemy import Integer, String, Column, PrimaryKeyConstraint, \
-    UniqueConstraint, create_engine
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
-Base = declarative_base()
-
-
-class User(Base):
-    __tablename__ = 'users'
-    id = Column(Integer)
-    name = Column(String(100), nullable=False)
-    age = Column(Integer, nullable=False)
-    gender = Column(String(100), nullable=False)
-    nationality = Column(String(200), nullable=False)
-
-    __table_args__ = (
-        PrimaryKeyConstraint('id', name='user_pk'),
-        UniqueConstraint('name'),
-    )
-
+from models import User, Base
 
 engine = create_engine('sqlite:///app.sqlite')
 
