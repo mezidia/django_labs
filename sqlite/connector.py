@@ -18,7 +18,6 @@ class SQLite:
         connection = None
         try:
             connection = sqlite3.connect(path)
-            print('Connection to SQLite DB is successful')
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
         self.connection = connection
