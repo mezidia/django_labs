@@ -18,3 +18,10 @@ theme:
           toggle:
               icon: material/toggle-switch
               name: Switch to light mode
+    font:
+        text: Roboto
+    language: en
+    features:
+        - navigation.sections
+        - navigation.expand
+        - navigation.top
