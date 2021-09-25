@@ -22,7 +22,7 @@ class User(Base):
 
 class Route(Base):
     __tablename__ = 'routes'
-    id = Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, nullable=False, unique=True)
     name = Column(String(45), nullable=False)
     place_from = Column(String(45), nullable=False)
     place_to = Column(String(45), nullable=False)
@@ -35,5 +35,5 @@ class Route(Base):
 
 class Car(Base):
     __tablename__ = 'cars'
-    id = Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, nullable=False, unique=True)
     name = Column(String(45), nullable=False)
