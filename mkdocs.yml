@@ -25,3 +25,7 @@ theme:
         - navigation.sections
         - navigation.expand
         - navigation.top
+    icon:
+        repo: fontawesome/brands/github
+repo_name: mezidia/medivac
+repo_url: https://github.com/mezidia/medivac

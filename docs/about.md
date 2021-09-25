@@ -17,18 +17,9 @@ quae iussos. Urnam proelia mea quosque via munire aliquis frustra meorum.
 
 Eas ignem corona. Sonuit fide, lapides inmanem prato conlapsaque talia amaris et
 arbusta fortuna saevit ducat nate falsi; ille nunc!
-
-    standaloneWildcard.autoresponder += sdram_clean.regular.file(rwTruncateUsb,
-            89, grep);
-    var joystick = 6 - 1 + opengl.storagePetabyte(matrix, worm_map_pcmcia,
-            iteration_firmware);
-    if (hardPowerAcl >= public) {
-        outboxVdslHard = 5;
-        osd_virtual_typeface(keywords, ipv, data_reader);
-        analog_matrix_cpc += fat_odbc_uddi;
-    }
-    smartphone_isp_xp += systemPage;
-    var documentBotnet = 3;
+```json
+{"message": "Hello World"}
+```
 
 ## Et arida dare inpositaque magnique tela imperat
 
