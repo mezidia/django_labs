@@ -3,4 +3,18 @@ site_url: https://example.com/
 nav:
     - Home: index.md
     - About: about.md
-theme: material
+theme:
+    name: material
+    palette:
+        - scheme: default
+          primary: indigo
+          accent: deep orange
+          toggle:
+              icon: material/toggle-switch-off-outline
+              name: Switch to dark mode
+        - scheme: slate
+          primary: indigo
+          accent: lime
+          toggle:
+              icon: material/toggle-switch
+              name: Switch to light mode
