@@ -1,74 +1,94 @@
 from tkinter import Tk, Label, Entry, Button, Listbox
 import tkinter.messagebox as message_box
 
+from mysql.connector import MySQL
 
-# import mysql
 
-def insert():
-    id = e_route_name.get()
-    name = e_place_from.get()
-    phone = e_place_to.get()
+def insert_route():
+    route_name = entries['route_name'].get()
+    place_from = entries['place_form'].get()
+    place_to = entries['place_to'].get()
+    price = entries['price'].get()
+    time = entries['time'].get()
+    car = entries['car'].get()
 
-    if id == '' or name == '' or phone == '':
-        message_box.showerror('Insert Status', 'All fields are required')
-    else:
-        # mysql
-        e_route_name.delete(0, 'end')
-        e_place_from.delete(0, 'end')
-        e_place_to.delete(0, 'end')
+    if all(entries.values()):
+        database = MySQL('host', 'user', 'password', 'db_name')
+        result = database.insert('routes', '(route_name, place_from, place_to, price, time, car)',
+                                 [(route_name, place_from, place_to, price, time, car)])
+        assert result is True  # TODO: make an Exception raise
+        route_name.delete(0, 'end')
+        place_from.delete(0, 'end')
+        place_to.delete(0, 'end')
+        price.delete(0, 'end')
+        time.delete(0, 'end')
+        car.delete(0, 'end')
         show()
         message_box.showinfo('Insert Status', 'Inserted successfully')
-
-
-def delete():
-    if e_route_name.get() == '':
-        message_box.showerror('Delete Status', 'ID is compulsory for delete')
     else:
-        # mysql
-        e_route_name.delete(0, 'end')
-        e_place_from.delete(0, 'end')
-        e_place_to.delete(0, 'end')
+        message_box.showerror('Insert Status', 'All fields are required')
+
+
+def delete_route():
+    route_name = entries['route_name'].get()
+    if route_name:
+        database = MySQL('host', 'user', 'password', 'db_name')
+        result = database.delete('routes', f'route_name = {route_name}')
+        assert result is True  # TODO: make an Exception raise
+        route_name.delete(0, 'end')
         show()
         message_box.showinfo('Delete Status', 'Deleted successfully')
-
-
-def update():
-    id = e_route_name.get()
-    name = e_place_from.get()
-    phone = e_place_to.get()
-
-    if id == '' or name == '' or phone == '':
-        message_box.showerror('Update Status', 'All fields are required')
     else:
-        # mysql
-        e_route_name.delete(0, 'end')
-        e_place_from.delete(0, 'end')
-        e_place_to.delete(0, 'end')
+        message_box.showerror('Delete Status', 'Name of the route is compulsory for delete')
+
+
+def update_route():
+    route_name = entries['route_name'].get()
+    place_from = entries['place_form'].get()
+    place_to = entries['place_to'].get()
+    price = entries['price'].get()
+    time = entries['time'].get()
+    car = entries['car'].get()
+
+    if all(entries.values()):
+        database = MySQL('host', 'user', 'password', 'db_name')
+        result = database.update('routes', f'route_name = {route_name}, place_from = {place_from}, '
+                                           f'place_to = {place_to}, price = {price}, time = {time}, car = {car}',
+                                 f'route_name = {route_name}')
+        assert result is True  # TODO: make an Exception raise
+        route_name.delete(0, 'end')
+        place_from.delete(0, 'end')
+        place_to.delete(0, 'end')
+        price.delete(0, 'end')
+        time.delete(0, 'end')
+        car.delete(0, 'end')
         show()
         message_box.showinfo('Update Status', 'Updated successfully')
-
-
-def get():
-    if e_route_name.get() == '':
-        message_box.showerror('Fetch Status', 'ID is compulsory for fetch')
     else:
-        # mysql
-        message_box.showinfo('Fetch Status', e_route_name)
+        message_box.showerror('Update Status', 'All fields are required')
+
+
+def get_route():
+    route_name = entries['route_name'].get()
+    if route_name:
+        database = MySQL('host', 'user', 'password', 'db_name')
+        route = database.get(f'SELECT * from routes WHERE route_name = {route_name}')
+        message_box.showinfo('Fetch Status', route[0][0])
+    else:
+        message_box.showerror('Fetch Status', 'ID is compulsory for fetch')
 
 
 def show():
-    rows = [
-        [1, 'dasdasdad'],
-        [2, 'dadaddad']
-    ]
+    database = MySQL('host', 'user', 'password', 'db_name')
+    routes = database.get(f'SELECT * from routes')
     routes_list.delete(0, routes_list.size())
     cars_list.delete(0, cars_list.size())
-    for row in rows:
-        insert_data = str(row[0]) + ' ' * 10 + str(row[1])
+    for route in routes:
+        insert_data = str(route[0]) + ' ' * 10 + str(route[1])
         routes_list.insert(routes_list.size() + 1, insert_data)
         cars_list.insert(cars_list.size() + 1, insert_data)
 
-
+# TODO: make buttons for exporting
 root = Tk()
 root.geometry('600x400')
 root.title('Autostation')
@@ -109,31 +129,9 @@ for index in range(len(entries_texts)):
     entries[entries_texts[index]] = entry
 
 
-# e_route_name = Entry()
-# e_route_name.place(x=150, y=30)
-#
-# e_place_from = Entry()
-# e_place_from.place(x=150, y=60)
-#
-# e_place_to = Entry()
-# e_place_to.place(x=150, y=90)
-#
-# e_price = Entry()
-# e_price.place(x=150, y=120)
-#
-# e_time = Entry()
-# e_time.place(x=150, y=150)
-#
-# e_car = Entry()
-# e_car.place(x=150, y=180)
-
-
 def insert_car():
-    print('insert_car')
-
-
-def insert_route():
-    print('insert_route')
+    route_name = entries['route_name'].get()
+    print(route_name)
 
 
 buttons_texts = [
