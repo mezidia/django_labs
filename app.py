@@ -74,23 +74,18 @@ root.geometry('600x300')
 root.title('Autostation')
 root.resizable(width=False, height=False)
 
-route_name = Label(root, text='Name of the route', font=('bold', 10))
-route_name.place(x=20, y=30)
+labels_texts = [
+    'Name of the route',
+    'Enter place from',
+    'Enter place to',
+    'Enter price',
+    'Enter time',
+    'Enter car id'
+]
 
-place_from = Label(root, text='Enter place from', font=('bold', 10))
-place_from.place(x=20, y=60)
-
-place_to = Label(root, text='Enter place to', font=('bold', 10))
-place_to.place(x=20, y=90)
-
-price = Label(root, text='Enter price', font=('bold', 10))
-price.place(x=20, y=120)
-
-time = Label(root, text='Enter time', font=('bold', 10))
-time.place(x=20, y=150)
-
-car = Label(root, text='Enter car id', font=('bold', 10))
-car.place(x=20, y=180)
+for index in range(len(labels_texts)):
+    label = Label(root, text=labels_texts[index], font=('bold', 10))
+    label.place(x=20, y=30*(index+1))
 
 routes_label = Label(root, text='Available routes', font=('bold', 10))
 routes_label.place(x=290, y=30)
