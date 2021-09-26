@@ -31,7 +31,7 @@ class PostgreSQL:
         Method for creating the table
 
         Example:
-            result = SQLite().create_table('users', [
+            result = PostgreSQL().create_table('users', [
                 'id INTEGER PRIMARY KEY AUTOINCREMENT',
                 'name TEXT NOT NULL',
                 'age INTEGER',
@@ -64,7 +64,7 @@ class PostgreSQL:
         Method for inserting data into the table
 
         Example:
-            result = SQLite().insert('users', ('name', 'age', 'gender', 'nationality'), [
+            result = PostgreSQL().insert('users', ('name', 'age', 'gender', 'nationality'), [
                 ('James', 25, 'male', 'USA'),
                 ('Leila', 32, 'female', 'France'),
                 ('Brigitte', 35, 'female', 'England'),
@@ -98,7 +98,7 @@ class PostgreSQL:
         Function to fetch data
 
         Example:
-            data = SQLite().get('SELECT * from users')
+            data = PostgreSQL().get('SELECT * from users')
             print(data)
 
         :param query: SQL-query to get data
@@ -117,7 +117,7 @@ class PostgreSQL:
         Function to update field in the table
 
         Example:
-            result = SQLite().update('users', 'name = "Maxim"', 'id = 2')
+            result = PostgreSQL().update('users', 'name = "Roman"', 'id = 3')
             assert result == True
 
         :param table_name: name of the table
@@ -139,7 +139,7 @@ class PostgreSQL:
         Function to delete field in the table
 
         Example:
-            result = SQLite().delete('users', 'id = 5')
+            result = PostreSQL().delete('users', 'id = 5')
             assert result == True
 
         :param table_name: name of the table
