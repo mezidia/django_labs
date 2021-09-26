@@ -24,7 +24,7 @@ assert result is True
 data = database.get('SELECT * from users')
 print(data)
 
-result = database.update('users', "name = 'Maxim'", 'id = 2')
+result = database.update('users', "name = 'Roman'", 'id = 2')
 assert result is True
 
 result = database.delete('users', 'id = 5')
