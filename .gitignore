@@ -236,3 +236,4 @@ cython_debug/
 # Databases
 *.sqlite
 *.db
+mysql/config.py
