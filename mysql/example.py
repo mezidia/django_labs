@@ -10,7 +10,6 @@ result = database.create_table('users', [
     'gender VARCHAR(45)',
     'nationality VARCHAR(45)'
 ])
-assert result is True
 
 result = database.insert('users', '(name, age, gender, nationality)', [
     ('James', 25, 'male', 'USA'),
@@ -19,15 +18,12 @@ result = database.insert('users', '(name, age, gender, nationality)', [
     ('Mike', 40, 'male', 'Denmark'),
     ('Elizabeth', 21, 'female', 'Canada')
 ])
-assert result is True
 
 data = database.get('SELECT * from users')
 print(data)
 
 result = database.update('users', "name = 'Valentyn'", 'id = 2')
-assert result is True
 
 result = database.delete('users', 'id = 5')
-assert result is True
 
 database.close()
