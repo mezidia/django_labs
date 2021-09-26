@@ -2,7 +2,10 @@ site_name: Autostation
 site_url: https://example.com/
 nav:
     - Home: index.md
-    - About: about.md
+    - Autostation: autostation.md
+    - MySQL: mysql.md
+    - SQLite: sqlite.md
+    - PostgreSQL: postgresql.md
 theme:
     name: material
     palette:
