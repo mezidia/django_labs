@@ -93,23 +93,39 @@ routes_label.place(x=290, y=30)
 cars_label = Label(root, text='Available cars', font=('bold', 10))
 cars_label.place(x=430, y=30)
 
-e_route_name = Entry()
-e_route_name.place(x=150, y=30)
+entries = {}
+entries_texts = [
+    'route_name',
+    'place_from',
+    'place_to',
+    'price',
+    'time',
+    'car'
+]
 
-e_place_from = Entry()
-e_place_from.place(x=150, y=60)
+for index in range(len(entries_texts)):
+    entry = Entry()
+    entry.place(x=150, y=30 * (index + 1))
+    entries[entries_texts[index]] = entry
 
-e_place_to = Entry()
-e_place_to.place(x=150, y=90)
 
-e_price = Entry()
-e_price.place(x=150, y=120)
-
-e_time = Entry()
-e_time.place(x=150, y=150)
-
-e_car = Entry()
-e_car.place(x=150, y=180)
+# e_route_name = Entry()
+# e_route_name.place(x=150, y=30)
+#
+# e_place_from = Entry()
+# e_place_from.place(x=150, y=60)
+#
+# e_place_to = Entry()
+# e_place_to.place(x=150, y=90)
+#
+# e_price = Entry()
+# e_price.place(x=150, y=120)
+#
+# e_time = Entry()
+# e_time.place(x=150, y=150)
+#
+# e_car = Entry()
+# e_car.place(x=150, y=180)
 
 
 def insert_car():
