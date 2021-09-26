@@ -85,7 +85,7 @@ class PostgreSQL:
                 fields_string += str(fields_values[index])
             else:
                 fields_string += str(fields_values[index]) + ',\n'
-        query = f'INSERT INTO {table_name} {str(fields_names)} VALUES {fields_string};'
+        query = f'INSERT INTO {table_name} {fields_names} VALUES {fields_string};'
         try:
             cursor.execute(query)
             self.connection.commit()
