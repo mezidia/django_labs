@@ -70,7 +70,7 @@ def show():
 
 
 root = Tk()
-root.geometry('600x300')
+root.geometry('600x400')
 root.title('Autostation')
 root.resizable(width=False, height=False)
 
@@ -85,7 +85,7 @@ labels_texts = [
 
 for index in range(len(labels_texts)):
     label = Label(root, text=labels_texts[index], font=('bold', 10))
-    label.place(x=20, y=30*(index+1))
+    label.place(x=20, y=30 * (index + 1))
 
 routes_label = Label(root, text='Available routes', font=('bold', 10))
 routes_label.place(x=290, y=30)
@@ -111,17 +111,29 @@ e_time.place(x=150, y=150)
 e_car = Entry()
 e_car.place(x=150, y=180)
 
-insert = Button(root, text='insert', font=('italic', 10), bg='white', command=insert)
-insert.place(x=20, y=260)
 
-delete = Button(root, text='delete', font=('italic', 10), bg='white', command=delete)
-delete.place(x=70, y=260)
+def insert_car():
+    print('insert_car')
 
-update = Button(root, text='update', font=('italic', 10), bg='white', command=update)
-update.place(x=130, y=260)
 
-get = Button(root, text='get', font=('italic', 10), bg='white', command=get)
-get.place(x=190, y=260)
+def insert_route():
+    print('insert_route')
+
+
+buttons_texts = [
+    ['insert', {'route': insert_route, 'car': insert_car}],
+    ['delete', {'route': insert_route, 'car': insert_car}],
+    ['update', {'route': insert_route, 'car': insert_car}],
+    ['get', {'route': insert_route, 'car': insert_car}],
+]
+
+for index in range(len(buttons_texts)):
+    button = Button(root, text=buttons_texts[index][0], font=('italic', 10), bg='white',
+                    command=buttons_texts[index][1]['route'])
+    button.place(x=20 + 60 * index, y=260)
+    button = Button(root, text=buttons_texts[index][0], font=('italic', 10), bg='white',
+                    command=buttons_texts[index][1]['car'])
+    button.place(x=20 + 60 * index, y=300)
 
 routes_list = Listbox(root)
 routes_list.place(x=290, y=50)
