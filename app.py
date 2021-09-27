@@ -224,7 +224,6 @@ routes_list.place(x=290, y=50)
 
 cars_list = Listbox(root)
 cars_list.place(x=430, y=50)
-show()
 
 
 def export_to_sqlite():
@@ -243,6 +242,33 @@ def export_to_postgresql():
     postgresql_database.insert('routes', '(route_name, place_from, place_to, price, time, car)', data)
 
 
+def create_tables():
+    mysql_database = MySQL()
+    postgresql_database = PostgreSQL()
+    sqlite_database = SQLite()
+    cars_fields = [
+        'id INTEGER NOT NULL UNIQUE',
+        'name VARCHAR(45) NOT NULL',
+        'PRIMARY KEY("id")'
+    ]
+    routes_fields = [
+        'id INTEGER NOT NULL UNIQUE',
+        'name VARCHAR(45) NOT NULL',
+        'place_from VARCHAR(45) NOT NULL',
+        'place_to VARCHAR(45) NOT NULL',
+        'price FLOAT NOT NULL',
+        'car INTEGER NOT NULL',
+        'PRIMARY KEY("id")',
+        'FOREIGN KEY("car") REFERENCES "cars"("id")'
+    ]
+    mysql_database.create_table('cars', cars_fields)
+    mysql_database.create_table('routes', routes_fields)
+    postgresql_database.create_table('cars', cars_fields)
+    postgresql_database.create_table('routes', routes_fields)
+    sqlite_database.create_table('cars', cars_fields)
+    sqlite_database.create_table('routes', routes_fields)
+
+
 export_to_sqlite_button = Button(root, text='Export from MySQL to SQLite', font=('italic', 10), bg='white',
                                  command=export_to_sqlite)
 export_to_sqlite_button.place(x=290, y=260)
@@ -250,4 +276,6 @@ export_to_postgre_button = Button(root, text='Export from SQLite to PostgreSQL',
                                   command=export_to_postgresql)
 export_to_postgre_button.place(x=290, y=320)
 
+create_tables()
+show()
 root.mainloop()
