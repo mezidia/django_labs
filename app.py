@@ -167,4 +167,29 @@ routes_list.place(x=290, y=50)
 cars_list = Listbox(root)
 cars_list.place(x=430, y=50)
 show()
+
+
+def export_to_sqlite():
+    mysql_database = MySQL('host', 'user', 'password', 'db_name')
+    sqlite_database = SQLite('path')
+    data = mysql_database.get('SELECT * from routes')
+    data = [row[1:] for row in data]
+    sqlite_database.insert('routes', ('route_name', 'place_from', 'place_to', 'price', 'time', 'car'), data)
+
+
+def export_to_postgresql():
+    postgresql_database = PostgreSQL('host', 'user', 'password', 'db_name')
+    sqlite_database = SQLite('path')
+    data = sqlite_database.get('SELECT * from routes')
+    data = [row[1:] for row in data]
+    postgresql_database.insert('routes', '(route_name, place_from, place_to, price, time, car)', data)
+
+
+export_to_sqlite_button = Button(root, text='Export from MySQL to SQLite', font=('italic', 10), bg='white',
+                                 command=export_to_sqlite)
+export_to_sqlite_button.place(x=290, y=260)
+export_to_postgre_button = Button(root, text='Export from SQLite to PostgreSQL', font=('italic', 10), bg='white',
+                                  command=export_to_postgresql)
+export_to_postgre_button.place(x=290, y=320)
+
 root.mainloop()
