@@ -1,12 +1,12 @@
 from tkinter import Tk, Label, Entry, Button, Listbox
 import tkinter.messagebox as message_box
 
-from mysql.connector import MySQL
+from mysql_api.connector import MySQL
 
 
 def insert_route():
     route_name = entries['route_name'].get()
-    place_from = entries['place_form'].get()
+    place_from = entries['place_from'].get()
     place_to = entries['place_to'].get()
     price = entries['price'].get()
     time = entries['time'].get()
@@ -48,7 +48,7 @@ def delete_route():
 
 def update_route():
     route_name = entries['route_name'].get()
-    place_from = entries['place_form'].get()
+    place_from = entries['place_from'].get()
     place_to = entries['place_to'].get()
     price = entries['price'].get()
     time = entries['time'].get()
@@ -147,13 +147,19 @@ buttons_texts = [
     ['get', {'route': insert_route, 'car': insert_car}],
 ]
 
+routes_buttons_label = Label(root, text='Work with routes:', font=('bold', 10))
+routes_buttons_label.place(x=20, y=230)
+
+cars_buttons_label = Label(root, text='Work with cars:', font=('bold', 10))
+cars_buttons_label.place(x=20, y=295)
+
 for index in range(len(buttons_texts)):
     button = Button(root, text=buttons_texts[index][0], font=('italic', 10), bg='white',
                     command=buttons_texts[index][1]['route'])
     button.place(x=20 + 60 * index, y=260)
     button = Button(root, text=buttons_texts[index][0], font=('italic', 10), bg='white',
                     command=buttons_texts[index][1]['car'])
-    button.place(x=20 + 60 * index, y=300)
+    button.place(x=20 + 60 * index, y=320)
 
 routes_list = Listbox(root)
 routes_list.place(x=290, y=50)
@@ -161,5 +167,4 @@ routes_list.place(x=290, y=50)
 cars_list = Listbox(root)
 cars_list.place(x=430, y=50)
 show()
-
 root.mainloop()
