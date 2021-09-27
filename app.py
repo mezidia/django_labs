@@ -108,7 +108,8 @@ labels_texts = [
     'Enter place to',
     'Enter price',
     'Enter time',
-    'Enter car id'
+    'Enter car id',
+    'Enter car name',
 ]
 
 for index in range(len(labels_texts)):
@@ -128,7 +129,8 @@ entries_texts = [
     'place_to',
     'price',
     'time',
-    'car'
+    'car_id',
+    'car_name',
 ]
 
 for index in range(len(entries_texts)):
@@ -137,23 +139,18 @@ for index in range(len(entries_texts)):
     entries[entries_texts[index]] = entry
 
 
-def insert_car():
-    route_name = entries['route_name'].get()
-    print(route_name)
-
-
 buttons_texts = [
     ['insert', {'route': insert_route, 'car': insert_car}],
-    ['delete', {'route': insert_route, 'car': insert_car}],
-    ['update', {'route': insert_route, 'car': insert_car}],
-    ['get', {'route': insert_route, 'car': insert_car}],
+    ['delete', {'route': delete_route, 'car': insert_car}],
+    ['update', {'route': update_route, 'car': insert_car}],
+    ['get', {'route': get_route, 'car': insert_car}],
 ]
 
 routes_buttons_label = Label(root, text='Work with routes:', font=('bold', 10))
-routes_buttons_label.place(x=20, y=230)
+routes_buttons_label.place(x=20, y=240)
 
 cars_buttons_label = Label(root, text='Work with cars:', font=('bold', 10))
-cars_buttons_label.place(x=20, y=295)
+cars_buttons_label.place(x=20, y=300)
 
 for index in range(len(buttons_texts)):
     button = Button(root, text=buttons_texts[index][0], font=('italic', 10), bg='white',
