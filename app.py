@@ -16,15 +16,17 @@ def insert_route():
         database = MySQL('host', 'user', 'password', 'db_name')
         result = database.insert('routes', '(route_name, place_from, place_to, price, time, car)',
                                  [(route_name, place_from, place_to, price, time, car)])
-        assert result is True  # TODO: make an Exception raise
-        route_name.delete(0, 'end')
-        place_from.delete(0, 'end')
-        place_to.delete(0, 'end')
-        price.delete(0, 'end')
-        time.delete(0, 'end')
-        car.delete(0, 'end')
-        show()
-        message_box.showinfo('Insert Status', 'Inserted successfully')
+        if result:
+            route_name.delete(0, 'end')
+            place_from.delete(0, 'end')
+            place_to.delete(0, 'end')
+            price.delete(0, 'end')
+            time.delete(0, 'end')
+            car.delete(0, 'end')
+            show()
+            message_box.showinfo('Insert Status', 'Inserted successfully')
+        else:
+            message_box.showerror('Insert Status', 'An error occurred while inserting')
     else:
         message_box.showerror('Insert Status', 'All fields are required')
 
@@ -34,10 +36,12 @@ def delete_route():
     if route_name:
         database = MySQL('host', 'user', 'password', 'db_name')
         result = database.delete('routes', f'route_name = {route_name}')
-        assert result is True  # TODO: make an Exception raise
-        route_name.delete(0, 'end')
-        show()
-        message_box.showinfo('Delete Status', 'Deleted successfully')
+        if result:
+            route_name.delete(0, 'end')
+            show()
+            message_box.showinfo('Delete Status', 'Deleted successfully')
+        else:
+            message_box.showerror('Delete Status', 'An error occurred while deleting')
     else:
         message_box.showerror('Delete Status', 'Name of the route is compulsory for delete')
 
@@ -55,15 +59,17 @@ def update_route():
         result = database.update('routes', f'route_name = {route_name}, place_from = {place_from}, '
                                            f'place_to = {place_to}, price = {price}, time = {time}, car = {car}',
                                  f'route_name = {route_name}')
-        assert result is True  # TODO: make an Exception raise
-        route_name.delete(0, 'end')
-        place_from.delete(0, 'end')
-        place_to.delete(0, 'end')
-        price.delete(0, 'end')
-        time.delete(0, 'end')
-        car.delete(0, 'end')
-        show()
-        message_box.showinfo('Update Status', 'Updated successfully')
+        if result:
+            route_name.delete(0, 'end')
+            place_from.delete(0, 'end')
+            place_to.delete(0, 'end')
+            price.delete(0, 'end')
+            time.delete(0, 'end')
+            car.delete(0, 'end')
+            show()
+            message_box.showinfo('Update Status', 'Updated successfully')
+        else:
+            message_box.showerror('Update Status', 'An error occurred while updating')
     else:
         message_box.showerror('Update Status', 'All fields are required')
 
