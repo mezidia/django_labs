@@ -12,7 +12,7 @@ def insert_route():
     place_to = entries['place_to'].get()
     price = entries['price'].get()
     time = entries['time'].get()
-    car = entries['car'].get()
+    car = entries['car_id'].get()
 
     if all(entries.values()):
         database = MySQL('host', 'user', 'password', 'db_name')
@@ -25,6 +25,22 @@ def insert_route():
             price.delete(0, 'end')
             time.delete(0, 'end')
             car.delete(0, 'end')
+            show()
+            message_box.showinfo('Insert Status', 'Inserted successfully')
+        else:
+            message_box.showerror('Insert Status', 'An error occurred while inserting')
+    else:
+        message_box.showerror('Insert Status', 'All fields are required')
+
+
+def insert_car():
+    car_name = entries['car_name'].get()
+
+    if car_name:
+        database = MySQL('host', 'user', 'password', 'db_name')
+        result = database.insert('cars', '(car_name)', [(car_name)])
+        if result:
+            car_name.delete(0, 'end')
             show()
             message_box.showinfo('Insert Status', 'Inserted successfully')
         else:
@@ -48,13 +64,28 @@ def delete_route():
         message_box.showerror('Delete Status', 'Name of the route is compulsory for delete')
 
 
+def delete_car():
+    car_id = entries['car_id'].get()
+    if car_id:
+        database = MySQL('host', 'user', 'password', 'db_name')
+        result = database.delete('routes', f'car_name = {car_id}')
+        if result:
+            car_id.delete(0, 'end')
+            show()
+            message_box.showinfo('Delete Status', 'Deleted successfully')
+        else:
+            message_box.showerror('Delete Status', 'An error occurred while deleting')
+    else:
+        message_box.showerror('Delete Status', 'Name of the route is compulsory for delete')
+
+
 def update_route():
     route_name = entries['route_name'].get()
     place_from = entries['place_from'].get()
     place_to = entries['place_to'].get()
     price = entries['price'].get()
     time = entries['time'].get()
-    car = entries['car'].get()
+    car = entries['car_id'].get()
 
     if all(entries.values()):
         database = MySQL('host', 'user', 'password', 'db_name')
@@ -76,12 +107,41 @@ def update_route():
         message_box.showerror('Update Status', 'All fields are required')
 
 
+def update_car():
+    car_id = entries['car_id'].get()
+    car_name = entries['car_name'].get()
+
+    if car_id != '' and car_name != '':
+        database = MySQL('host', 'user', 'password', 'db_name')
+        result = database.update('cars', f'car_name = {car_name}',
+                                 f'car_id = {car_id}')
+        if result:
+            car_id.delete(0, 'end')
+            car_name.delete(0, 'end')
+            show()
+            message_box.showinfo('Update Status', 'Updated successfully')
+        else:
+            message_box.showerror('Update Status', 'An error occurred while updating')
+    else:
+        message_box.showerror('Update Status', 'All fields are required')
+
+
 def get_route():
     route_name = entries['route_name'].get()
     if route_name:
         database = MySQL('host', 'user', 'password', 'db_name')
         route = database.get(f'SELECT * from routes WHERE route_name = {route_name}')
         message_box.showinfo('Fetch Status', route[0][0])
+    else:
+        message_box.showerror('Fetch Status', 'ID is compulsory for fetch')
+
+
+def get_car():
+    car_id = entries['car_id'].get()
+    if car_id:
+        database = MySQL('host', 'user', 'password', 'db_name')
+        car = database.get(f'SELECT * from cars WHERE car_id = {car_id}')
+        message_box.showinfo('Fetch Status', car[0][0])
     else:
         message_box.showerror('Fetch Status', 'ID is compulsory for fetch')
 
@@ -96,7 +156,7 @@ def show():
         routes_list.insert(routes_list.size() + 1, insert_data)
         cars_list.insert(cars_list.size() + 1, insert_data)
 
-# TODO: make buttons for exporting
+
 root = Tk()
 root.geometry('600x400')
 root.title('Autostation')
@@ -138,12 +198,11 @@ for index in range(len(entries_texts)):
     entry.place(x=150, y=30 * (index + 1))
     entries[entries_texts[index]] = entry
 
-
 buttons_texts = [
     ['insert', {'route': insert_route, 'car': insert_car}],
-    ['delete', {'route': delete_route, 'car': insert_car}],
-    ['update', {'route': update_route, 'car': insert_car}],
-    ['get', {'route': get_route, 'car': insert_car}],
+    ['delete', {'route': delete_route, 'car': delete_car}],
+    ['update', {'route': update_route, 'car': update_car}],
+    ['get', {'route': get_route, 'car': get_car}],
 ]
 
 routes_buttons_label = Label(root, text='Work with routes:', font=('bold', 10))
