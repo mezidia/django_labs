@@ -59,7 +59,7 @@ class PostgreSQL:
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
 
-    def insert(self, table_name: str, fields_names: tuple, fields_values: List[tuple]) -> bool:
+    def insert(self, table_name: str, fields_names: str, fields_values: List[tuple]) -> bool:
         """
         Method for inserting data into the table
 
