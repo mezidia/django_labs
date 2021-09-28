@@ -1,9 +1,10 @@
 from tkinter import Tk, Label, Entry, Button, Listbox
 import tkinter.messagebox as message_box
+from config import *
 
 from mysql_api.connector import MySQL
-from sqlite_api.connector import SQLite
-from postgresql_api.connector import PostgreSQL
+# from sqlite_api.connector import SQLite
+# from postgresql_api.connector import PostgreSQL
 
 
 def insert_route():
@@ -11,20 +12,18 @@ def insert_route():
     place_from = entries['place_from'].get()
     place_to = entries['place_to'].get()
     price = entries['price'].get()
-    time = entries['time'].get()
     car = entries['car_id'].get()
 
     if all(entries.values()):
-        database = MySQL('host', 'user', 'password', 'db_name')
-        result = database.insert('routes', '(route_name, place_from, place_to, price, time, car)',
-                                 [(route_name, place_from, place_to, price, time, car)])
+        database = MySQL(host, user, password, db_name)
+        result = database.insert('routes', '(name, place_from, place_to, price, car)',
+                                 [(route_name, place_from, place_to, price, car)])
         if result:
-            route_name.delete(0, 'end')
-            place_from.delete(0, 'end')
-            place_to.delete(0, 'end')
-            price.delete(0, 'end')
-            time.delete(0, 'end')
-            car.delete(0, 'end')
+            entries['route_name'].delete(0, 'end')
+            entries['place_from'].delete(0, 'end')
+            entries['place_to'].delete(0, 'end')
+            entries['price'].delete(0, 'end')
+            entries['car_id'].delete(0, 'end')
             show()
             message_box.showinfo('Insert Status', 'Inserted successfully')
         else:
@@ -37,10 +36,10 @@ def insert_car():
     car_name = entries['car_name'].get()
 
     if car_name:
-        database = MySQL('host', 'user', 'password', 'db_name')
-        result = database.insert('cars', '(car_name)', [(car_name)])
+        database = MySQL(host, user, password, db_name)
+        result = database.insert('cars', '(name)', [(f"('{car_name}')")])
         if result:
-            car_name.delete(0, 'end')
+            entries['car_name'].delete(0, 'end')
             show()
             message_box.showinfo('Insert Status', 'Inserted successfully')
         else:
@@ -52,10 +51,10 @@ def insert_car():
 def delete_route():
     route_name = entries['route_name'].get()
     if route_name:
-        database = MySQL('host', 'user', 'password', 'db_name')
-        result = database.delete('routes', f'route_name = {route_name}')
+        database = MySQL(host, user, password, db_name)
+        result = database.delete('routes', f'name = {route_name}')
         if result:
-            route_name.delete(0, 'end')
+            entries['route_name'].delete(0, 'end')
             show()
             message_box.showinfo('Delete Status', 'Deleted successfully')
         else:
@@ -67,10 +66,10 @@ def delete_route():
 def delete_car():
     car_id = entries['car_id'].get()
     if car_id:
-        database = MySQL('host', 'user', 'password', 'db_name')
-        result = database.delete('routes', f'car_name = {car_id}')
+        database = MySQL(host, user, password, db_name)
+        result = database.delete('routes', f'name = {car_id}')
         if result:
-            car_id.delete(0, 'end')
+            entries['car_id'].delete(0, 'end')
             show()
             message_box.showinfo('Delete Status', 'Deleted successfully')
         else:
@@ -84,21 +83,19 @@ def update_route():
     place_from = entries['place_from'].get()
     place_to = entries['place_to'].get()
     price = entries['price'].get()
-    time = entries['time'].get()
     car = entries['car_id'].get()
 
     if all(entries.values()):
-        database = MySQL('host', 'user', 'password', 'db_name')
-        result = database.update('routes', f'route_name = {route_name}, place_from = {place_from}, '
-                                           f'place_to = {place_to}, price = {price}, time = {time}, car = {car}',
-                                 f'route_name = {route_name}')
+        database = MySQL(host, user, password, db_name)
+        result = database.update('routes', f'name = {route_name}, place_from = {place_from}, '
+                                           f'place_to = {place_to}, price = {price}, car = {car}',
+                                 f'name = {route_name}')
         if result:
-            route_name.delete(0, 'end')
-            place_from.delete(0, 'end')
-            place_to.delete(0, 'end')
-            price.delete(0, 'end')
-            time.delete(0, 'end')
-            car.delete(0, 'end')
+            entries['route_name'].delete(0, 'end')
+            entries['place_from'].delete(0, 'end')
+            entries['place_to'].delete(0, 'end')
+            entries['price'].delete(0, 'end')
+            entries['car_id'].delete(0, 'end')
             show()
             message_box.showinfo('Update Status', 'Updated successfully')
         else:
@@ -112,12 +109,12 @@ def update_car():
     car_name = entries['car_name'].get()
 
     if car_id != '' and car_name != '':
-        database = MySQL('host', 'user', 'password', 'db_name')
-        result = database.update('cars', f'car_name = {car_name}',
-                                 f'car_id = {car_id}')
+        database = MySQL(host, user, password, db_name)
+        result = database.update('cars', f'name = {car_name}',
+                                 f'id = {car_id}')
         if result:
-            car_id.delete(0, 'end')
-            car_name.delete(0, 'end')
+            entries['car_id'].delete(0, 'end')
+            entries['car_name'].delete(0, 'end')
             show()
             message_box.showinfo('Update Status', 'Updated successfully')
         else:
@@ -129,8 +126,8 @@ def update_car():
 def get_route():
     route_name = entries['route_name'].get()
     if route_name:
-        database = MySQL('host', 'user', 'password', 'db_name')
-        route = database.get(f'SELECT * from routes WHERE route_name = {route_name}')
+        database = MySQL(host, user, password, db_name)
+        route = database.get(f'SELECT * from routes WHERE name = {route_name}')
         message_box.showinfo('Fetch Status', route[0][0])
     else:
         message_box.showerror('Fetch Status', 'ID is compulsory for fetch')
@@ -139,21 +136,24 @@ def get_route():
 def get_car():
     car_id = entries['car_id'].get()
     if car_id:
-        database = MySQL('host', 'user', 'password', 'db_name')
-        car = database.get(f'SELECT * from cars WHERE car_id = {car_id}')
+        database = MySQL(host, user, password, db_name)
+        car = database.get(f'SELECT * from cars WHERE id = {car_id}')
         message_box.showinfo('Fetch Status', car[0][0])
     else:
         message_box.showerror('Fetch Status', 'ID is compulsory for fetch')
 
 
 def show():
-    database = MySQL('host', 'user', 'password', 'db_name')
+    database = MySQL(host, user, password, db_name)
     routes = database.get(f'SELECT * from routes')
+    cars = database.get(f'SELECT * from cars')
     routes_list.delete(0, routes_list.size())
     cars_list.delete(0, cars_list.size())
     for route in routes:
         insert_data = str(route[0]) + ' ' * 10 + str(route[1])
         routes_list.insert(routes_list.size() + 1, insert_data)
+    for car in cars:
+        insert_data = str(car[0]) + ' ' * 10 + str(car[1])
         cars_list.insert(cars_list.size() + 1, insert_data)
 
 
@@ -167,7 +167,6 @@ labels_texts = [
     'Enter place from',
     'Enter place to',
     'Enter price',
-    'Enter time',
     'Enter car id',
     'Enter car name',
 ]
@@ -188,7 +187,6 @@ entries_texts = [
     'place_from',
     'place_to',
     'price',
-    'time',
     'car_id',
     'car_name',
 ]
@@ -227,46 +225,46 @@ cars_list.place(x=430, y=50)
 
 
 def export_to_sqlite():
-    mysql_database = MySQL('host', 'user', 'password', 'db_name')
-    sqlite_database = SQLite('path')
-    data = mysql_database.get('SELECT * from routes')
-    data = [row[1:] for row in data]
-    sqlite_database.insert('routes', ('route_name', 'place_from', 'place_to', 'price', 'time', 'car'), data)
+    pass
+    # mysql_database = MySQL(host, user, password, db_name)
+    # sqlite_database = SQLite('path')
+    # data = mysql_database.get('SELECT * from routes')
+    # data = [row[1:] for row in data]
+    # sqlite_database.insert('routes', ('route_name', 'place_from', 'place_to', 'price', 'car'), data)
 
 
 def export_to_postgresql():
-    postgresql_database = PostgreSQL('host', 'user', 'password', 'db_name')
-    sqlite_database = SQLite('path')
-    data = sqlite_database.get('SELECT * from routes')
-    data = [row[1:] for row in data]
-    postgresql_database.insert('routes', '(route_name, place_from, place_to, price, time, car)', data)
+    pass
+    # postgresql_database = PostgreSQL(host, user, password, db_name)
+    # sqlite_database = SQLite('path')
+    # data = sqlite_database.get('SELECT * from routes')
+    # data = [row[1:] for row in data]
+    # postgresql_database.insert('routes', '(route_name, place_from, place_to, price, car)', data)
 
 
 def create_tables():
-    mysql_database = MySQL()
-    postgresql_database = PostgreSQL()
-    sqlite_database = SQLite()
+    mysql_database = MySQL(host, user, password, db_name)
+    # postgresql_database = PostgreSQL()
+    # sqlite_database = SQLite()
     cars_fields = [
-        'id INTEGER NOT NULL UNIQUE',
-        'name VARCHAR(45) NOT NULL',
-        'PRIMARY KEY("id")'
+        'id INT AUTO_INCREMENT PRIMARY KEY',
+        'name VARCHAR(45) NOT NULL'
     ]
     routes_fields = [
-        'id INTEGER NOT NULL UNIQUE',
+        'id INT AUTO_INCREMENT PRIMARY KEY',
         'name VARCHAR(45) NOT NULL',
         'place_from VARCHAR(45) NOT NULL',
         'place_to VARCHAR(45) NOT NULL',
         'price FLOAT NOT NULL',
-        'car INTEGER NOT NULL',
-        'PRIMARY KEY("id")',
-        'FOREIGN KEY("car") REFERENCES "cars"("id")'
+        'car INT NOT NULL',
+        'FOREIGN KEY(car) REFERENCES cars(id)'
     ]
     mysql_database.create_table('cars', cars_fields)
     mysql_database.create_table('routes', routes_fields)
-    postgresql_database.create_table('cars', cars_fields)
-    postgresql_database.create_table('routes', routes_fields)
-    sqlite_database.create_table('cars', cars_fields)
-    sqlite_database.create_table('routes', routes_fields)
+    # postgresql_database.create_table('cars', cars_fields)
+    # postgresql_database.create_table('routes', routes_fields)
+    # sqlite_database.create_table('cars', cars_fields)
+    # sqlite_database.create_table('routes', routes_fields)
 
 
 export_to_sqlite_button = Button(root, text='Export from MySQL to SQLite', font=('italic', 10), bg='white',
