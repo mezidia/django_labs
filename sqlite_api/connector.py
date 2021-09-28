@@ -151,6 +151,14 @@ class SQLite:
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
 
+    def clear_table(self, table_name: str) -> None:
+        """
+        Method for clearing the table
+        """
+        cursor = self.connection.cursor()
+        cursor.execute(f'DELETE FROM {table_name};')
+        self.connection.commit()
+
     def close(self):
         """
         Method for closing the connection
