@@ -87,9 +87,9 @@ def update_route():
 
     if all(entries.values()):
         database = MySQL(host, user, password, db_name)
-        result = database.update('routes', f'name = {route_name}, place_from = {place_from}, '
-                                           f'place_to = {place_to}, price = {price}, car = {car}',
-                                 f'name = {route_name}')
+        result = database.update('routes', f"name = '{route_name}', place_from = '{place_from}',"
+                                           f"place_to = '{place_to}', price = '{price}', car = '{car}'",
+                                 f"name = '{route_name}'")
         if result:
             entries['route_name'].delete(0, 'end')
             entries['place_from'].delete(0, 'end')
@@ -110,8 +110,8 @@ def update_car():
 
     if car_id != '' and car_name != '':
         database = MySQL(host, user, password, db_name)
-        result = database.update('cars', f'name = {car_name}',
-                                 f'id = {car_id}')
+        result = database.update('cars', f"name = '{car_name}'",
+                                 f"id = '{car_id}'")
         if result:
             entries['car_id'].delete(0, 'end')
             entries['car_name'].delete(0, 'end')
@@ -127,7 +127,7 @@ def get_route():
     route_name = entries['route_name'].get()
     if route_name:
         database = MySQL(host, user, password, db_name)
-        route = database.get(f'SELECT * from routes WHERE name = {route_name}')
+        route = database.get(f"SELECT * from routes WHERE name = '{route_name}'")
         message_box.showinfo('Fetch Status', route[0][0])
     else:
         message_box.showerror('Fetch Status', 'ID is compulsory for fetch')
