@@ -4,7 +4,7 @@ from config import *
 
 from mysql_api.connector import MySQL
 from sqlite_api.connector import SQLite
-# from postgresql_api.connector import PostgreSQL
+from postgresql_api.connector import PostgreSQL
 
 
 def insert_route():
@@ -248,12 +248,12 @@ def export_to_sqlite():
 
 
 def export_to_postgresql():
-    pass
-    # postgresql_database = PostgreSQL(host, user, password, db_name)
-    # sqlite_database = SQLite('path')
-    # data = sqlite_database.get('SELECT * from routes')
-    # data = [row[1:] for row in data]
-    # postgresql_database.insert('routes', '(route_name, place_from, place_to, price, car)', data)
+    mysql_database = MySQL(host, user, password, db_name)
+    postgresql_database = PostgreSQL(host, user, password, db_name)
+    data = mysql_database.get('SELECT * from routes')
+    postgresql_database.insert('routes', '(id, name, place_from, place_to, price, car)', data)
+    data = mysql_database.get('SELECT * from cars')
+    postgresql_database.insert('cars', ('id', 'name'), data)
 
 
 def create_tables():
