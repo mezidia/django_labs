@@ -48,6 +48,22 @@ def insert_car():
         message_box.showerror('Insert Status', 'All fields are required')
 
 
+def insert_place():
+    place_name = entries['place_name'].get()
+
+    if place_name:
+        database = MySQL(host, user, password, db_name)
+        result = database.insert('places', '(name)', [(f"('{place_name}')")])
+        if result:
+            entries['place_name'].delete(0, 'end')
+            show()
+            message_box.showinfo('Insert Status', 'Inserted successfully')
+        else:
+            message_box.showerror('Insert Status', 'An error occurred while inserting')
+    else:
+        message_box.showerror('Insert Status', 'All fields are required')
+
+
 def delete_route():
     route_name = entries['route_name'].get()
     if route_name:
@@ -70,6 +86,21 @@ def delete_car():
         result = database.delete('routes', f'name = {car_id}')
         if result:
             entries['car_id'].delete(0, 'end')
+            show()
+            message_box.showinfo('Delete Status', 'Deleted successfully')
+        else:
+            message_box.showerror('Delete Status', 'An error occurred while deleting')
+    else:
+        message_box.showerror('Delete Status', 'Name of the route is compulsory for delete')
+
+
+def delete_place():
+    place_name = entries['place_name'].get()
+    if place_name:
+        database = MySQL(host, user, password, db_name)
+        result = database.delete('places', f'name = {place_name}')
+        if result:
+            entries['place_name'].delete(0, 'end')
             show()
             message_box.showinfo('Delete Status', 'Deleted successfully')
         else:
@@ -123,6 +154,10 @@ def update_car():
         message_box.showerror('Update Status', 'All fields are required')
 
 
+def update_place():
+    message_box.showinfo('Update Status', 'Place can not be updated')
+
+
 def get_route():
     route_name = entries['route_name'].get()
     if route_name:
@@ -156,22 +191,42 @@ def get_car():
         message_box.showerror('Fetch Status', 'ID is compulsory for fetch')
 
 
+def get_place():
+    place_name = entries['place_name'].get()
+    if place_name:
+        database = MySQL(host, user, password, db_name)
+        place = database.get(f'SELECT * from places WHERE name = {place_name}')
+        message=f"""
+            Place ID: {place[0][0]}
+            Name: {place[0][1]}
+            """
+        entries['place_name'].delete(0, 'end')
+        message_box.showinfo('Fetch Status', message)
+    else:
+        message_box.showerror('Fetch Status', 'Name is compulsory for fetch')
+
+
 def show():
     database = MySQL(host, user, password, db_name)
     routes = database.get(f'SELECT * from routes')
     cars = database.get(f'SELECT * from cars')
+    places = database.get(f'SELECT * from places')
     routes_list.delete(0, routes_list.size())
     cars_list.delete(0, cars_list.size())
+    places_list.delete(0, cars_list.size())
     for route in routes:
         insert_data = str(route[0]) + ' ' * 10 + str(route[1])
         routes_list.insert(routes_list.size() + 1, insert_data)
     for car in cars:
         insert_data = str(car[0]) + ' ' * 10 + str(car[1])
         cars_list.insert(cars_list.size() + 1, insert_data)
+    for place in places:
+        insert_data = str(place[0]) + ' ' * 10 + str(place[1])
+        places_list.insert(places_list.size() + 1, insert_data)
 
 
 root = Tk()
-root.geometry('600x400')
+root.geometry('800x600')
 root.title('Autostation')
 root.resizable(width=False, height=False)
 
@@ -182,6 +237,7 @@ labels_texts = [
     'Enter price',
     'Enter car id',
     'Enter car name',
+    'Enter place name'
 ]
 
 for index in range(len(labels_texts)):
@@ -194,6 +250,9 @@ routes_label.place(x=290, y=30)
 cars_label = Label(root, text='Available cars', font=('bold', 10))
 cars_label.place(x=430, y=30)
 
+places_label = Label(root, text='Available places', font=('bold', 10))
+places_label.place(x=570, y=30)
+
 entries = {}
 entries_texts = [
     'route_name',
@@ -202,6 +261,7 @@ entries_texts = [
     'price',
     'car_id',
     'car_name',
+    'place_name'
 ]
 
 for index in range(len(entries_texts)):
@@ -210,10 +270,10 @@ for index in range(len(entries_texts)):
     entries[entries_texts[index]] = entry
 
 buttons_texts = [
-    ['insert', {'route': insert_route, 'car': insert_car}],
-    ['delete', {'route': delete_route, 'car': delete_car}],
-    ['update', {'route': update_route, 'car': update_car}],
-    ['get', {'route': get_route, 'car': get_car}],
+    ['insert', {'route': insert_route, 'car': insert_car, 'place': insert_place}],
+    ['delete', {'route': delete_route, 'car': delete_car, 'place': delete_place}],
+    ['update', {'route': update_route, 'car': update_car, 'place': update_place}],
+    ['get', {'route': get_route, 'car': get_car, 'place': get_place}],
 ]
 
 routes_buttons_label = Label(root, text='Work with routes:', font=('bold', 10))
@@ -222,6 +282,9 @@ routes_buttons_label.place(x=20, y=240)
 cars_buttons_label = Label(root, text='Work with cars:', font=('bold', 10))
 cars_buttons_label.place(x=20, y=300)
 
+places_buttons_label = Label(root, text='Work with places:', font=('bold', 10))
+cars_buttons_label.place(x=20, y=360)
+
 for index in range(len(buttons_texts)):
     button = Button(root, text=buttons_texts[index][0], font=('italic', 10), bg='white',
                     command=buttons_texts[index][1]['route'])
@@ -229,12 +292,18 @@ for index in range(len(buttons_texts)):
     button = Button(root, text=buttons_texts[index][0], font=('italic', 10), bg='white',
                     command=buttons_texts[index][1]['car'])
     button.place(x=20 + 60 * index, y=320)
+    button = Button(root, text=buttons_texts[index][0], font=('italic', 10), bg='white',
+                    command=buttons_texts[index][1]['place'])
+    button.place(x=20 + 60 * index, y=380)
 
 routes_list = Listbox(root)
 routes_list.place(x=290, y=50)
 
 cars_list = Listbox(root)
 cars_list.place(x=430, y=50)
+
+places_list = Listbox(root)
+places_list.place(x=570, y=50)
 
 
 def export_to_sqlite():
@@ -245,6 +314,8 @@ def export_to_sqlite():
     sqlite_database.insert('routes', ('id', 'name', 'place_from', 'place_to', 'price', 'car'), data)
     data = mysql_database.get('SELECT * from cars')
     sqlite_database.insert('cars', ('id', 'name'), data)
+    data = mysql_database.get('SELECT * from places')
+    sqlite_database.insert('places', ('id', 'name'), data)
 
 
 def export_to_postgresql():
@@ -254,6 +325,8 @@ def export_to_postgresql():
     postgresql_database.insert('routes', '(id, name, place_from, place_to, price, car)', data)
     data = mysql_database.get('SELECT * from cars')
     postgresql_database.insert('cars', ('id', 'name'), data)
+    data = mysql_database.get('SELECT * from places')
+    postgresql_database.insert('places', ('id', 'name'), data)
 
 
 def create_tables():
