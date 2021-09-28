@@ -128,7 +128,15 @@ def get_route():
     if route_name:
         database = MySQL(host, user, password, db_name)
         route = database.get(f"SELECT * from routes WHERE name = '{route_name}'")
-        message_box.showinfo('Fetch Status', route[0][0])
+        message=f"""
+            Name: {route[0][0]}
+            From: {route[0][1]}
+            To: {route[0][2]}
+            Price: {route[0][3]}
+            Car ID: {route[0][4]}
+            """
+        entries['route_name'].delete(0, 'end')
+        message_box.showinfo('Fetch Status', message)
     else:
         message_box.showerror('Fetch Status', 'ID is compulsory for fetch')
 
@@ -138,7 +146,12 @@ def get_car():
     if car_id:
         database = MySQL(host, user, password, db_name)
         car = database.get(f'SELECT * from cars WHERE id = {car_id}')
-        message_box.showinfo('Fetch Status', car[0][0])
+        message=f"""
+            Car ID: {car[0][0]}
+            Name: {car[0][1]}
+            """
+        entries['car_id'].delete(0, 'end')
+        message_box.showinfo('Fetch Status', message)
     else:
         message_box.showerror('Fetch Status', 'ID is compulsory for fetch')
 
