@@ -265,6 +265,10 @@ def create_tables():
         'id INT AUTO_INCREMENT PRIMARY KEY',
         'name VARCHAR(45) NOT NULL'
     ]
+    place_fields = [
+        'id INT AUTO_INCREMENT PRIMARY KEY',
+        'name VARCHAR(45) NOT NULL'
+    ]
     routes_fields = [
         'id INT AUTO_INCREMENT PRIMARY KEY',
         'name VARCHAR(45) NOT NULL',
@@ -273,13 +277,18 @@ def create_tables():
         'price FLOAT NOT NULL',
         'car INT NOT NULL',
         'FOREIGN KEY(car) REFERENCES cars(id)'
+        'FOREIGN KEY(place_from) REFERENCES places(name)'
+        'FOREIGN KEY(place_to) REFERENCES places(name)'
     ]
     mysql_database.create_table('cars', cars_fields)
     mysql_database.create_table('routes', routes_fields)
+    mysql_database.create_table('places', place_fields)
     # postgresql_database.create_table('cars', cars_fields)
     # postgresql_database.create_table('routes', routes_fields)
+    # postgresql_database.create_table('places', place_fieldss)
     sqlite_database.create_table('cars', cars_fields)
     sqlite_database.create_table('routes', routes_fields)
+    sqlite_database.create_table('places', place_fields)
 
 
 export_to_sqlite_button = Button(root, text='Export from MySQL to SQLite', font=('italic', 10), bg='white',
