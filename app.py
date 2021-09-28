@@ -3,7 +3,7 @@ import tkinter.messagebox as message_box
 from config import *
 
 from mysql_api.connector import MySQL
-# from sqlite_api.connector import SQLite
+from sqlite_api.connector import SQLite
 # from postgresql_api.connector import PostgreSQL
 
 
@@ -238,12 +238,13 @@ cars_list.place(x=430, y=50)
 
 
 def export_to_sqlite():
-    pass
-    # mysql_database = MySQL(host, user, password, db_name)
-    # sqlite_database = SQLite('path')
-    # data = mysql_database.get('SELECT * from routes')
-    # data = [row[1:] for row in data]
-    # sqlite_database.insert('routes', ('route_name', 'place_from', 'place_to', 'price', 'car'), data)
+    mysql_database = MySQL(host, user, password, db_name)
+    path_to_database = './sqlite3.db'
+    sqlite_database = SQLite(path_to_database)
+    data = mysql_database.get('SELECT * from routes')
+    sqlite_database.insert('routes', ('id', 'name', 'place_from', 'place_to', 'price', 'car'), data)
+    data = mysql_database.get('SELECT * from cars')
+    sqlite_database.insert('cars', ('id', 'name'), data)
 
 
 def export_to_postgresql():
@@ -258,7 +259,8 @@ def export_to_postgresql():
 def create_tables():
     mysql_database = MySQL(host, user, password, db_name)
     # postgresql_database = PostgreSQL()
-    # sqlite_database = SQLite()
+    path_to_database = './sqlite3.db'
+    sqlite_database = SQLite(path_to_database)
     cars_fields = [
         'id INT AUTO_INCREMENT PRIMARY KEY',
         'name VARCHAR(45) NOT NULL'
@@ -276,8 +278,8 @@ def create_tables():
     mysql_database.create_table('routes', routes_fields)
     # postgresql_database.create_table('cars', cars_fields)
     # postgresql_database.create_table('routes', routes_fields)
-    # sqlite_database.create_table('cars', cars_fields)
-    # sqlite_database.create_table('routes', routes_fields)
+    sqlite_database.create_table('cars', cars_fields)
+    sqlite_database.create_table('routes', routes_fields)
 
 
 export_to_sqlite_button = Button(root, text='Export from MySQL to SQLite', font=('italic', 10), bg='white',
