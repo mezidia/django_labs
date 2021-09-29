@@ -6,6 +6,6 @@ To see how to use our app, go to the [next](autostation.md) page. To see how to 
 
 ## Databases
 
-* `SQLite` - [Overview](), [connector](sqlite.md) and [example](sqlite.md).
-* `PostgreSQL` - [Overview](), [connector](postgresql.md) and [example](postgresql.md).
-* `MySQL` - [Overview](), [connector](mysql.md) and [example](mysql.md).
+* `SQLite` - [Overview](sqlite.md#overview), [connector](sqlite.md#connector) and [example](sqlite.md#example).
+* `PostgreSQL` - [Overview](postgresql.md#overview), [connector](postgresql.md#connector) and [example](postgresql.md#example).
+* `MySQL` - [Overview](mysql.md#overview), [connector](mysql.md#connector) and [example](mysql.md#example).
