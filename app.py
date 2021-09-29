@@ -207,16 +207,19 @@ def get_route():
     if route_name:
         database = MySQL(host, user, password, db_name)
         route = database.get(f"SELECT * from routes WHERE name = '{route_name}'")
-        message=f"""
-            Id: {route[0][0]}
-            Name: {route[0][1]}
-            From: {route[0][2]}
-            To: {route[0][3]}
-            Price: {route[0][4]}
-            Car ID: {route[0][5]}
-            """
-        entries['route_name'].delete(0, 'end')
-        message_box.showinfo('Fetch Status', message)
+        if route:
+            message=f"""
+                Id: {route[0][0]}
+                Name: {route[0][1]}
+                From: {route[0][2]}
+                To: {route[0][3]}
+                Price: {route[0][4]}
+                Car ID: {route[0][5]}
+                """
+            entries['route_name'].delete(0, 'end')
+            message_box.showinfo('Fetch Status', message)
+        else:
+            message_box.showerror('Fetch Status', 'Route with this name is not in the table')
     else:
         message_box.showerror('Fetch Status', 'ID is compulsory for fetch')
 
@@ -230,12 +233,15 @@ def get_car():
     if car_id:
         database = MySQL(host, user, password, db_name)
         car = database.get(f'SELECT * from cars WHERE id = {car_id}')
-        message=f"""
-            Car ID: {car[0][0]}
-            Name: {car[0][1]}
-            """
-        entries['car_id'].delete(0, 'end')
-        message_box.showinfo('Fetch Status', message)
+        if car:
+            message=f"""
+                Car ID: {car[0][0]}
+                Name: {car[0][1]}
+                """
+            entries['car_id'].delete(0, 'end')
+            message_box.showinfo('Fetch Status', message)
+        else:
+            message_box.showerror('Fetch Status', 'Car with this name is not in the table')
     else:
         message_box.showerror('Fetch Status', 'ID is compulsory for fetch')
 
@@ -249,12 +255,15 @@ def get_place():
     if place_name:
         database = MySQL(host, user, password, db_name)
         place = database.get(f"SELECT * from places WHERE name = '{place_name}'")
-        message=f"""
-            Place ID: {place[0][0]}
-            Name: {place[0][1]}
-            """
-        entries['place_name'].delete(0, 'end')
-        message_box.showinfo('Fetch Status', message)
+        if place:
+            message=f"""
+                Place ID: {place[0][0]}
+                Name: {place[0][1]}
+                """
+            entries['place_name'].delete(0, 'end')
+            message_box.showinfo('Fetch Status', message)
+        else:
+            message_box.showerror('Fetch Status', 'Place with this name is not in the table')
     else:
         message_box.showerror('Fetch Status', 'Name is compulsory for fetch')
 
