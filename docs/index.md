@@ -1,17 +1,11 @@
-# Welcome to MkDocs
+# Welcome to Autostation documentation
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+For full documentation visit repository [page](https://github.com/mezidia/medivac).
 
-## Commands
+To see how to use our app, go to the [next](autostation.md) page. To see how to work with databases, use links below.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## Databases
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+* `SQLite` - [Overview](), [connector](sqlite.md) and [example](sqlite.md).
+* `PostgreSQL` - [Overview](), [connector](postgresql.md) and [example](postgresql.md).
+* `MySQL` - [Overview](), [connector](mysql.md) and [example](mysql.md).
