@@ -1,6 +1,7 @@
 from tkinter import Tk, Label, Entry, Button, Listbox
 import tkinter.messagebox as message_box
-from config import *
+from mysql_api import config as ms_config
+from postgresql_api import config as ps_config
 
 from sqlite3 import Error as SQLite_Error
 from mysql.connector import Error as MySQL_Error
@@ -8,7 +9,7 @@ from psycopg2 import Error as Postgre_Error
 
 from mysql_api.connector import MySQL
 from sqlite_api.connector import SQLite
-# from postgresql_api.connector import PostgreSQL
+from postgresql_api.connector import PostgreSQL
 
 
 def insert_route():
@@ -23,7 +24,7 @@ def insert_route():
     car = entries['car_id'].get()
 
     if all(entries.values()):
-        database = MySQL(host, user, password, db_name)
+        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
         result = database.insert('routes', '(name, place_from, place_to, price, car)',
                                  [(route_name, place_from, place_to, price, car)])
         if result:
@@ -48,7 +49,7 @@ def insert_car():
     car_name = entries['car_name'].get()
 
     if car_name:
-        database = MySQL(host, user, password, db_name)
+        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
         result = database.insert('cars', '(name)', [(f"('{car_name}')")])
         if result:
             entries['car_name'].delete(0, 'end')
@@ -68,7 +69,7 @@ def insert_place():
     place_name = entries['place_name'].get()
 
     if place_name:
-        database = MySQL(host, user, password, db_name)
+        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
         result = database.insert('places', '(name)', [(f"('{place_name}')")])
         if result:
             entries['place_name'].delete(0, 'end')
@@ -87,7 +88,7 @@ def delete_route():
     """
     route_name = entries['route_name'].get()
     if route_name:
-        database = MySQL(host, user, password, db_name)
+        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
         result = database.delete('routes', f"name = '{route_name}'")
         if result:
             entries['route_name'].delete(0, 'end')
@@ -106,7 +107,7 @@ def delete_car():
     """
     car_id = entries['car_id'].get()
     if car_id:
-        database = MySQL(host, user, password, db_name)
+        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
         result = database.delete('cars', f"id = '{car_id}'")
         if result:
             entries['car_id'].delete(0, 'end')
@@ -125,7 +126,7 @@ def delete_place():
     """
     place_name = entries['place_name'].get()
     if place_name:
-        database = MySQL(host, user, password, db_name)
+        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
         result = database.delete('places', f"name = '{place_name}'")
         if result:
             entries['place_name'].delete(0, 'end')
@@ -149,7 +150,7 @@ def update_route():
     car = entries['car_id'].get()
 
     if all(entries.values()):
-        database = MySQL(host, user, password, db_name)
+        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
         result = database.update('routes', f"name = '{route_name}', place_from = '{place_from}',"
                                            f"place_to = '{place_to}', price = '{price}', car = '{car}'",
                                  f"name = '{route_name}'")
@@ -176,7 +177,7 @@ def update_car():
     car_name = entries['car_name'].get()
 
     if car_id != '' and car_name != '':
-        database = MySQL(host, user, password, db_name)
+        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
         result = database.update('cars', f"name = '{car_name}'",
                                  f"id = '{car_id}'")
         if result:
@@ -205,7 +206,7 @@ def get_route():
     """
     route_name = entries['route_name'].get()
     if route_name:
-        database = MySQL(host, user, password, db_name)
+        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
         route = database.get(f"SELECT * from routes WHERE name = '{route_name}'")
         if route:
             message=f"""
@@ -231,7 +232,7 @@ def get_car():
     """
     car_id = entries['car_id'].get()
     if car_id:
-        database = MySQL(host, user, password, db_name)
+        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
         car = database.get(f'SELECT * from cars WHERE id = {car_id}')
         if car:
             message=f"""
@@ -253,7 +254,7 @@ def get_place():
     """
     place_name = entries['place_name'].get()
     if place_name:
-        database = MySQL(host, user, password, db_name)
+        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
         place = database.get(f"SELECT * from places WHERE name = '{place_name}'")
         if place:
             message=f"""
@@ -273,7 +274,7 @@ def show():
     Function for filling the listboxes with the data from database
     :return: nothing to return
     """
-    database = MySQL(host, user, password, db_name)
+    database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
     routes = database.get(f'SELECT * from routes')
     cars = database.get(f'SELECT * from cars')
     places = database.get(f'SELECT * from places')
@@ -387,7 +388,7 @@ def export_to_sqlite():
     Function for exporting data from MySQL to SQLite databases
     :return: MessageBox call
     """
-    mysql_database = MySQL(host, user, password, db_name)
+    mysql_database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
     path_to_database = './sqlite3.db'
     sqlite_database = SQLite(path_to_database)
     try:
@@ -395,12 +396,13 @@ def export_to_sqlite():
         sqlite_database.clear_table('cars')
         sqlite_database.clear_table('places')
         data = mysql_database.get('SELECT * from routes')
+        print(data)
         sqlite_database.insert('routes', ('id', 'name', 'place_from', 'place_to', 'price', 'car'), data)
         data = mysql_database.get('SELECT * from cars')
         sqlite_database.insert('cars', ('id', 'name'), data)
         data = mysql_database.get('SELECT * from places')
         sqlite_database.insert('places', ('id', 'name'), data)
-    except (SQLite_Error, MySQL):
+    except (SQLite_Error, MySQL_Error):
         message_box.showerror('Exporting Status', 'Error was occurred while exporting')
     message_box.showinfo('Exporting Status', 'Export from MySQL to SQLite was successful')
 
@@ -410,18 +412,19 @@ def export_to_postgresql():
     Function for exporting data from SQLite to PostgreSQL databases
     :return: MessageBox call
     """
-    mysql_database = MySQL(host, user, password, db_name)
-    #postgresql_database = PostgreSQL(host, user, password, db_name)
+    path_to_database = './sqlite3.db'
+    sqlite_database = SQLite(path_to_database)
+    postgresql_database = PostgreSQL(ps_config.host, ps_config.user, ps_config.password, ps_config.db_name)
     try:
-        # postgresql_database.clear_table('routes')
-        # postgresql_database.clear_table('cars')
-        # postgresql_database.clear_table('places')
-        data = mysql_database.get('SELECT * from routes')
-        #postgresql_database.insert('routes', '(id, name, place_from, place_to, price, car)', data)
-        data = mysql_database.get('SELECT * from cars')
-        #postgresql_database.insert('cars', ('id', 'name'), data)
-        data = mysql_database.get('SELECT * from places')
-        #postgresql_database.insert('places', ('id', 'name'), data)
+        postgresql_database.clear_table('routes')
+        postgresql_database.clear_table('cars')
+        postgresql_database.clear_table('places')
+        data = sqlite_database.get('SELECT * from routes')
+        postgresql_database.insert('routes', '(id, name, place_from, place_to, price, car)', data)
+        data = sqlite_database.get('SELECT * from cars')
+        postgresql_database.insert('cars', '(id, name)', data)
+        data = sqlite_database.get('SELECT * from places')
+        postgresql_database.insert('places', '(id, name)', data)
     except (SQLite_Error, Postgre_Error):
         message_box.showerror('Exporting Status', 'Error was occurred while exporting')
     message_box.showinfo('Exporting Status', 'Export from SQLite to PostgreSQL was successful')
@@ -432,8 +435,8 @@ def create_tables():
     Function for creating tables in all three databases
     :return: nothing to return
     """
-    mysql_database = MySQL(host, user, password, db_name)
-    # postgresql_database = PostgreSQL()
+    mysql_database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
+    postgresql_database = PostgreSQL(ps_config.host, ps_config.user, ps_config.password, ps_config.db_name)
     path_to_database = './sqlite3.db'
     sqlite_database = SQLite(path_to_database)
     cars_fields = [
@@ -451,16 +454,30 @@ def create_tables():
         'place_to VARCHAR(45) NOT NULL',
         'price FLOAT NOT NULL',
         'car INT NOT NULL',
-        'FOREIGN KEY(car) REFERENCES cars(id)',
-        'FOREIGN KEY(place_from) REFERENCES places(name)',
-        'FOREIGN KEY(place_to) REFERENCES places(name)'
+        'FOREIGN KEY(car) REFERENCES cars(id)'
+    ]
+    ps_cars_fields = [
+        'id SERIAL',
+        'name VARCHAR(45) NOT NULL'
+    ]
+    ps_place_fields = [
+        'id SERIAL',
+        'name VARCHAR(45) NOT NULL'
+    ]
+    ps_routes_fields = [
+        'id SERIAL',
+        'name VARCHAR(45) NOT NULL',
+        'place_from VARCHAR(45) NOT NULL',
+        'place_to VARCHAR(45) NOT NULL',
+        'price FLOAT NOT NULL',
+        'car INT NOT NULL',
     ]
     mysql_database.create_table('places', place_fields)
     mysql_database.create_table('cars', cars_fields)
     mysql_database.create_table('routes', routes_fields)
-    # postgresql_database.create_table('cars', cars_fields)
-    # postgresql_database.create_table('routes', routes_fields)
-    # postgresql_database.create_table('places', place_fieldss)
+    postgresql_database.create_table('cars', ps_cars_fields)
+    postgresql_database.create_table('places', ps_place_fields)
+    postgresql_database.create_table('routes', ps_routes_fields)
     sqlite_database.create_table('places', place_fields)
     sqlite_database.create_table('cars', cars_fields)
     sqlite_database.create_table('routes', routes_fields)

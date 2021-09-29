@@ -1,5 +1,4 @@
 from mysql.connector import connect, Error
-from config import *
 
 from typing import List
 

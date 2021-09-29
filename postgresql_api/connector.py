@@ -1,6 +1,5 @@
 import psycopg2
 from psycopg2 import Error
-from config import *
 
 from typing import List
 
