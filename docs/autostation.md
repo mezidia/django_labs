@@ -1,39 +1,113 @@
-# Tamen pati cum
+# Autostation app
 
-## Hic violabere
+## How to start
 
-Lorem markdownum os iam retia. Hic falsa inquit *paene* discedens victrix
-aethera idque; datus spoliavit. Pullo latices, mihi in conantem verbis modo, hac
-quae iussos. Urnam proelia mea quosque via munire aliquis frustra meorum.
-**Nostros mater**.
+First of all launch the script and see the opened window by the command in terminal:
 
-- De coniunx ebrietas pater
-- Sunt clarus robore non occidit titulum
-- Negabit summaque
-- Iacit absens tertius tenuit
-- Orba posita summasque
-
-## Placet gente supervolat corporibus patebat partes dissimulant
-
-Eas ignem corona. Sonuit fide, lapides inmanem prato conlapsaque talia amaris et
-arbusta fortuna saevit ducat nate falsi; ille nunc!
-```json
-{"message": "Hello World"}
+```bash
+python app.py
 ```
 
-## Et arida dare inpositaque magnique tela imperat
+You will see window like this:
 
-Socios defenditur fulgura. Mihi fieri: sive vitta subvolat spectat, amoris
-putat, nocte. Recurrunt venter densa?
+![](https://i.stack.imgur.com/y9DpT.jpg)
 
-1. Nomen paretur thalamoque amens
-2. Silvas senior nexilibusque virginea
-3. Libro hac
+Here you can see all available routes, cars and routes in the list boxes:
 
-Nympha parensque vernos unde astris: ut humana torum novas inque forte plangore
-facta, ut lacrimis. Inventa arbitrio triplici offert *procul* marmore interea,
-thalami superinposita, credas sic me me signis ut rapta. Eris silvamque
-Amphrysos fraude: ferinae pars secantes cladis silvas, qui. Ante dolore festa
-**illo minari certamina** distent precantia loquentem est qui sternitur nondum
-[iam](http://sepulcris.com/)! Diversa myricae illi ferat bobus nemus lacrimis
-Pallantidos quod, vitio eundi.
+![](https://i.stack.imgur.com/y9DpT.jpg)
+
+You can do different operations here:
+
+- insert data;
+- update data;
+- delete data;
+- get data;
+- export data from _MySQL_ to _SQLite_;
+- export data from _SQLite_ to _PostgreSQL_.
+
+## Routes
+
+### Insert
+
+To insert a route you need to fill the **name of the route**, **places from** and **to**, **price** of the route and
+**car identifier** like this and press button "insert" in the section "Work with routes":
+
+![](https://i.stack.imgur.com/y9DpT.jpg)
+
+### Update
+
+To update a route you need to fill the **name of the route** and all other fields - changed or not, but every field, 
+like this and then press button "update" in the section "Work with routes":
+
+![](https://i.stack.imgur.com/y9DpT.jpg)
+
+### Delete
+
+To delete a route you need to fill the **name of the route** like this and then press button "delete" in the section
+"Work with routes":
+
+![](https://i.stack.imgur.com/y9DpT.jpg)
+
+### Get
+
+To get a route you need to fill the **name of the route** like this and then press button "get" in the section
+"Work with routes":
+
+![](https://i.stack.imgur.com/y9DpT.jpg)
+
+## Cars
+
+### Insert
+
+To insert a car you need to fill the **name of the car** like this and press button "insert" in the section 
+"Work with cars":
+
+![](https://i.stack.imgur.com/y9DpT.jpg)
+
+### Update
+
+To update a car you need to fill the **id of the car** and changed **name of the car** like this and then press button 
+"update" in the section "Work with routes":
+
+![](https://i.stack.imgur.com/y9DpT.jpg)
+
+### Delete
+
+To delete a car you need to fill the **id of the car** like this and then press button "delete" in the section
+"Work with cars":
+
+![](https://i.stack.imgur.com/y9DpT.jpg)
+
+### Get
+
+To get a car you need to fill the **id of the car** like this and then press button "get" in the section
+"Work with cars":
+
+![](https://i.stack.imgur.com/y9DpT.jpg)
+
+## Places
+
+### Insert
+
+To insert a place you need to fill the **name of the place** like this and press button "insert" in the section 
+"Work with places":
+
+![](https://i.stack.imgur.com/y9DpT.jpg)
+
+### Update
+
+You can't to update the place in our app
+
+### Delete
+
+To delete a place you need to fill the **name of the place** like this and then press button "delete" in the section
+"Work with places":
+
+![](https://i.stack.imgur.com/y9DpT.jpg)
+
+### Get
+
+To get a car you need to fill the **name of the place** like this and then press button "get" in the section
+"Work with places":
+
+![](https://i.stack.imgur.com/y9DpT.jpg)
