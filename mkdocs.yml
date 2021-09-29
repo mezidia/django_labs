@@ -1,0 +1,38 @@
+site_name: Autostation
+site_url: https://example.com/
+nav:
+    - Home: index.md
+    - Autostation: autostation.md
+    - MySQL: mysql.md
+    - SQLite: sqlite.md
+    - PostgreSQL: postgresql.md
+theme:
+    name: material
+    palette:
+        - scheme: default
+          primary: indigo
+          accent: deep orange
+          toggle:
+              icon: material/toggle-switch-off-outline
+              name: Switch to dark mode
+        - scheme: slate
+          primary: indigo
+          accent: lime
+          toggle:
+              icon: material/toggle-switch
+              name: Switch to light mode
+    font:
+        text: Roboto
+    language: en
+    features:
+        - navigation.sections
+        - navigation.expand
+        - navigation.top
+    icon:
+        repo: fontawesome/brands/github
+repo_name: mezidia/medivac
+repo_url: https://github.com/mezidia/medivac
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+
