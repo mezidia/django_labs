@@ -111,3 +111,8 @@ To get a car you need to fill the **name of the place** like this and then press
 "Work with places":
 
 ![](https://i.stack.imgur.com/y9DpT.jpg)
+
+## Code of the app
+
+The full length of the app is near **500 lines**, so it is better to watch the code at 
+[GitHub](https://github.com/mezidia/medivac/blob/main/app.py). You won't get lost, because there are many comments.
