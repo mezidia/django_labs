@@ -116,7 +116,7 @@ def delete_car():
         else:
             message_box.showerror('Delete Status', 'An error occurred while deleting')
     else:
-        message_box.showerror('Delete Status', 'Name of the route is compulsory for delete')
+        message_box.showerror('Delete Status', 'Id of the car is compulsory for delete')
 
 
 def delete_place():
@@ -396,7 +396,6 @@ def export_to_sqlite():
         sqlite_database.clear_table('cars')
         sqlite_database.clear_table('places')
         data = mysql_database.get('SELECT * from routes')
-        print(data)
         sqlite_database.insert('routes', ('id', 'name', 'place_from', 'place_to', 'price', 'car'), data)
         data = mysql_database.get('SELECT * from cars')
         sqlite_database.insert('cars', ('id', 'name'), data)
@@ -419,12 +418,12 @@ def export_to_postgresql():
         postgresql_database.clear_table('routes')
         postgresql_database.clear_table('cars')
         postgresql_database.clear_table('places')
-        data = sqlite_database.get('SELECT * from routes')
-        postgresql_database.insert('routes', '(id, name, place_from, place_to, price, car)', data)
         data = sqlite_database.get('SELECT * from cars')
         postgresql_database.insert('cars', '(id, name)', data)
         data = sqlite_database.get('SELECT * from places')
         postgresql_database.insert('places', '(id, name)', data)
+        data = sqlite_database.get('SELECT * from routes')
+        postgresql_database.insert('routes', '(id, name, place_from, place_to, price, car)', data)
     except (SQLite_Error, Postgre_Error):
         message_box.showerror('Exporting Status', 'Error was occurred while exporting')
     message_box.showinfo('Exporting Status', 'Export from SQLite to PostgreSQL was successful')
@@ -445,7 +444,7 @@ def create_tables():
     ]
     place_fields = [
         'id INT AUTO_INCREMENT PRIMARY KEY',
-        'name VARCHAR(45) NOT NULL'
+        'name VARCHAR(45) NOT NULL UNIQUE',
     ]
     routes_fields = [
         'id INT AUTO_INCREMENT PRIMARY KEY',
@@ -454,23 +453,28 @@ def create_tables():
         'place_to VARCHAR(45) NOT NULL',
         'price FLOAT NOT NULL',
         'car INT NOT NULL',
-        'FOREIGN KEY(car) REFERENCES cars(id)'
+        'FOREIGN KEY(car) REFERENCES cars(id) ON DELETE CASCADE',
+        'FOREIGN KEY(place_to) REFERENCES places(name) ON DELETE CASCADE',
+        'FOREIGN KEY(place_from) REFERENCES places(name) ON DELETE CASCADE'
     ]
     ps_cars_fields = [
-        'id SERIAL',
+        'id SERIAL PRIMARY KEY UNIQUE',
         'name VARCHAR(45) NOT NULL'
     ]
     ps_place_fields = [
         'id SERIAL',
-        'name VARCHAR(45) NOT NULL'
+        'name VARCHAR(45) NOT NULL UNIQUE'
     ]
     ps_routes_fields = [
-        'id SERIAL',
+        'id SERIAL PRIMARY KEY',
         'name VARCHAR(45) NOT NULL',
         'place_from VARCHAR(45) NOT NULL',
         'place_to VARCHAR(45) NOT NULL',
         'price FLOAT NOT NULL',
-        'car INT NOT NULL',
+        'car SERIAL',
+        'FOREIGN KEY (car) REFERENCES cars (id) ON DELETE CASCADE',
+        'FOREIGN KEY (place_to) REFERENCES places(name) ON DELETE CASCADE',
+        'FOREIGN KEY (place_from) REFERENCES places(name) ON DELETE CASCADE'
     ]
     mysql_database.create_table('places', place_fields)
     mysql_database.create_table('cars', cars_fields)
