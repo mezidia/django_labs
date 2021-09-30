@@ -1,23 +1,26 @@
-import sqlite3
-from sqlite3 import Error
+import psycopg2
+from psycopg2 import Error
 
 from typing import List
 
 
-class SQLite:
-    def __init__(self, path: str):
+class PostgreSQL:
+    def __init__(self, host: str, user: str, password: str, db_name: str):
         """
         Constructor of the class and also the connection to database
 
         Example:
-            database = SQLite("E:\\sm_app.sqlite")
+            database = PostgreSQL(host, user, password, db_name)
 
-        :param path: path to database as string
+        :param host: database host
+        :param user: database user
+        :param password: database password
+        :param db_name: database name
         :return: nothing to return
         """
         connection = None
         try:
-            connection = sqlite3.connect(path)
+            connection = psycopg2.connect(host=host, user=user, password=password, database=db_name)
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
         self.connection = connection
@@ -27,7 +30,7 @@ class SQLite:
         Method for creating the table
 
         Example:
-            result = SQLite().create_table('users', [
+            result = PostgreSQL().create_table('users', [
                 'id INTEGER PRIMARY KEY AUTOINCREMENT',
                 'name TEXT NOT NULL',
                 'age INTEGER',
@@ -55,12 +58,12 @@ class SQLite:
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
 
-    def insert(self, table_name: str, fields_names: tuple, fields_values: List[tuple]) -> bool:
+    def insert(self, table_name: str, fields_names: str, fields_values: List[tuple]) -> bool:
         """
         Method for inserting data into the table
 
         Example:
-            result = SQLite().insert('users', ('name', 'age', 'gender', 'nationality'), [
+            result = PostgreSQL().insert('users', ('name', 'age', 'gender', 'nationality'), [
                 ('James', 25, 'male', 'USA'),
                 ('Leila', 32, 'female', 'France'),
                 ('Brigitte', 35, 'female', 'England'),
@@ -81,7 +84,7 @@ class SQLite:
                 fields_string += str(fields_values[index])
             else:
                 fields_string += str(fields_values[index]) + ',\n'
-        query = f'INSERT INTO {table_name} {str(fields_names)} VALUES {fields_string};'
+        query = f'INSERT INTO {table_name} {fields_names} VALUES {fields_string};'
         try:
             cursor.execute(query)
             self.connection.commit()
@@ -94,7 +97,7 @@ class SQLite:
         Function to fetch data
 
         Example:
-            data = SQLite().get('SELECT * from users')
+            data = PostgreSQL().get('SELECT * from users')
             print(data)
 
         :param query: SQL-query to get data
@@ -113,7 +116,7 @@ class SQLite:
         Function to update field in the table
 
         Example:
-            result = SQLite().update('users', 'name = "Maxim"', 'id = 2')
+            result = PostgreSQL().update('users', 'name = "Roman"', 'id = 3')
             assert result == True
 
         :param table_name: name of the table
@@ -135,7 +138,7 @@ class SQLite:
         Function to delete field in the table
 
         Example:
-            result = SQLite().delete('users', 'id = 5')
+            result = PostreSQL().delete('users', 'id = 5')
             assert result == True
 
         :param table_name: name of the table
@@ -150,6 +153,14 @@ class SQLite:
             return True
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
+
+    def clear_table(self, table_name: str) -> None:
+        """
+        Method for clearing the table
+        """
+        cursor = self.connection.cursor()
+        cursor.execute(f'DELETE FROM {table_name};')
+        self.connection.commit()
 
     def close(self):
         """

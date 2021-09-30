@@ -1,17 +1,15 @@
-import psycopg2
-from psycopg2 import Error
-from config import *
+from mysql.connector import connect, Error
 
 from typing import List
 
 
-class PostgreSQL:
+class MySQL:
     def __init__(self, host: str, user: str, password: str, db_name: str):
         """
         Constructor of the class and also the connection to database
 
         Example:
-            database = PostgreSQL(host, user, password, db_name)
+            database = MySQL(host, user, password, db_name)
 
         :param host: database host
         :param user: database user
@@ -21,7 +19,7 @@ class PostgreSQL:
         """
         connection = None
         try:
-            connection = psycopg2.connect(host=host, user=user, password=password, database=db_name)
+            connection = connect(host=host, user=user, password=password, database=db_name)
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
         self.connection = connection
@@ -31,12 +29,12 @@ class PostgreSQL:
         Method for creating the table
 
         Example:
-            result = PostgreSQL().create_table('users', [
-                'id INTEGER PRIMARY KEY AUTOINCREMENT',
-                'name TEXT NOT NULL',
-                'age INTEGER',
-                'gender TEXT',
-                'nationality TEXT'
+            result = MySQL().create_table('users', [
+                'id INT AUTO_INCREMENT PRIMARY KEY',
+                'name VARCHAR(45)',
+                'age INT',
+                'gender VARCHAR(45)',
+                'nationality VARCHAR(45)'
             ])
             assert result == True
 
@@ -59,12 +57,12 @@ class PostgreSQL:
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
 
-    def insert(self, table_name: str, fields_names: tuple, fields_values: List[tuple]) -> bool:
+    def insert(self, table_name: str, fields_names: str, fields_values: List[tuple]) -> bool:
         """
         Method for inserting data into the table
 
         Example:
-            result = PostgreSQL().insert('users', ('name', 'age', 'gender', 'nationality'), [
+            result = MySQL().insert('users', ('name', 'age', 'gender', 'nationality'), [
                 ('James', 25, 'male', 'USA'),
                 ('Leila', 32, 'female', 'France'),
                 ('Brigitte', 35, 'female', 'England'),
@@ -98,7 +96,7 @@ class PostgreSQL:
         Function to fetch data
 
         Example:
-            data = PostgreSQL().get('SELECT * from users')
+            data = MySQL().get('SELECT * from users')
             print(data)
 
         :param query: SQL-query to get data
@@ -117,7 +115,7 @@ class PostgreSQL:
         Function to update field in the table
 
         Example:
-            result = PostgreSQL().update('users', 'name = "Roman"', 'id = 3')
+            result = MySQL().update('users', 'name = "Valentyn"', 'id = 4')
             assert result == True
 
         :param table_name: name of the table
@@ -139,7 +137,7 @@ class PostgreSQL:
         Function to delete field in the table
 
         Example:
-            result = PostreSQL().delete('users', 'id = 5')
+            result = MySQL().delete('users', 'id = 5')
             assert result == True
 
         :param table_name: name of the table
@@ -154,6 +152,14 @@ class PostgreSQL:
             return True
         except Error as e:
             raise Exception(f"The error '{e}' occurred")
+
+    def clear_table(self, table_name: str) -> None:
+        """
+        Method for clearing the table
+        """
+        cursor = self.connection.cursor()
+        cursor.execute(f'DELETE FROM {table_name};')
+        self.connection.commit()
 
     def close(self):
         """
