@@ -6,10 +6,10 @@ PostgreSQL is a powerful, open source object-relational database system with ove
 
 ## Connector
 
-We developed our [class](https://github.com/mezidia/medivac/blob/main/postgresql_api/connector.py) to make a work with 
-database easier. Constructor of the class has a path to database as a variable. 
+We developed our [class](https://github.com/mezidia/medivac/blob/main/postgresql_api/connector.py) to make a work with
+database easier. Constructor of the class has a path to database as a variable.
 
-There are several main methods: 
+There are several main methods:
 
 - [create_table](https://github.com/mezidia/medivac/blob/main/postgresql_api/connector.py#L28-L59)
 - [insert](https://github.com/mezidia/medivac/blob/main/postgresql_api/connector.py#L61-L93)
@@ -23,7 +23,7 @@ All these methods has docstrings, so you can read what they do and which paramet
 
 ## Example
 
-There is [example file](https://github.com/mezidia/medivac/blob/main/postgresql_api/example.py), 
+There is [example file](https://github.com/mezidia/medivac/blob/main/postgresql_api/example.py),
 but you can also view the code below:
 
 ```python
@@ -62,5 +62,3 @@ result = database.delete('users', 'id = 5')
 
 database.close()
 ```
-
-

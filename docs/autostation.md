@@ -10,11 +10,11 @@ python app.py
 
 You will see window like this:
 
-![](medivac\docs\images\Start.png)
+![](images/Start.png)
 
 Here you can see all available routes, cars and routes in the list boxes:
 
-![](https://i.stack.imgur.com/y9DpT.jpg)
+![](images/Start.png)
 
 You can do different operations here:
 
@@ -39,21 +39,21 @@ To insert a route you need to fill the **name of the route**, **places from** an
 To update a route you need to fill the **name of the route** and all other fields - changed or not, but every field,
 like this and then press button "update" in the section "Work with routes":
 
-![](medivac\docs\images\UpdateRoutes.png)
+![](images/UpdateRoutes.png)
 
 ### Delete
 
 To delete a route you need to fill the **name of the route** like this and then press button "delete" in the section
 "Work with routes":
 
-![](medivac\docs\images\DeleteRoutes.png)
+![](images/DeleteRoutes.png)
 
 ### Get
 
 To get a route you need to fill the **name of the route** like this and then press button "get" in the section
 "Work with routes":
 
-![](medivac\docs\images\GetRoutes.png)
+![](images/GetRoutes.png)
 
 ## Cars
 
@@ -62,28 +62,28 @@ To get a route you need to fill the **name of the route** like this and then pre
 To insert a car you need to fill the **name of the car** like this and press button "insert" in the section
 "Work with cars":
 
-![](medivac\docs\images\InsertCars.png)
+![](images/InsertCars.png)
 
 ### Update
 
 To update a car you need to fill the **id of the car** and changed **name of the car** like this and then press button
 "update" in the section "Work with routes":
 
-![](medivac\docs\images\UpdateCars.png)
+![](images/UpdateCars.png)
 
 ### Delete
 
 To delete a car you need to fill the **id of the car** like this and then press button "delete" in the section
 "Work with cars":
 
-![](medivac\docs\images\DeleteCars.png)
+![](images/DeleteCars.png)
 
 ### Get
 
 To get a car you need to fill the **id of the car** like this and then press button "get" in the section
 "Work with cars":
 
-![](medivac\docs\images\GetCars.png)
+![](images/GetCars.png)
 
 ## Places
 
@@ -92,7 +92,7 @@ To get a car you need to fill the **id of the car** like this and then press but
 To insert a place you need to fill the **name of the place** like this and press button "insert" in the section
 "Work with places":
 
-![](medivac\docs\images\InsertPlaces.png)
+![](images/InsertPlaces.png)
 
 ### Update
 
@@ -103,14 +103,28 @@ You can't to update the place in our app
 To delete a place you need to fill the **name of the place** like this and then press button "delete" in the section
 "Work with places":
 
-![](medivac\docs\images\DeletePlaces.png)
+![](images/DeletePlaces.png)
 
 ### Get
 
 To get a car you need to fill the **name of the place** like this and then press button "get" in the section
 "Work with places":
 
-![](medivac\docs\images\GetPlaces.png)
+![](images/GetPlaces.png)
+
+## Export
+
+### To SQLite
+
+To export Database to SQLite click this button
+
+![](images/ExportSQLite.png)
+
+### To PostgreSQl
+
+To export Database to PostgreSQL click this button
+
+![](images/ExportPostgreSQl.png)
 
 ## Code of the app
 

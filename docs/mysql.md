@@ -6,10 +6,10 @@ MySQL Database Service is a fully managed database service to deploy cloud-nativ
 
 ## Connector
 
-We developed our [class](https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py) to make a work with 
-database easier. Constructor of the class has a path to database as a variable. 
+We developed our [class](https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py) to make a work with
+database easier. Constructor of the class has a path to database as a variable.
 
-There are several main methods: 
+There are several main methods:
 
 - [create_table](https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L27-L58)
 - [insert](https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L60-L92)
@@ -23,7 +23,7 @@ All these methods has docstrings, so you can read what they do and which paramet
 
 ## Example
 
-There is [example file](https://github.com/mezidia/medivac/blob/main/mysql_api/example.py), 
+There is [example file](https://github.com/mezidia/medivac/blob/main/mysql_api/example.py),
 but you can also view the code below:
 
 ```python
