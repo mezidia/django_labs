@@ -6,10 +6,10 @@ SQLite is a C-language library that implements a **small**, **fast**, **self-con
 
 ## Connector
 
-We developed our [class](https://github.com/mezidia/medivac/blob/main/sqlite_api/connector.py) to make a work with 
-database easier. Constructor of the class has a path to database as a variable. 
+We developed our [class](https://github.com/mezidia/medivac/blob/main/sqlite_api/connector.py) to make a work with
+database easier. Constructor of the class has a path to database as a variable.
 
-There are several main methods: 
+There are several main methods:
 
 - [create_table](https://github.com/mezidia/medivac/blob/main/sqlite_api/connector.py#L25-L56)
 - [insert](https://github.com/mezidia/medivac/blob/main/sqlite_api/connector.py#L58-L90)
