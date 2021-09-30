@@ -32,7 +32,7 @@ You can do different operations here:
 To insert a route you need to fill the **name of the route**, **places from** and **to**, **price** of the route and
 **car identifier** like this and press button "insert" in the section "Work with routes":
 
-![](medivac\docs\images\InsertRoutes.png)
+![](medivac/docs/images/InsertRoutes.png)
 
 ### Update
 
