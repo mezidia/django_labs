@@ -124,7 +124,7 @@ To export Database to SQLite click this button
 
 To export Database to PostgreSQL click this button
 
-![](images/ExportPostgreSQl.png)
+![](images/ExportPostgreSQL.png)
 
 ## Code of the app
 
