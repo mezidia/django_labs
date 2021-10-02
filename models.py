@@ -1,7 +1,10 @@
+from operator import pos
 from peewee import Database, Model, CharField, PrimaryKeyField, IntegerField, ForeignKeyField, FloatField
-from peewee import MySQLDatabase, PostgresqlDatabase, SqliteDatabase
+from peewee import MySQLDatabase, PostgresqlDatabase, SqliteDatabase, Proxy
 from mysql_api import config as ms_config
 from postgresql_api import config as ps_config
+
+database_proxy = Proxy()
 
 mysql_database = MySQLDatabase(
     ms_config.db_name,
@@ -17,7 +20,7 @@ sqlite_database = SqliteDatabase(path_to_database)
 postgresql_database = PostgresqlDatabase(
     ps_config.db_name,
     host=ps_config.host,
-    port=3307,
+    port=15524,
     user=ps_config.user,
     password=ps_config.password
 )
@@ -36,7 +39,7 @@ class Car(Model):
     name = CharField()
 
     class Meta:
-        database=mysql_database
+        database=database_proxy
         order_by='id'
         db_table='cars'
 
@@ -46,7 +49,7 @@ class Place(Model):
     name = CharField()
 
     class Meta:
-        database=mysql_database
+        database=database_proxy
         order_by='id'
         db_table='places'
 
@@ -60,8 +63,15 @@ class Route(Model):
     car = ForeignKeyField(Car)
 
     class Meta:
-        database=mysql_database
+        database=database_proxy
         order_by='id'
         db_table='routes'
 
-mysql_database.create_tables([Car, Place, Route]) # типу створити таблиці завчасно
+database_proxy.initialize(mysql_database)
+database_proxy.create_tables([Car, Place, Route])
+
+database_proxy.initialize(sqlite_database)
+database_proxy.create_tables([Car, Place, Route])
+
+# database_proxy.initialize(postgresql_database)
+# database_proxy.create_tables([Car, Place, Route])
