@@ -11,6 +11,8 @@ from mysql_api.connector import MySQL
 from sqlite_api.connector import SQLite
 from postgresql_api.connector import PostgreSQL
 
+from models import Route, Car, Place
+
 
 def insert_route():
     """
@@ -24,9 +26,14 @@ def insert_route():
     car = entries['car_id'].get()
 
     if all(entries.values()):
-        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-        result = database.insert('routes', '(name, place_from, place_to, price, car)',
-                                 [(route_name, place_from, place_to, price, car)])
+        route = Route(
+            name=route_name,
+            place_from=place_from,
+            place_to=place_to,
+            price=price,
+            car=car
+        )
+        result = route.create()
         if result:
             entries['route_name'].delete(0, 'end')
             entries['place_from'].delete(0, 'end')
@@ -49,8 +56,10 @@ def insert_car():
     car_name = entries['car_name'].get()
 
     if car_name:
-        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-        result = database.insert('cars', '(name)', [(f"('{car_name}')")])
+        car = Car(
+            name=car_name
+        )
+        result = car.create()
         if result:
             entries['car_name'].delete(0, 'end')
             show()
@@ -69,8 +78,10 @@ def insert_place():
     place_name = entries['place_name'].get()
 
     if place_name:
-        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-        result = database.insert('places', '(name)', [(f"('{place_name}')")])
+        place = Place(
+            name=place_name
+        )
+        result = place.create()
         if result:
             entries['place_name'].delete(0, 'end')
             show()
@@ -88,8 +99,8 @@ def delete_route():
     """
     route_name = entries['route_name'].get()
     if route_name:
-        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-        result = database.delete('routes', f"name = '{route_name}'")
+        route = Route.get(Route.name == route_name)
+        result = route.delete_instance()
         if result:
             entries['route_name'].delete(0, 'end')
             show()
@@ -107,8 +118,8 @@ def delete_car():
     """
     car_id = entries['car_id'].get()
     if car_id:
-        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-        result = database.delete('cars', f"id = '{car_id}'")
+        car = Car.get(Car.id == car_id)
+        result = car.delete_instance()
         if result:
             entries['car_id'].delete(0, 'end')
             show()
@@ -126,8 +137,8 @@ def delete_place():
     """
     place_name = entries['place_name'].get()
     if place_name:
-        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-        result = database.delete('places', f"name = '{place_name}'")
+        place = Place.get(Place.name == place_name)
+        result = place.delete_instance()
         if result:
             entries['place_name'].delete(0, 'end')
             show()
@@ -150,10 +161,12 @@ def update_route():
     car = entries['car_id'].get()
 
     if all(entries.values()):
-        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-        result = database.update('routes', f"name = '{route_name}', place_from = '{place_from}',"
-                                           f"place_to = '{place_to}', price = '{price}', car = '{car}'",
-                                 f"name = '{route_name}'")
+        route = Route.get(Route.name == route_name)
+        route.place_from = place_from
+        route.place_to = place_to
+        route.price = price
+        route.car = car
+        result = route.save()
         if result:
             entries['route_name'].delete(0, 'end')
             entries['place_from'].delete(0, 'end')
@@ -177,9 +190,9 @@ def update_car():
     car_name = entries['car_name'].get()
 
     if car_id != '' and car_name != '':
-        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-        result = database.update('cars', f"name = '{car_name}'",
-                                 f"id = '{car_id}'")
+        car = Car.get(Car.id == car_id)
+        car.name = car_name
+        result = car.save()
         if result:
             entries['car_id'].delete(0, 'end')
             entries['car_name'].delete(0, 'end')
@@ -206,10 +219,9 @@ def get_route():
     """
     route_name = entries['route_name'].get()
     if route_name:
-        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-        route = database.get(f"SELECT * from routes WHERE name = '{route_name}'")
+        route = Route.get(Route.name == route_name)
         if route:
-            message=f"""
+            message = f"""
                 Id: {route[0][0]}
                 Name: {route[0][1]}
                 From: {route[0][2]}
@@ -232,10 +244,9 @@ def get_car():
     """
     car_id = entries['car_id'].get()
     if car_id:
-        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-        car = database.get(f'SELECT * from cars WHERE id = {car_id}')
+        car = Car.get(Car.id == car_id)
         if car:
-            message=f"""
+            message = f"""
                 Car ID: {car[0][0]}
                 Name: {car[0][1]}
                 """
@@ -254,10 +265,9 @@ def get_place():
     """
     place_name = entries['place_name'].get()
     if place_name:
-        database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-        place = database.get(f"SELECT * from places WHERE name = '{place_name}'")
+        place = Place.get(Place.name == place_name)
         if place:
-            message=f"""
+            message = f"""
                 Place ID: {place[0][0]}
                 Name: {place[0][1]}
                 """
@@ -380,6 +390,8 @@ cars_list.place(x=430, y=50)
 
 places_list = Listbox(root)
 places_list.place(x=570, y=50)
+
+
 # Create listboxes section end
 
 
