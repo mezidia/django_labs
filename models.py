@@ -1,39 +1,67 @@
-from sqlalchemy import Integer, String, Column, PrimaryKeyConstraint, UniqueConstraint, Float, DateTime, \
-    ForeignKeyConstraint
-from sqlalchemy.ext.declarative import declarative_base
+from peewee import Database, Model, CharField, PrimaryKeyField, IntegerField, ForeignKeyField, FloatField
+from peewee import MySQLDatabase, PostgresqlDatabase, SqliteDatabase
+from mysql_api import config as ms_config
+from postgresql_api import config as ps_config
 
-Base = declarative_base()
+mysql_database = MySQLDatabase(
+    ms_config.db_name,
+    host=ms_config.host,
+    port=3306,
+    user=ms_config.user,
+    password=ms_config.password
+)
 
+path_to_database = './sqlite3.db'
+sqlite_database = SqliteDatabase(path_to_database)
+
+postgresql_database = PostgresqlDatabase(
+    ps_config.db_name,
+    host=ps_config.host,
+    port=3307,
+    user=ps_config.user,
+    password=ps_config.password
+)
 
 # It is for an example
-class User(Base):
-    __tablename__ = 'users'
-    id = Column(Integer)
-    name = Column(String(100), nullable=False)
-    age = Column(Integer, nullable=False)
-    gender = Column(String(100), nullable=False)
-    nationality = Column(String(200), nullable=False)
-
-    __table_args__ = (
-        PrimaryKeyConstraint('id', name='user_pk'),
-        UniqueConstraint('name'),
-    )
+class User(Model):
+    id = PrimaryKeyField(unique=True)
+    name = CharField()
+    age = IntegerField()
+    gender = CharField()
+    nationality = CharField()
 
 
-class Route(Base):
-    __tablename__ = 'routes'
-    id = Column(Integer, primary_key=True, nullable=False, unique=True)
-    name = Column(String(45), nullable=False)
-    place_from = Column(String(45), nullable=False)
-    place_to = Column(String(45), nullable=False)
-    price = Column(Float, nullable=False)
-    time = Column(DateTime, nullable=False)
-    car = Column(Integer, nullable=False)
+class Car(Model):
+    id = PrimaryKeyField(unique=True)
+    name = CharField()
 
-    __table_args__ = (ForeignKeyConstraint(['car'], ['cars.id']),)
+    class Meta:
+        database=mysql_database
+        order_by='id'
+        db_table='cars'
 
 
-class Car(Base):
-    __tablename__ = 'cars'
-    id = Column(Integer, primary_key=True, nullable=False, unique=True)
-    name = Column(String(45), nullable=False)
+class Place(Model):
+    id = PrimaryKeyField(unique=True)
+    name = CharField()
+
+    class Meta:
+        database=mysql_database
+        order_by='id'
+        db_table='places'
+
+
+class Route(Model):
+    id = PrimaryKeyField(unique=True)
+    name = CharField()
+    place_from = ForeignKeyField(Place)
+    place_to = ForeignKeyField(Place)
+    price = FloatField()
+    car = ForeignKeyField(Car)
+
+    class Meta:
+        database=mysql_database
+        order_by='id'
+        db_table='routes'
+
+mysql_database.create_tables([Car, Place, Route]) # типу створити таблиці завчасно
