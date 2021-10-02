@@ -486,6 +486,28 @@ def create_tables():
     sqlite_database.create_table('cars', cars_fields)
     sqlite_database.create_table('routes', routes_fields)
 
+def create_some_data():
+    mysql_database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
+    cars, places, routes = mysql_database.get('SELECT * from cars'), mysql_database.get('SELECT * from places'), mysql_database.get('SELECT * from routes')
+    if cars == [] and places == [] and routes == []:
+        mysql_database.insert('cars', '(name)', [
+            "('Glovo')",
+            "('Raketa')",
+            "('Medivac')"
+        ])
+        mysql_database.insert('places', '(name)', [
+            "('Kyiv')",
+            "('Odesa')",
+            "('Alushta')",
+            "('Vinnytsia')"
+        ])
+        mysql_database.insert('routes', '(name, place_from, place_to, price, car)', [
+            "('Kyiv-Odesa', 'Kyiv', 'Odesa', 23.32, 1)",
+            "('Odesa-Alushta', 'Odesa', 'Alushta', 137.0, 3)",
+            "('Alushta-Kyiv', 'Alushta', 'Kyiv', 100.0, 2)",
+            "('Vinnytsia-Alushta', 'Vinnytsia', 'Alushta', 87.0, 2)"
+        ])
+
 
 export_to_sqlite_button = Button(root, text='Export from MySQL to SQLite', font=('italic', 10), bg='white',
                                  command=export_to_sqlite)
@@ -495,5 +517,6 @@ export_to_postgre_button = Button(root, text='Export from SQLite to PostgreSQL',
 export_to_postgre_button.place(x=290, y=320)
 
 create_tables()
+create_some_data()
 show()
 root.mainloop()
