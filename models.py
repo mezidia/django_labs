@@ -20,7 +20,7 @@ sqlite_database = SqliteDatabase(path_to_database)
 postgresql_database = PostgresqlDatabase(
     ps_config.db_name,
     host=ps_config.host,
-    port=15524,
+    port=5432,
     user=ps_config.user,
     password=ps_config.password
 )
@@ -34,38 +34,34 @@ class User(Model):
     nationality = CharField()
 
 
-class Car(Model):
+class BaseModel(Model):
     id = PrimaryKeyField(unique=True)
     name = CharField()
 
     class Meta:
         database=database_proxy
         order_by='id'
+
+
+class Car(BaseModel):
+    class Meta:
         db_table='cars'
 
 
-class Place(Model):
-    id = PrimaryKeyField(unique=True)
-    name = CharField()
-
+class Place(BaseModel):
     class Meta:
-        database=database_proxy
-        order_by='id'
         db_table='places'
 
 
-class Route(Model):
-    id = PrimaryKeyField(unique=True)
-    name = CharField()
+class Route(BaseModel):
     place_from = ForeignKeyField(Place)
     place_to = ForeignKeyField(Place)
     price = FloatField()
     car = ForeignKeyField(Car)
 
     class Meta:
-        database=database_proxy
-        order_by='id'
         db_table='routes'
+
 
 database_proxy.initialize(mysql_database)
 database_proxy.create_tables([Car, Place, Route])
@@ -73,5 +69,5 @@ database_proxy.create_tables([Car, Place, Route])
 database_proxy.initialize(sqlite_database)
 database_proxy.create_tables([Car, Place, Route])
 
-# database_proxy.initialize(postgresql_database)
-# database_proxy.create_tables([Car, Place, Route])
+database_proxy.initialize(postgresql_database)
+database_proxy.create_tables([Car, Place, Route])
