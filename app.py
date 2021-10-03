@@ -285,9 +285,9 @@ def show():
     :return: nothing to return
     """
     database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-    routes = database.get(f'SELECT * from routes')
-    cars = database.get(f'SELECT * from cars')
-    places = database.get(f'SELECT * from places')
+    routes = Route.select()
+    cars = Car.select()
+    places = Place.select()
     routes_list.delete(0, routes_list.size())
     cars_list.delete(0, cars_list.size())
     places_list.delete(0, places_list.size())
@@ -404,11 +404,11 @@ def export_to_sqlite():
     path_to_database = './sqlite3.db'
     sqlite_database = SQLite(path_to_database)
     try:
-        sqlite_database.clear_table('routes')
+        sqlite_database.clear_table('routes')  # Route.delete()
         sqlite_database.clear_table('cars')
         sqlite_database.clear_table('places')
-        data = mysql_database.get('SELECT * from routes')
-        sqlite_database.insert('routes', ('id', 'name', 'place_from', 'place_to', 'price', 'car'), data)
+        data = Route.select()
+        sqlite_database.insert('routes', ('id', 'name', 'place_from', 'place_to', 'price', 'car'), data) #  Route.insert_many()
         data = mysql_database.get('SELECT * from cars')
         sqlite_database.insert('cars', ('id', 'name'), data)
         data = mysql_database.get('SELECT * from places')
@@ -446,57 +446,58 @@ def create_tables():
     Function for creating tables in all three databases
     :return: nothing to return
     """
-    mysql_database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-    postgresql_database = PostgreSQL(ps_config.host, ps_config.user, ps_config.password, ps_config.db_name)
-    path_to_database = './sqlite3.db'
-    sqlite_database = SQLite(path_to_database)
-    cars_fields = [
-        'id INT AUTO_INCREMENT PRIMARY KEY',
-        'name VARCHAR(45) NOT NULL'
-    ]
-    place_fields = [
-        'id INT AUTO_INCREMENT PRIMARY KEY',
-        'name VARCHAR(45) NOT NULL UNIQUE',
-    ]
-    routes_fields = [
-        'id INT AUTO_INCREMENT PRIMARY KEY',
-        'name VARCHAR(45) NOT NULL',
-        'place_from VARCHAR(45) NOT NULL',
-        'place_to VARCHAR(45) NOT NULL',
-        'price FLOAT NOT NULL',
-        'car INT NOT NULL',
-        'FOREIGN KEY(car) REFERENCES cars(id) ON DELETE CASCADE',
-        'FOREIGN KEY(place_to) REFERENCES places(name) ON DELETE CASCADE',
-        'FOREIGN KEY(place_from) REFERENCES places(name) ON DELETE CASCADE'
-    ]
-    ps_cars_fields = [
-        'id SERIAL PRIMARY KEY UNIQUE',
-        'name VARCHAR(45) NOT NULL'
-    ]
-    ps_place_fields = [
-        'id SERIAL',
-        'name VARCHAR(45) NOT NULL UNIQUE'
-    ]
-    ps_routes_fields = [
-        'id SERIAL PRIMARY KEY',
-        'name VARCHAR(45) NOT NULL',
-        'place_from VARCHAR(45) NOT NULL',
-        'place_to VARCHAR(45) NOT NULL',
-        'price FLOAT NOT NULL',
-        'car SERIAL',
-        'FOREIGN KEY (car) REFERENCES cars (id) ON DELETE CASCADE',
-        'FOREIGN KEY (place_to) REFERENCES places(name) ON DELETE CASCADE',
-        'FOREIGN KEY (place_from) REFERENCES places(name) ON DELETE CASCADE'
-    ]
-    mysql_database.create_table('places', place_fields)
-    mysql_database.create_table('cars', cars_fields)
-    mysql_database.create_table('routes', routes_fields)
-    postgresql_database.create_table('cars', ps_cars_fields)
-    postgresql_database.create_table('places', ps_place_fields)
-    postgresql_database.create_table('routes', ps_routes_fields)
-    sqlite_database.create_table('places', place_fields)
-    sqlite_database.create_table('cars', cars_fields)
-    sqlite_database.create_table('routes', routes_fields)
+    # from models import create_tables()
+    # mysql_database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
+    # postgresql_database = PostgreSQL(ps_config.host, ps_config.user, ps_config.password, ps_config.db_name)
+    # path_to_database = './sqlite3.db'
+    # sqlite_database = SQLite(path_to_database)
+    # cars_fields = [
+    #     'id INT AUTO_INCREMENT PRIMARY KEY',
+    #     'name VARCHAR(45) NOT NULL'
+    # ]
+    # place_fields = [
+    #     'id INT AUTO_INCREMENT PRIMARY KEY',
+    #     'name VARCHAR(45) NOT NULL UNIQUE',
+    # ]
+    # routes_fields = [
+    #     'id INT AUTO_INCREMENT PRIMARY KEY',
+    #     'name VARCHAR(45) NOT NULL',
+    #     'place_from VARCHAR(45) NOT NULL',
+    #     'place_to VARCHAR(45) NOT NULL',
+    #     'price FLOAT NOT NULL',
+    #     'car INT NOT NULL',
+    #     'FOREIGN KEY(car) REFERENCES cars(id) ON DELETE CASCADE',
+    #     'FOREIGN KEY(place_to) REFERENCES places(name) ON DELETE CASCADE',
+    #     'FOREIGN KEY(place_from) REFERENCES places(name) ON DELETE CASCADE'
+    # ]
+    # ps_cars_fields = [
+    #     'id SERIAL PRIMARY KEY UNIQUE',
+    #     'name VARCHAR(45) NOT NULL'
+    # ]
+    # ps_place_fields = [
+    #     'id SERIAL',
+    #     'name VARCHAR(45) NOT NULL UNIQUE'
+    # ]
+    # ps_routes_fields = [
+    #     'id SERIAL PRIMARY KEY',
+    #     'name VARCHAR(45) NOT NULL',
+    #     'place_from VARCHAR(45) NOT NULL',
+    #     'place_to VARCHAR(45) NOT NULL',
+    #     'price FLOAT NOT NULL',
+    #     'car SERIAL',
+    #     'FOREIGN KEY (car) REFERENCES cars (id) ON DELETE CASCADE',
+    #     'FOREIGN KEY (place_to) REFERENCES places(name) ON DELETE CASCADE',
+    #     'FOREIGN KEY (place_from) REFERENCES places(name) ON DELETE CASCADE'
+    # ]
+    # mysql_database.create_table('places', place_fields)
+    # mysql_database.create_table('cars', cars_fields)
+    # mysql_database.create_table('routes', routes_fields)
+    # postgresql_database.create_table('cars', ps_cars_fields)
+    # postgresql_database.create_table('places', ps_place_fields)
+    # postgresql_database.create_table('routes', ps_routes_fields)
+    # sqlite_database.create_table('places', place_fields)
+    # sqlite_database.create_table('cars', cars_fields)
+    # sqlite_database.create_table('routes', routes_fields)
 
 
 export_to_sqlite_button = Button(root, text='Export from MySQL to SQLite', font=('italic', 10), bg='white',
