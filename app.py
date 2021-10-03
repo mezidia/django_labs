@@ -300,26 +300,26 @@ def get_place():
         message_box.showerror('Fetch Status', 'Name is compulsory for fetch')
 
 
-# def show():
-#     """
-#     Function for filling the listboxes with the data from database
-#     :return: nothing to return
-#     """
-#     routes = Route.select()
-#     cars = Car.select()
-#     places = Place.select()
-#     routes_list.delete(0, routes_list.size())
-#     cars_list.delete(0, cars_list.size())
-#     places_list.delete(0, places_list.size())
-#     for route in routes:
-#         insert_data = str(route[0]) + ' ' * 10 + str(route[1])
-#         routes_list.insert(routes_list.size() + 1, insert_data)
-#     for car in cars:
-#         insert_data = str(car[0]) + ' ' * 10 + str(car[1])
-#         cars_list.insert(cars_list.size() + 1, insert_data)
-#     for place in places:
-#         insert_data = str(place[0]) + ' ' * 10 + str(place[1])
-#         places_list.insert(places_list.size() + 1, insert_data)
+def show():
+    """
+    Function for filling the listboxes with the data from database
+    :return: nothing to return
+    """
+    routes = Route.select()
+    cars = Car.select()
+    places = Place.select()
+    routes_list.delete(0, routes_list.size())
+    cars_list.delete(0, cars_list.size())
+    places_list.delete(0, places_list.size())
+    for route in routes:
+        insert_data = str(route[0]) + ' ' * 10 + str(route[1])
+        routes_list.insert(routes_list.size() + 1, insert_data)
+    for car in cars:
+        insert_data = str(car[0]) + ' ' * 10 + str(car[1])
+        cars_list.insert(cars_list.size() + 1, insert_data)
+    for place in places:
+        insert_data = str(place[0]) + ' ' * 10 + str(place[1])
+        places_list.insert(places_list.size() + 1, insert_data)
 
 
 root = Tk()
