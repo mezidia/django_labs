@@ -15,6 +15,26 @@ from models import Route, Car, Place, database_proxy
 from peewee import MySQLDatabase, PostgresqlDatabase, SqliteDatabase
 
 
+mysql_database = MySQLDatabase(
+    ms_config.db_name,
+    host=ms_config.host,
+    port=3306,
+    user=ms_config.user,
+    password=ms_config.password
+)
+
+path_to_database = './sqlite3.db'
+sqlite_database = SqliteDatabase(path_to_database)
+
+postgresql_database = PostgresqlDatabase(
+    ps_config.db_name,
+    host=ps_config.host,
+    port=5432,
+    user=ps_config.user,
+    password=ps_config.password
+)
+
+
 def insert_route():
     """
     Function for inserting data into 'routes' table
@@ -285,7 +305,6 @@ def show():
     Function for filling the listboxes with the data from database
     :return: nothing to return
     """
-    database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
     routes = Route.select()
     cars = Car.select()
     places = Place.select()
@@ -447,25 +466,6 @@ def create_tables():
     Function for creating tables in all three databases
     :return: nothing to return
     """
-    mysql_database = MySQLDatabase(
-        ms_config.db_name,
-        host=ms_config.host,
-        port=3306,
-        user=ms_config.user,
-        password=ms_config.password
-    )
-
-    path_to_database = './sqlite3.db'
-    sqlite_database = SqliteDatabase(path_to_database)
-
-    postgresql_database = PostgresqlDatabase(
-        ps_config.db_name,
-        host=ps_config.host,
-        port=5432,
-        user=ps_config.user,
-        password=ps_config.password
-    )
-
     database_proxy.initialize(mysql_database)
     database_proxy.create_tables([Car, Place, Route])
 
@@ -474,6 +474,38 @@ def create_tables():
 
     database_proxy.initialize(postgresql_database)
     database_proxy.create_tables([Car, Place, Route])
+
+def create_some_data():
+    database_proxy.initialize(mysql_database)
+    with database_proxy:
+        cars, places, routes = Car.select(), Place.select(), Route.select()
+
+        if len(cars)==0 and len(places)==0 and len(routes)==0:
+            cars_values=[
+            {'name':'Glovo'},
+            {'name':'Raketa'},
+            {'name':'Medivac'}
+            ]
+            print(cars_values)
+            Car.insert_many(cars_values).execute()
+
+            places_values=[
+            {'name':'Kyiv'},
+            {'name':'Odesa'},
+            {'name':'Alushta'},
+            {'name':'Vinnytsia'}
+            ]
+            Place.insert_many(places_values).execute()
+
+            cars, places = Car.select(), Place.select()
+
+            routes_values=[
+            {'name':'Kyiv-Odesa', 'place_from':places[0].id, 'place_to':places[1].id, 'price':23.32, 'car':cars[0].id},
+            {'name':'Odesa-Alushta', 'place_from':places[1].id, 'place_to':places[2].id, 'price':137.0, 'car':cars[2].id},
+            {'name':'Alushta-Kyiv', 'place_from':places[2].id, 'place_to':places[0].id, 'price':100.0, 'car':cars[1].id},
+            {'name':'Vinnytsia-Alushta', 'place_from':places[3].id, 'place_to':places[2].id, 'price':87.0, 'car':cars[1].id}
+            ]
+            Route.insert_many(routes_values).execute()
 
 
 export_to_sqlite_button = Button(root, text='Export from MySQL to SQLite', font=('italic', 10), bg='white',
@@ -484,5 +516,6 @@ export_to_postgre_button = Button(root, text='Export from SQLite to PostgreSQL',
 export_to_postgre_button.place(x=290, y=320)
 
 create_tables()
+create_some_data()
 show()
 root.mainloop()
