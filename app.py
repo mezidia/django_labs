@@ -61,7 +61,7 @@ def insert_route():
             entries['place_to'].delete(0, 'end')
             entries['price'].delete(0, 'end')
             entries['car_id'].delete(0, 'end')
-            show()
+            #show()
             message_box.showinfo('Insert Status', 'Inserted successfully')
         else:
             message_box.showerror('Insert Status', 'An error occurred while inserting')
@@ -80,10 +80,10 @@ def insert_car():
         car = Car(
             name=car_name
         )
-        result = car.create()
+        result = Car(name=car_name).save()
         if result:
             entries['car_name'].delete(0, 'end')
-            show()
+            #show()
             message_box.showinfo('Insert Status', 'Inserted successfully')
         else:
             message_box.showerror('Insert Status', 'An error occurred while inserting')
@@ -102,10 +102,10 @@ def insert_place():
         place = Place(
             name=place_name
         )
-        result = place.create()
+        result = Place(name=place_name).save()
         if result:
             entries['place_name'].delete(0, 'end')
-            show()
+            #show()
             message_box.showinfo('Insert Status', 'Inserted successfully')
         else:
             message_box.showerror('Insert Status', 'An error occurred while inserting')
@@ -124,7 +124,7 @@ def delete_route():
         result = route.delete_instance()
         if result:
             entries['route_name'].delete(0, 'end')
-            show()
+            #show()
             message_box.showinfo('Delete Status', 'Deleted successfully')
         else:
             message_box.showerror('Delete Status', 'An error occurred while deleting')
@@ -143,7 +143,7 @@ def delete_car():
         result = car.delete_instance()
         if result:
             entries['car_id'].delete(0, 'end')
-            show()
+            #show()
             message_box.showinfo('Delete Status', 'Deleted successfully')
         else:
             message_box.showerror('Delete Status', 'An error occurred while deleting')
@@ -162,7 +162,7 @@ def delete_place():
         result = place.delete_instance()
         if result:
             entries['place_name'].delete(0, 'end')
-            show()
+            #show()
             message_box.showinfo('Delete Status', 'Deleted successfully')
         else:
             message_box.showerror('Delete Status', 'An error occurred while deleting')
@@ -194,7 +194,7 @@ def update_route():
             entries['place_to'].delete(0, 'end')
             entries['price'].delete(0, 'end')
             entries['car_id'].delete(0, 'end')
-            show()
+            #show()
             message_box.showinfo('Update Status', 'Updated successfully')
         else:
             message_box.showerror('Update Status', 'An error occurred while updating')
@@ -217,7 +217,7 @@ def update_car():
         if result:
             entries['car_id'].delete(0, 'end')
             entries['car_name'].delete(0, 'end')
-            show()
+            #show()
             message_box.showinfo('Update Status', 'Updated successfully')
         else:
             message_box.showerror('Update Status', 'An error occurred while updating')
@@ -300,26 +300,26 @@ def get_place():
         message_box.showerror('Fetch Status', 'Name is compulsory for fetch')
 
 
-def show():
-    """
-    Function for filling the listboxes with the data from database
-    :return: nothing to return
-    """
-    routes = Route.select()
-    cars = Car.select()
-    places = Place.select()
-    routes_list.delete(0, routes_list.size())
-    cars_list.delete(0, cars_list.size())
-    places_list.delete(0, places_list.size())
-    for route in routes:
-        insert_data = str(route[0]) + ' ' * 10 + str(route[1])
-        routes_list.insert(routes_list.size() + 1, insert_data)
-    for car in cars:
-        insert_data = str(car[0]) + ' ' * 10 + str(car[1])
-        cars_list.insert(cars_list.size() + 1, insert_data)
-    for place in places:
-        insert_data = str(place[0]) + ' ' * 10 + str(place[1])
-        places_list.insert(places_list.size() + 1, insert_data)
+# def show():
+#     """
+#     Function for filling the listboxes with the data from database
+#     :return: nothing to return
+#     """
+#     routes = Route.select()
+#     cars = Car.select()
+#     places = Place.select()
+#     routes_list.delete(0, routes_list.size())
+#     cars_list.delete(0, cars_list.size())
+#     places_list.delete(0, places_list.size())
+#     for route in routes:
+#         insert_data = str(route[0]) + ' ' * 10 + str(route[1])
+#         routes_list.insert(routes_list.size() + 1, insert_data)
+#     for car in cars:
+#         insert_data = str(car[0]) + ' ' * 10 + str(car[1])
+#         cars_list.insert(cars_list.size() + 1, insert_data)
+#     for place in places:
+#         insert_data = str(place[0]) + ' ' * 10 + str(place[1])
+#         places_list.insert(places_list.size() + 1, insert_data)
 
 
 root = Tk()
@@ -517,5 +517,5 @@ export_to_postgre_button.place(x=290, y=320)
 
 create_tables()
 create_some_data()
-show()
+#show()
 root.mainloop()
