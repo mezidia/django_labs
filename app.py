@@ -54,7 +54,7 @@ def insert_route():
             price=price,
             car=car
         )
-        result = route.create()
+        result = route.save()
         if result:
             entries['route_name'].delete(0, 'end')
             entries['place_from'].delete(0, 'end')
@@ -241,14 +241,15 @@ def get_route():
     route_name = entries['route_name'].get()
     if route_name:
         route = Route.get(Route.name == route_name)
+        print(route.place_from.__dict__)
         if route:
             message = f"""
-                Id: {route[0][0]}
-                Name: {route[0][1]}
-                From: {route[0][2]}
-                To: {route[0][3]}
-                Price: {route[0][4]}
-                Car ID: {route[0][5]}
+                Id: {route.id}
+                Name: {route.name}
+                From: {route.place_from.name}
+                To: {route.place_to.name}
+                Price: {route.price}
+                Car ID: {route.car}
                 """
             entries['route_name'].delete(0, 'end')
             message_box.showinfo('Fetch Status', message)
@@ -500,10 +501,10 @@ def create_some_data():
             cars, places = Car.select(), Place.select()
 
             routes_values=[
-            {'name':'Kyiv-Odesa', 'place_from':places[0].id, 'place_to':places[1].id, 'price':23.32, 'car':cars[0].id},
-            {'name':'Odesa-Alushta', 'place_from':places[1].id, 'place_to':places[2].id, 'price':137.0, 'car':cars[2].id},
-            {'name':'Alushta-Kyiv', 'place_from':places[2].id, 'place_to':places[0].id, 'price':100.0, 'car':cars[1].id},
-            {'name':'Vinnytsia-Alushta', 'place_from':places[3].id, 'place_to':places[2].id, 'price':87.0, 'car':cars[1].id}
+            {'name':'Kyiv-Odesa', 'place_from':places[0].name, 'place_to':places[1].name, 'price':23.32, 'car':cars[0].id},
+            {'name':'Odesa-Alushta', 'place_from':places[1].name, 'place_to':places[2].name, 'price':137.0, 'car':cars[2].id},
+            {'name':'Alushta-Kyiv', 'place_from':places[2].name, 'place_to':places[0].name, 'price':100.0, 'car':cars[1].id},
+            {'name':'Vinnytsia-Alushta', 'place_from':places[3].name, 'place_to':places[2].name, 'price':87.0, 'car':cars[1].id}
             ]
             Route.insert_many(routes_values).execute()
 

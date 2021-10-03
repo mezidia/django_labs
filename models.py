@@ -15,7 +15,7 @@ class User(Model):
 
 class BaseModel(Model):
     id = PrimaryKeyField(unique=True)
-    name = CharField()
+    name = CharField(unique=True)
 
     class Meta:
         database=database_proxy
@@ -33,10 +33,10 @@ class Place(BaseModel):
 
 
 class Route(BaseModel):
-    place_from = ForeignKeyField(Place)
-    place_to = ForeignKeyField(Place)
+    place_from = ForeignKeyField(Place, field='name')
+    place_to = ForeignKeyField(Place, field='name')
     price = FloatField()
-    car = ForeignKeyField(Car)
+    car = ForeignKeyField(Car, field='id')
 
     class Meta:
         db_table='routes'
