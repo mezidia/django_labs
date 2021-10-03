@@ -1,4 +1,3 @@
-from operator import pos
 from peewee import Model, CharField, PrimaryKeyField, IntegerField, ForeignKeyField, FloatField
 from peewee import Proxy
 
@@ -33,10 +32,10 @@ class Place(BaseModel):
 
 
 class Route(BaseModel):
-    place_from = ForeignKeyField(Place, field='name')
-    place_to = ForeignKeyField(Place, field='name')
+    place_from = ForeignKeyField(Place, field='name', on_delete='CASCADE')
+    place_to = ForeignKeyField(Place, field='name', on_delete='CASCADE')
     price = FloatField()
-    car = ForeignKeyField(Car, field='id')
+    car = ForeignKeyField(Car, field='id', on_delete='CASCADE')
 
     class Meta:
         db_table='routes'

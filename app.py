@@ -1,3 +1,4 @@
+from operator import pos
 from tkinter import Tk, Label, Entry, Button, Listbox
 import tkinter.messagebox as message_box
 from mysql_api import config as ms_config
@@ -12,7 +13,7 @@ from sqlite_api.connector import SQLite
 from postgresql_api.connector import PostgreSQL
 
 from models import Route, Car, Place, database_proxy
-from peewee import MySQLDatabase, PostgresqlDatabase, SqliteDatabase
+from peewee import MySQLDatabase, PostgresqlDatabase, SqliteDatabase, DatabaseError
 
 
 mysql_database = MySQLDatabase(
@@ -421,20 +422,32 @@ def export_to_sqlite():
     Function for exporting data from MySQL to SQLite databases
     :return: MessageBox call
     """
-    mysql_database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-    path_to_database = './sqlite3.db'
-    sqlite_database = SQLite(path_to_database)
     try:
-        sqlite_database.clear_table('routes')  # Route.delete()
-        sqlite_database.clear_table('cars')
-        sqlite_database.clear_table('places')
-        data = Route.select()
-        sqlite_database.insert('routes', ('id', 'name', 'place_from', 'place_to', 'price', 'car'), data) #  Route.insert_many()
-        data = mysql_database.get('SELECT * from cars')
-        sqlite_database.insert('cars', ('id', 'name'), data)
-        data = mysql_database.get('SELECT * from places')
-        sqlite_database.insert('places', ('id', 'name'), data)
-    except (SQLite_Error, MySQL_Error):
+        database_proxy.initialize(mysql_database)
+        routes = Route.select()
+        cars = Car.select()
+        places = Place.select()
+        print(len(places))
+        print(len(routes))
+        print(len(cars))
+        database_proxy.initialize(sqlite_database)
+        print(len(places))
+        print(len(routes))
+        print(len(cars))
+        Route.delete()
+        Car.delete()
+        Place.delete()
+        for place in places:
+            print(place.__dict__)
+            place.save()
+            Place.insert(place)
+        for car in cars:
+            print(car.__dict__)
+            Car.insert(car)
+        for route in routes:
+            print(route.__dict__)
+            Route.insert(route)
+    except (DatabaseError):
         message_box.showerror('Exporting Status', 'Error was occurred while exporting')
     message_box.showinfo('Exporting Status', 'Export from MySQL to SQLite was successful')
 
