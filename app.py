@@ -11,7 +11,8 @@ from mysql_api.connector import MySQL
 from sqlite_api.connector import SQLite
 from postgresql_api.connector import PostgreSQL
 
-from models import Route, Car, Place
+from models import Route, Car, Place, database_proxy
+from peewee import MySQLDatabase, PostgresqlDatabase, SqliteDatabase
 
 
 def insert_route():
@@ -446,58 +447,33 @@ def create_tables():
     Function for creating tables in all three databases
     :return: nothing to return
     """
-    # from models import create_tables()
-    # mysql_database = MySQL(ms_config.host, ms_config.user, ms_config.password, ms_config.db_name)
-    # postgresql_database = PostgreSQL(ps_config.host, ps_config.user, ps_config.password, ps_config.db_name)
-    # path_to_database = './sqlite3.db'
-    # sqlite_database = SQLite(path_to_database)
-    # cars_fields = [
-    #     'id INT AUTO_INCREMENT PRIMARY KEY',
-    #     'name VARCHAR(45) NOT NULL'
-    # ]
-    # place_fields = [
-    #     'id INT AUTO_INCREMENT PRIMARY KEY',
-    #     'name VARCHAR(45) NOT NULL UNIQUE',
-    # ]
-    # routes_fields = [
-    #     'id INT AUTO_INCREMENT PRIMARY KEY',
-    #     'name VARCHAR(45) NOT NULL',
-    #     'place_from VARCHAR(45) NOT NULL',
-    #     'place_to VARCHAR(45) NOT NULL',
-    #     'price FLOAT NOT NULL',
-    #     'car INT NOT NULL',
-    #     'FOREIGN KEY(car) REFERENCES cars(id) ON DELETE CASCADE',
-    #     'FOREIGN KEY(place_to) REFERENCES places(name) ON DELETE CASCADE',
-    #     'FOREIGN KEY(place_from) REFERENCES places(name) ON DELETE CASCADE'
-    # ]
-    # ps_cars_fields = [
-    #     'id SERIAL PRIMARY KEY UNIQUE',
-    #     'name VARCHAR(45) NOT NULL'
-    # ]
-    # ps_place_fields = [
-    #     'id SERIAL',
-    #     'name VARCHAR(45) NOT NULL UNIQUE'
-    # ]
-    # ps_routes_fields = [
-    #     'id SERIAL PRIMARY KEY',
-    #     'name VARCHAR(45) NOT NULL',
-    #     'place_from VARCHAR(45) NOT NULL',
-    #     'place_to VARCHAR(45) NOT NULL',
-    #     'price FLOAT NOT NULL',
-    #     'car SERIAL',
-    #     'FOREIGN KEY (car) REFERENCES cars (id) ON DELETE CASCADE',
-    #     'FOREIGN KEY (place_to) REFERENCES places(name) ON DELETE CASCADE',
-    #     'FOREIGN KEY (place_from) REFERENCES places(name) ON DELETE CASCADE'
-    # ]
-    # mysql_database.create_table('places', place_fields)
-    # mysql_database.create_table('cars', cars_fields)
-    # mysql_database.create_table('routes', routes_fields)
-    # postgresql_database.create_table('cars', ps_cars_fields)
-    # postgresql_database.create_table('places', ps_place_fields)
-    # postgresql_database.create_table('routes', ps_routes_fields)
-    # sqlite_database.create_table('places', place_fields)
-    # sqlite_database.create_table('cars', cars_fields)
-    # sqlite_database.create_table('routes', routes_fields)
+    mysql_database = MySQLDatabase(
+        ms_config.db_name,
+        host=ms_config.host,
+        port=3306,
+        user=ms_config.user,
+        password=ms_config.password
+    )
+
+    path_to_database = './sqlite3.db'
+    sqlite_database = SqliteDatabase(path_to_database)
+
+    postgresql_database = PostgresqlDatabase(
+        ps_config.db_name,
+        host=ps_config.host,
+        port=5432,
+        user=ps_config.user,
+        password=ps_config.password
+    )
+
+    database_proxy.initialize(mysql_database)
+    database_proxy.create_tables([Car, Place, Route])
+
+    database_proxy.initialize(sqlite_database)
+    database_proxy.create_tables([Car, Place, Route])
+
+    database_proxy.initialize(postgresql_database)
+    database_proxy.create_tables([Car, Place, Route])
 
 
 export_to_sqlite_button = Button(root, text='Export from MySQL to SQLite', font=('italic', 10), bg='white',
