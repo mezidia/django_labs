@@ -268,8 +268,8 @@ def get_car():
         car = Car.get(Car.id == car_id)
         if car:
             message = f"""
-                Car ID: {car[0][0]}
-                Name: {car[0][1]}
+                Car ID: {car.id}
+                Name: {car.name}
                 """
             entries['car_id'].delete(0, 'end')
             message_box.showinfo('Fetch Status', message)
@@ -289,8 +289,8 @@ def get_place():
         place = Place.get(Place.name == place_name)
         if place:
             message = f"""
-                Place ID: {place[0][0]}
-                Name: {place[0][1]}
+                Place ID: {place.id}
+                Name: {place.name}
                 """
             entries['place_name'].delete(0, 'end')
             message_box.showinfo('Fetch Status', message)
