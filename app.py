@@ -423,33 +423,59 @@ def export_to_sqlite():
     :return: MessageBox call
     """
     try:
+        # database_proxy.initialize(mysql_database)
+        # routes = Route.select()
+        # route1 = routes[0].__dict__['__data__']
+        # print(route1)
+        # database_proxy.initialize(sqlite_database)
+        # #routes1 = Route.insert_from
+        # # for route in routes:
+        # #     print(route.__dict__['__data__']['name'])
+        # Route.insert(route1).execute()
+
         database_proxy.initialize(mysql_database)
         routes = Route.select()
         cars = Car.select()
         places = Place.select()
-        print(len(places))
-        print(len(routes))
-        print(len(cars))
+
+        route = []
+        car = []
+        place = []
+
+        for i in range(len(routes)):
+            route.append(routes[i].__dict__['__data__'])
+        print(route)
+        for i in range(len(cars)):
+            car.append(cars[i].__dict__['__data__'])
+        print(car)
+        for i in range(len(places)):
+            place.append(places[i].__dict__['__data__'])
+        print(place)
+
         database_proxy.initialize(sqlite_database)
-        print(len(places))
-        print(len(routes))
-        print(len(cars))
-        Route.delete()
-        Car.delete()
-        Place.delete()
-        for place in places:
-            print(place.__dict__)
-            place.save()
-            Place.insert(place)
-        for car in cars:
-            print(car.__dict__)
-            Car.insert(car)
-        for route in routes:
-            print(route.__dict__)
-            Route.insert(route)
-    except (DatabaseError):
-        message_box.showerror('Exporting Status', 'Error was occurred while exporting')
-    message_box.showinfo('Exporting Status', 'Export from MySQL to SQLite was successful')
+        Route.drop_table()
+        Car.drop_table()
+        Place.drop_table()
+        database_proxy.create_tables([Car, Place, Route])
+
+        # for place in places:
+        #     place_1 = place.__dict__['__data__']
+        #     print(place_1)
+        #     Place.insert(place_1).execute()
+        # for car in cars:
+        #     car_1 = car.__dict__['__data__']
+        #     print(car_1)
+        #     Car.insert(car_1).execute()
+        for r in route:
+            Route.insert(r).execute()
+        for c in car:
+            Car.insert(c).execute()
+        for p in place:
+            Place.insert(p).execute()
+    except (DatabaseError) as e:
+        print(e)
+        return message_box.showerror('Exporting Status', 'Error was occurred while exporting')
+    return message_box.showinfo('Exporting Status', 'Export from MySQL to SQLite was successful')
 
 
 def export_to_postgresql():
