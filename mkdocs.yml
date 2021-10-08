@@ -35,4 +35,6 @@ repo_url: https://github.com/mezidia/medivac
 markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences
-
+extra:
+  version:
+    provider: mike
