@@ -3,6 +3,7 @@ from peewee import Proxy
 
 database_proxy = Proxy()
 
+
 # It is for an example
 class User(Model):
     id = PrimaryKeyField(unique=True)
@@ -17,18 +18,18 @@ class BaseModel(Model):
     name = CharField(unique=True)
 
     class Meta:
-        database=database_proxy
-        order_by='id'
+        database = database_proxy
+        order_by = 'id'
 
 
 class Car(BaseModel):
     class Meta:
-        db_table='cars'
+        db_table = 'cars'
 
 
 class Place(BaseModel):
     class Meta:
-        db_table='places'
+        db_table = 'places'
 
 
 class Route(BaseModel):
@@ -38,4 +39,4 @@ class Route(BaseModel):
     car = ForeignKeyField(Car, field='id', on_delete='CASCADE')
 
     class Meta:
-        db_table='routes'
+        db_table = 'routes'
