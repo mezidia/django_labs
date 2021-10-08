@@ -9,14 +9,14 @@
       
       
       
-        <link rel="canonical" href="https://example.com/postgresql/">
+        <link rel="canonical" href="https://example.com/models/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
     
     
       
-        <title>PostgreSQL - Autostation</title>
+        <title>Models - Autostation</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#postgresql" class="md-skip">
+        <a href="#overview" class="md-skip">
           Skip to content
         </a>
       
@@ -99,7 +99,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              PostgreSQL
+              Models
             
           </span>
         </div>
@@ -292,6 +292,21 @@
 
   
   
+  
+    <li class="md-nav__item">
+      <a href="../postgresql/" class="md-nav__link">
+        PostgreSQL
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
     
   
   
@@ -300,24 +315,20 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          PostgreSQL
+          Models
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        PostgreSQL
+        Models
       </a>
       
         
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
-  
-    
   
   
     <label class="md-nav__title" for="__toc">
@@ -334,15 +345,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#connector" class="md-nav__link">
-    Connector
+  <a href="#models" class="md-nav__link">
+    Models
   </a>
+  
+    <nav class="md-nav" aria-label="Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basemodel" class="md-nav__link">
+    BaseModel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#car" class="md-nav__link">
+    Car
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#place" class="md-nav__link">
+    Place
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#route" class="md-nav__link">
+    Route
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
+  <a href="#code-logic" class="md-nav__link">
+    Code logic
   </a>
   
 </li>
@@ -351,21 +396,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../models/" class="md-nav__link">
-        Models
-      </a>
     </li>
   
 
@@ -386,8 +416,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -403,15 +431,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#connector" class="md-nav__link">
-    Connector
+  <a href="#models" class="md-nav__link">
+    Models
   </a>
+  
+    <nav class="md-nav" aria-label="Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basemodel" class="md-nav__link">
+    BaseModel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#car" class="md-nav__link">
+    Car
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#place" class="md-nav__link">
+    Place
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#route" class="md-nav__link">
+    Route
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    Example
+  <a href="#code-logic" class="md-nav__link">
+    Code logic
   </a>
   
 </li>
@@ -428,66 +490,106 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/mezidia/medivac/edit/master/docs/postgresql.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/mezidia/medivac/edit/master/docs/models.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="postgresql">PostgreSQL</h1>
-<h2 id="overview">Overview</h2>
-<p>PostgreSQL is a powerful, open source object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance.</p>
-<h2 id="connector">Connector</h2>
-<p>We developed our <a href="https://github.com/mezidia/medivac/blob/main/postgresql_api/connector.py">class</a> to make a work with
-database easier. Constructor of the class has a path to database as a variable.</p>
-<p>There are several main methods:</p>
+                  <h1>Models</h1>
+                
+                <h2 id="overview">Overview</h2>
+<p>In case we are using <em>peewee</em>, we have created models which are common for all database.</p>
+<h2 id="models">Models</h2>
+<p>Here you can see all models, which we have created:</p>
 <ul>
-<li><a href="https://github.com/mezidia/medivac/blob/main/postgresql_api/connector.py#L28-L59">create_table</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/postgresql_api/connector.py#L61-L93">insert</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/postgresql_api/connector.py#L95-L112">get</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/postgresql_api/connector.py#L114-L134">update</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/postgresql_api/connector.py#L136-L155">delete</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/postgresql_api/connector.py#L157-L163">clear_table</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/postgresql_api/connector.py#L165-L169">close</a></li>
+<li>
+<h3 id="basemodel">BaseModel</h3>
+</li>
 </ul>
-<p>All these methods has docstrings, so you can read what they do and which parameters takes.</p>
-<h2 id="example">Example</h2>
-<p>There is <a href="https://github.com/mezidia/medivac/blob/main/postgresql_api/example.py">example file</a>,
-but you can also view the code below:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">postgresql_api.connector</span> <span class="kn">import</span> <span class="n">PostgreSQL</span>
-<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">host</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">db_name</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">BaseModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">PrimaryKeyField</span><span class="p">(</span><span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">(</span><span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">database</span> <span class="o">=</span> <span class="n">PostgreSQL</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">db_name</span><span class="p">)</span>
-
-<span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">create_table</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="s1">&#39;id INT AUTO_INCREMENT PRIMARY KEY&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;name VARCHAR(45) NOT NULL&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;age INT&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;gender VARCHAR(45)&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;nationality VARCHAR(45)&#39;</span>
-<span class="p">])</span>
-
-<span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;(name, age, gender, nationality)&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s1">&#39;James&#39;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;USA&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;Leila&#39;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">,</span> <span class="s1">&#39;France&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;Brigitte&#39;</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">,</span> <span class="s1">&#39;England&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;Mike&#39;</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;Denmark&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;Elizabeth&#39;</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">,</span> <span class="s1">&#39;Canada&#39;</span><span class="p">)</span>
-<span class="p">])</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;SELECT * from users&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Expected output:</span>
-
-<span class="sd">[(&#39;Leila&#39;, 32, &#39;female&#39;, &#39;France&#39;)]</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s2">&quot;name = &#39;Valentyn&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;id = 2&#39;</span><span class="p">)</span>
-
-<span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;id = 5&#39;</span><span class="p">)</span>
-
-<span class="n">database</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">database</span> <span class="o">=</span> <span class="n">database_proxy</span>
+        <span class="n">order_by</span> <span class="o">=</span> <span class="s1">&#39;id&#39;</span>
 </code></pre></div>
+<ul>
+<li>
+<h3 id="car">Car</h3>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Car</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s1">&#39;cars&#39;</span>
+</code></pre></div>
+<ul>
+<li>
+<h3 id="place">Place</h3>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Place</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s1">&#39;places&#39;</span>
+</code></pre></div>
+<ul>
+<li>
+<h3 id="route">Route</h3>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Route</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">place_from</span> <span class="o">=</span> <span class="n">ForeignKeyField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="s1">&#39;CASCADE&#39;</span><span class="p">)</span>
+    <span class="n">place_to</span> <span class="o">=</span> <span class="n">ForeignKeyField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="s1">&#39;CASCADE&#39;</span><span class="p">)</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">FloatField</span><span class="p">()</span>
+    <span class="n">car</span> <span class="o">=</span> <span class="n">ForeignKeyField</span><span class="p">(</span><span class="n">Car</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="s1">&#39;CASCADE&#39;</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">db_table</span> <span class="o">=</span> <span class="s1">&#39;routes&#39;</span>
+</code></pre></div>
+<h2 id="code-logic">Code logic</h2>
+<p><strong>BaseModel</strong> has common fields and class <em>Meta</em> and other models inheritance from it.</p>
+<p>Then in the <a href="https://github.com/mezidia/medivac/blob/main/app.py">app.py</a> we connect to all databases:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">mysql_api</span> <span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">ms_config</span>
+<span class="kn">from</span> <span class="nn">postgresql_api</span> <span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">ps_config</span>
+
+<span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Route</span><span class="p">,</span> <span class="n">Car</span><span class="p">,</span> <span class="n">Place</span><span class="p">,</span> <span class="n">database_proxy</span>
+<span class="kn">from</span> <span class="nn">peewee</span> <span class="kn">import</span> <span class="n">MySQLDatabase</span><span class="p">,</span> <span class="n">PostgresqlDatabase</span><span class="p">,</span> <span class="n">SqliteDatabase</span><span class="p">,</span> <span class="n">DatabaseError</span>
+
+<span class="n">mysql_database</span> <span class="o">=</span> <span class="n">MySQLDatabase</span><span class="p">(</span>
+    <span class="n">ms_config</span><span class="o">.</span><span class="n">db_name</span><span class="p">,</span>
+    <span class="n">host</span><span class="o">=</span><span class="n">ms_config</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">3306</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">ms_config</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="n">ms_config</span><span class="o">.</span><span class="n">password</span>
+<span class="p">)</span>
+
+<span class="n">path_to_database</span> <span class="o">=</span> <span class="s1">&#39;./sqlite3.db&#39;</span>
+<span class="n">sqlite_database</span> <span class="o">=</span> <span class="n">SqliteDatabase</span><span class="p">(</span><span class="n">path_to_database</span><span class="p">)</span>
+
+<span class="n">postgresql_database</span> <span class="o">=</span> <span class="n">PostgresqlDatabase</span><span class="p">(</span>
+    <span class="n">ps_config</span><span class="o">.</span><span class="n">db_name</span><span class="p">,</span>
+    <span class="n">host</span><span class="o">=</span><span class="n">ps_config</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">5432</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="n">ps_config</span><span class="o">.</span><span class="n">user</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="n">ps_config</span><span class="o">.</span><span class="n">password</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Next step is creating the tables:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">create_tables</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function for creating tables in all three databases</span>
+<span class="sd">    :return: nothing to return</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">database_proxy</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">mysql_database</span><span class="p">)</span>
+    <span class="n">database_proxy</span><span class="o">.</span><span class="n">create_tables</span><span class="p">([</span><span class="n">Car</span><span class="p">,</span> <span class="n">Place</span><span class="p">,</span> <span class="n">Route</span><span class="p">])</span>
+
+    <span class="n">database_proxy</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">sqlite_database</span><span class="p">)</span>
+    <span class="n">database_proxy</span><span class="o">.</span><span class="n">create_tables</span><span class="p">([</span><span class="n">Car</span><span class="p">,</span> <span class="n">Place</span><span class="p">,</span> <span class="n">Route</span><span class="p">])</span>
+
+    <span class="n">database_proxy</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">postgresql_database</span><span class="p">)</span>
+    <span class="n">database_proxy</span><span class="o">.</span><span class="n">create_tables</span><span class="p">([</span><span class="n">Car</span><span class="p">,</span> <span class="n">Place</span><span class="p">,</span> <span class="n">Route</span><span class="p">])</span>
+</code></pre></div>
+<p>And that's all. When we need, we just call <code>database_proxy.initialize(needed_database)</code>.</p>
                 
               
               
@@ -512,7 +614,7 @@ but you can also view the code below:</p>
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../sqlite/" class="md-footer__link md-footer__link--prev" aria-label="Previous: SQLite" rel="prev">
+        <a href="../postgresql/" class="md-footer__link md-footer__link--prev" aria-label="Previous: PostgreSQL" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -521,26 +623,11 @@ but you can also view the code below:</p>
               <span class="md-footer__direction">
                 Previous
               </span>
-              SQLite
+              PostgreSQL
             </div>
           </div>
         </a>
       
-      
-        
-        <a href="../models/" class="md-footer__link md-footer__link--next" aria-label="Next: Models" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Models
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
       
     </nav>
   
