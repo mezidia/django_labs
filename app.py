@@ -1,16 +1,7 @@
-from operator import pos
 from tkinter import Tk, Label, Entry, Button, Listbox
 import tkinter.messagebox as message_box
 from mysql_api import config as ms_config
 from postgresql_api import config as ps_config
-
-from sqlite3 import Error as SQLite_Error
-from mysql.connector import Error as MySQL_Error
-from psycopg2 import Error as Postgre_Error
-
-from mysql_api.connector import MySQL
-from sqlite_api.connector import SQLite
-from postgresql_api.connector import PostgreSQL
 
 from models import Route, Car, Place, database_proxy
 from peewee import MySQLDatabase, PostgresqlDatabase, SqliteDatabase, DatabaseError
@@ -490,7 +481,14 @@ def export_to_postgresql():
     return message_box.showinfo('Exporting Status', 'Export from SQLite to PostgreSQL was successful')
 
 
-def append_data(cars, places, routes):
+def append_data(cars: list, places: list, routes: list) -> None:
+    """
+    Common function for exporting data
+    :param cars:
+    :param places:
+    :param routes:
+    :return: nothing to return
+    """
     for c in cars:
         Car.insert(c).execute()
     for p in places:
@@ -516,6 +514,9 @@ def create_tables():
 
 
 def create_some_data():
+    """
+    Function for create start data
+    """
     database_proxy.initialize(mysql_database)
     with database_proxy:
         cars, places, routes = Car.select(), Place.select(), Route.select()
