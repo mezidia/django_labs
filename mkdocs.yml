@@ -6,6 +6,7 @@ nav:
     - MySQL: mysql.md
     - SQLite: sqlite.md
     - PostgreSQL: postgresql.md
+    - Models: models.md
 theme:
     name: material
     palette:
