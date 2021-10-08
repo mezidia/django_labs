@@ -423,16 +423,6 @@ def export_to_sqlite():
     :return: MessageBox call
     """
     try:
-        # database_proxy.initialize(mysql_database)
-        # routes = Route.select()
-        # route1 = routes[0].__dict__['__data__']
-        # print(route1)
-        # database_proxy.initialize(sqlite_database)
-        # #routes1 = Route.insert_from
-        # # for route in routes:
-        # #     print(route.__dict__['__data__']['name'])
-        # Route.insert(route1).execute()
-
         database_proxy.initialize(mysql_database)
         routes = Route.select()
         cars = Car.select()
@@ -444,13 +434,10 @@ def export_to_sqlite():
 
         for i in range(len(routes)):
             route.append(routes[i].__dict__['__data__'])
-        print(route)
         for i in range(len(cars)):
             car.append(cars[i].__dict__['__data__'])
-        print(car)
         for i in range(len(places)):
             place.append(places[i].__dict__['__data__'])
-        print(place)
 
         database_proxy.initialize(sqlite_database)
         Route.drop_table()
@@ -458,20 +445,9 @@ def export_to_sqlite():
         Place.drop_table()
         database_proxy.create_tables([Car, Place, Route])
 
-        # for place in places:
-        #     place_1 = place.__dict__['__data__']
-        #     print(place_1)
-        #     Place.insert(place_1).execute()
-        # for car in cars:
-        #     car_1 = car.__dict__['__data__']
-        #     print(car_1)
-        #     Car.insert(car_1).execute()
-        for r in route:
-            Route.insert(r).execute()
-        for c in car:
-            Car.insert(c).execute()
-        for p in place:
-            Place.insert(p).execute()
+        append_data(car, place, route)
+
+        database_proxy.initialize(mysql_database)
     except (DatabaseError) as e:
         print(e)
         return message_box.showerror('Exporting Status', 'Error was occurred while exporting')
@@ -483,22 +459,47 @@ def export_to_postgresql():
     Function for exporting data from SQLite to PostgreSQL databases
     :return: MessageBox call
     """
-    path_to_database = './sqlite3.db'
-    sqlite_database = SQLite(path_to_database)
-    postgresql_database = PostgreSQL(ps_config.host, ps_config.user, ps_config.password, ps_config.db_name)
     try:
-        postgresql_database.clear_table('routes')
-        postgresql_database.clear_table('cars')
-        postgresql_database.clear_table('places')
-        data = sqlite_database.get('SELECT * from cars')
-        postgresql_database.insert('cars', '(id, name)', data)
-        data = sqlite_database.get('SELECT * from places')
-        postgresql_database.insert('places', '(id, name)', data)
-        data = sqlite_database.get('SELECT * from routes')
-        postgresql_database.insert('routes', '(id, name, place_from, place_to, price, car)', data)
-    except (SQLite_Error, Postgre_Error):
-        message_box.showerror('Exporting Status', 'Error was occurred while exporting')
-    message_box.showinfo('Exporting Status', 'Export from SQLite to PostgreSQL was successful')
+        database_proxy.initialize(sqlite_database)
+        routes = Route.select()
+        cars = Car.select()
+        places = Place.select()
+
+        route = []
+        car = []
+        place = []
+
+        for i in range(len(routes)):
+            route.append(routes[i].__dict__['__data__'])
+        for i in range(len(cars)):
+            car.append(cars[i].__dict__['__data__'])
+        for i in range(len(places)):
+            place.append(places[i].__dict__['__data__'])
+
+        database_proxy.initialize(postgresql_database)
+        Route.drop_table()
+        Car.drop_table()
+        Place.drop_table()
+        database_proxy.create_tables([Car, Place, Route])
+
+        append_data(car, place, route)
+
+        database_proxy.initialize(mysql_database)
+    except (DatabaseError) as e:
+        print(e)
+        return message_box.showerror('Exporting Status', 'Error was occurred while exporting')
+    return message_box.showinfo('Exporting Status', 'Export from SQLite to PostgreSQL was successful')
+
+
+def append_data(cars, places, routes):
+    for c in cars:
+        Car.insert(c).execute()
+    for p in places:
+        Place.insert(p).execute()
+    for r in routes:
+        Route.insert(r).execute()
+    return
+
 
 
 def create_tables():
