@@ -1,29 +1,12 @@
 from tkinter import Tk, Label, Entry, Button, Listbox
 import tkinter.messagebox as message_box
-from mysql_api import config as ms_config
-from postgresql_api import config as ps_config
+from database import Client
 
-from models import Route, Car, Place, database_proxy
-from peewee import MySQLDatabase, PostgresqlDatabase, SqliteDatabase, DatabaseError
+import os
 
-mysql_database = MySQLDatabase(
-    ms_config.db_name,
-    host=ms_config.host,
-    port=3306,
-    user=ms_config.user,
-    password=ms_config.password
-)
-
-path_to_database = './sqlite3.db'
-sqlite_database = SqliteDatabase(path_to_database)
-
-postgresql_database = PostgresqlDatabase(
-    ps_config.db_name,
-    host=ps_config.host,
-    port=5432,
-    user=ps_config.user,
-    password=ps_config.password
-)
+routes_client = Client(os.getenv('DB_PASS', 'password'), 'medivac', 'routes')
+cars_client = Client(os.getenv('DB_PASS', 'password'), 'medivac', 'cars')
+places_client = Client(os.getenv('DB_PASS', 'password'), 'medivac', 'places')
 
 
 def insert_route():
@@ -35,23 +18,23 @@ def insert_route():
     place_from = entries['place_from'].get()
     place_to = entries['place_to'].get()
     price = entries['price'].get()
-    car = entries['car_id'].get()
+    car = entries['car_name'].get()
 
     if all(entries.values()):
-        route = Route(
-            name=route_name,
-            place_from=place_from,
-            place_to=place_to,
-            price=price,
-            car=car
-        )
-        result = route.save()
+        route = {
+            'name': route_name,
+            'place_from': place_from,
+            'place_to': place_to,
+            'price': price,
+            'car': car
+        }
+        result = routes_client.insert(route)
         if result:
             entries['route_name'].delete(0, 'end')
             entries['place_from'].delete(0, 'end')
             entries['place_to'].delete(0, 'end')
             entries['price'].delete(0, 'end')
-            entries['car_id'].delete(0, 'end')
+            entries['car_name'].delete(0, 'end')
             show()
             message_box.showinfo('Insert Status', 'Inserted successfully')
         else:
@@ -66,12 +49,9 @@ def insert_car():
     :return: MessageBox call
     """
     car_name = entries['car_name'].get()
-
     if car_name:
-        car = Car(
-            name=car_name
-        )
-        result = Car(name=car_name).save()
+        car = {'name': car_name}
+        result = cars_client.insert(car)
         if result:
             entries['car_name'].delete(0, 'end')
             show()
@@ -88,12 +68,9 @@ def insert_place():
     :return: MessageBox call
     """
     place_name = entries['place_name'].get()
-
     if place_name:
-        place = Place(
-            name=place_name
-        )
-        result = Place(name=place_name).save()
+        place = {'name': place_name}
+        result = places_client.insert(place)
         if result:
             entries['place_name'].delete(0, 'end')
             show()
@@ -111,8 +88,7 @@ def delete_route():
     """
     route_name = entries['route_name'].get()
     if route_name:
-        route = Route.get(Route.name == route_name)
-        result = route.delete_instance()
+        result = routes_client.delete({'name': route_name})
         if result:
             entries['route_name'].delete(0, 'end')
             show()
@@ -128,12 +104,11 @@ def delete_car():
     Function for deleting a row in 'cars' table
     :return: MessageBox call
     """
-    car_id = entries['car_id'].get()
-    if car_id:
-        car = Car.get(Car.id == car_id)
-        result = car.delete_instance()
+    car_name = entries['car_name'].get()
+    if car_name:
+        result = cars_client.delete({'name': car_name})
         if result:
-            entries['car_id'].delete(0, 'end')
+            entries['car_name'].delete(0, 'end')
             show()
             message_box.showinfo('Delete Status', 'Deleted successfully')
         else:
@@ -149,8 +124,7 @@ def delete_place():
     """
     place_name = entries['place_name'].get()
     if place_name:
-        place = Place.get(Place.name == place_name)
-        result = place.delete_instance()
+        result = places_client.delete({'name': place_name})
         if result:
             entries['place_name'].delete(0, 'end')
             show()
@@ -170,21 +144,20 @@ def update_route():
     place_from = entries['place_from'].get()
     place_to = entries['place_to'].get()
     price = entries['price'].get()
-    car = entries['car_id'].get()
-
+    car = entries['car_name'].get()
     if all(entries.values()):
-        route = Route.get(Route.name == route_name)
-        route.place_from = place_from
-        route.place_to = place_to
-        route.price = price
-        route.car = car
-        result = route.save()
+        result = routes_client.update({'name': route_name}, {
+            'place_from': place_from,
+            'place_to': place_to,
+            'price': price,
+            'car': car,
+        })
         if result:
             entries['route_name'].delete(0, 'end')
             entries['place_from'].delete(0, 'end')
             entries['place_to'].delete(0, 'end')
             entries['price'].delete(0, 'end')
-            entries['car_id'].delete(0, 'end')
+            entries['car_name'].delete(0, 'end')
             show()
             message_box.showinfo('Update Status', 'Updated successfully')
         else:
@@ -198,22 +171,7 @@ def update_car():
     Function for updating a row in 'cars' table
     :return: MessageBox call
     """
-    car_id = entries['car_id'].get()
-    car_name = entries['car_name'].get()
-
-    if car_id != '' and car_name != '':
-        car = Car.get(Car.id == car_id)
-        car.name = car_name
-        result = car.save()
-        if result:
-            entries['car_id'].delete(0, 'end')
-            entries['car_name'].delete(0, 'end')
-            show()
-            message_box.showinfo('Update Status', 'Updated successfully')
-        else:
-            message_box.showerror('Update Status', 'An error occurred while updating')
-    else:
-        message_box.showerror('Update Status', 'All fields are required')
+    message_box.showinfo('Update Status', 'Place can not be updated')
 
 
 def update_place():
@@ -231,16 +189,14 @@ def get_route():
     """
     route_name = entries['route_name'].get()
     if route_name:
-        route = Route.get(Route.name == route_name)
-        print(route.place_from.__dict__)
+        route = routes_client.get({'name': route_name})
         if route:
             message = f"""
-                Id: {route.id}
-                Name: {route.name}
-                From: {route.place_from.name}
-                To: {route.place_to.name}
-                Price: {route.price}
-                Car ID: {route.car}
+                Name: {route.get('name')}
+                From: {route.get('place_from')}
+                To: {route.get('place_to')}
+                Price: {route.get('price')}
+                Car ID: {route.get('car')}
                 """
             entries['route_name'].delete(0, 'end')
             message_box.showinfo('Fetch Status', message)
@@ -255,15 +211,14 @@ def get_car():
     Function for getting a row from 'cars' table
     :return: MessageBox call
     """
-    car_id = entries['car_id'].get()
-    if car_id:
-        car = Car.get(Car.id == car_id)
+    car_name = entries['car_name'].get()
+    if car_name:
+        car = cars_client.get({'name': car_name})
         if car:
             message = f"""
-                Car ID: {car.id}
-                Name: {car.name}
+                Name: {car.get('name')}
                 """
-            entries['car_id'].delete(0, 'end')
+            entries['car_name'].delete(0, 'end')
             message_box.showinfo('Fetch Status', message)
         else:
             message_box.showerror('Fetch Status', 'Car with this name is not in the table')
@@ -278,11 +233,10 @@ def get_place():
     """
     place_name = entries['place_name'].get()
     if place_name:
-        place = Place.get(Place.name == place_name)
+        place = places_client.get({'name': place_name})
         if place:
             message = f"""
-                Place ID: {place.id}
-                Name: {place.name}
+                Name: {place.get('name')}
                 """
             entries['place_name'].delete(0, 'end')
             message_box.showinfo('Fetch Status', message)
@@ -297,20 +251,20 @@ def show():
     Function for filling the listboxes with the data from database
     :return: nothing to return
     """
-    routes = Route.select()
-    cars = Car.select()
-    places = Place.select()
+    routes = routes_client.get_all()
+    cars = cars_client.get_all()
+    places = places_client.get_all()
     routes_list.delete(0, routes_list.size())
     cars_list.delete(0, cars_list.size())
     places_list.delete(0, places_list.size())
     for route in routes:
-        insert_data = str(route.id) + ' ' * 10 + str(route.name)
+        insert_data = route.get('name')
         routes_list.insert(routes_list.size() + 1, insert_data)
     for car in cars:
-        insert_data = str(car.id) + ' ' * 10 + str(car.name)
+        insert_data = car.get('name')
         cars_list.insert(cars_list.size() + 1, insert_data)
     for place in places:
-        insert_data = str(place.id) + ' ' * 10 + str(place.name)
+        insert_data = place.get('name')
         places_list.insert(places_list.size() + 1, insert_data)
 
 
@@ -325,7 +279,6 @@ labels_texts = [
     'Enter place from',
     'Enter place to',
     'Enter price',
-    'Enter car id',
     'Enter car name',
     'Enter place name'
 ]
@@ -352,7 +305,6 @@ entries_texts = [
     'place_from',
     'place_to',
     'price',
-    'car_id',
     'car_name',
     'place_name'
 ]
@@ -406,161 +358,39 @@ places_list.place(x=570, y=50)
 
 # Create listboxes section end
 
-
-def export_to_sqlite():
-    """
-    Function for exporting data from MySQL to SQLite databases
-    :return: MessageBox call
-    """
-    try:
-        database_proxy.initialize(mysql_database)
-        routes = Route.select()
-        cars = Car.select()
-        places = Place.select()
-
-        route = []
-        car = []
-        place = []
-
-        for i in range(len(routes)):
-            route.append(routes[i].__dict__['__data__'])
-        for i in range(len(cars)):
-            car.append(cars[i].__dict__['__data__'])
-        for i in range(len(places)):
-            place.append(places[i].__dict__['__data__'])
-
-        database_proxy.initialize(sqlite_database)
-        Route.drop_table()
-        Car.drop_table()
-        Place.drop_table()
-        database_proxy.create_tables([Car, Place, Route])
-
-        append_data(car, place, route)
-
-        database_proxy.initialize(mysql_database)
-    except (DatabaseError) as e:
-        print(e)
-        return message_box.showerror('Exporting Status', 'Error was occurred while exporting')
-    return message_box.showinfo('Exporting Status', 'Export from MySQL to SQLite was successful')
-
-
-def export_to_postgresql():
-    """
-    Function for exporting data from SQLite to PostgreSQL databases
-    :return: MessageBox call
-    """
-    try:
-        database_proxy.initialize(sqlite_database)
-        routes = Route.select()
-        cars = Car.select()
-        places = Place.select()
-
-        route = []
-        car = []
-        place = []
-
-        for i in range(len(routes)):
-            route.append(routes[i].__dict__['__data__'])
-        for i in range(len(cars)):
-            car.append(cars[i].__dict__['__data__'])
-        for i in range(len(places)):
-            place.append(places[i].__dict__['__data__'])
-
-        database_proxy.initialize(postgresql_database)
-        Route.drop_table()
-        Car.drop_table()
-        Place.drop_table()
-        database_proxy.create_tables([Car, Place, Route])
-
-        append_data(car, place, route)
-
-        database_proxy.initialize(mysql_database)
-    except (DatabaseError) as e:
-        print(e)
-        return message_box.showerror('Exporting Status', 'Error was occurred while exporting')
-    return message_box.showinfo('Exporting Status', 'Export from SQLite to PostgreSQL was successful')
-
-
-def append_data(cars: list, places: list, routes: list) -> None:
-    """
-    Common function for exporting data
-    :param cars:
-    :param places:
-    :param routes:
-    :return: nothing to return
-    """
-    for c in cars:
-        Car.insert(c).execute()
-    for p in places:
-        Place.insert(p).execute()
-    for r in routes:
-        Route.insert(r).execute()
-    return
-
-
-def create_tables():
-    """
-    Function for creating tables in all three databases
-    :return: nothing to return
-    """
-    database_proxy.initialize(mysql_database)
-    database_proxy.create_tables([Car, Place, Route])
-
-    database_proxy.initialize(sqlite_database)
-    database_proxy.create_tables([Car, Place, Route])
-
-    database_proxy.initialize(postgresql_database)
-    database_proxy.create_tables([Car, Place, Route])
-
-
 def create_some_data():
     """
     Function for create start data
     """
-    database_proxy.initialize(mysql_database)
-    with database_proxy:
-        cars, places, routes = Car.select(), Place.select(), Route.select()
+    if cars_client.count == 0 and places_client.count == 0 and routes_client.count == 0:
+        cars_values = [
+            {'name': 'Glovo'},
+            {'name': 'Raketa'},
+            {'name': 'Medivac'}
+        ]
+        _ = cars_client.insert_many(cars_values)
 
-        if len(cars) == 0 and len(places) == 0 and len(routes) == 0:
-            cars_values = [
-                {'name': 'Glovo'},
-                {'name': 'Raketa'},
-                {'name': 'Medivac'}
-            ]
-            print(cars_values)
-            Car.insert_many(cars_values).execute()
+        places_values = [
+            {'name': 'Kyiv'},
+            {'name': 'Odesa'},
+            {'name': 'Alushta'},
+            {'name': 'Vinnytsia'}
+        ]
+        _ = places_client.insert_many(places_values)
 
-            places_values = [
-                {'name': 'Kyiv'},
-                {'name': 'Odesa'},
-                {'name': 'Alushta'},
-                {'name': 'Vinnytsia'}
-            ]
-            Place.insert_many(places_values).execute()
-
-            cars, places = Car.select(), Place.select()
-
-            routes_values = [
-                {'name': 'Kyiv-Odesa', 'place_from': places[0].name, 'place_to': places[1].name, 'price': 23.32,
-                 'car': cars[0].id},
-                {'name': 'Odesa-Alushta', 'place_from': places[1].name, 'place_to': places[2].name, 'price': 137.0,
-                 'car': cars[2].id},
-                {'name': 'Alushta-Kyiv', 'place_from': places[2].name, 'place_to': places[0].name, 'price': 100.0,
-                 'car': cars[1].id},
-                {'name': 'Vinnytsia-Alushta', 'place_from': places[3].name, 'place_to': places[2].name, 'price': 87.0,
-                 'car': cars[1].id}
-            ]
-            Route.insert_many(routes_values).execute()
+        routes_values = [
+            {'name': 'Kyiv-Odesa', 'place_from': places_values[0]['name'], 'place_to': places_values[1]['name'],
+             'price': 23.32, 'car': cars_values[0]['name']},
+            {'name': 'Odesa-Alushta', 'place_from': places_values[1]['name'], 'place_to': places_values[2]['name'],
+             'price': 137.0, 'car': cars_values[2]['name']},
+            {'name': 'Alushta-Kyiv', 'place_from': places_values[2]['name'], 'place_to': places_values[0]['name'],
+             'price': 100.0, 'car': cars_values[1]['name']},
+            {'name': 'Vinnytsia-Alushta', 'place_from': places_values[3]['name'], 'place_to': places_values[2]['name'],
+             'price': 87.0, 'car': cars_values[1]['name']}
+        ]
+        _ = routes_client.insert_many(routes_values)
 
 
-export_to_sqlite_button = Button(root, text='Export from MySQL to SQLite', font=('italic', 10), bg='white',
-                                 command=export_to_sqlite)
-export_to_sqlite_button.place(x=290, y=260)
-export_to_postgre_button = Button(root, text='Export from SQLite to PostgreSQL', font=('italic', 10), bg='white',
-                                  command=export_to_postgresql)
-export_to_postgre_button.place(x=290, y=320)
-
-create_tables()
 create_some_data()
 show()
 root.mainloop()
