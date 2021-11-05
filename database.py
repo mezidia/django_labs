@@ -19,6 +19,7 @@ class Client:
                               f'=majority')
         db = cluster[db_name]
         self.collection = db[collection_name]
+        self.count = self.collection.count_documents({})
 
     def insert(self, data: dict) -> results.InsertOneResult:
         """
