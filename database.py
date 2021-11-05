@@ -1,3 +1,5 @@
+from typing import List
+
 from pymongo import MongoClient, results
 
 
@@ -5,6 +7,7 @@ class Client:
     """
     Class for manipulating MongoDB cluster
     """
+
     def __init__(self, password: str, db_name: str, collection_name: str):
         """
         Initializing client object with access to database
@@ -28,6 +31,17 @@ class Client:
         except Exception as e:
             print('Error:', e)
 
+    def insert_many(self, data: List[dict]) -> results.InsertOneResult:
+        """
+        Method for inserting many data in collection
+        :param data: list of dictionaries with field name and value
+        :return: result of inserting
+        """
+        try:
+            return self.collection.insert_many(data)
+        except Exception as e:
+            print('Error:', e)
+
     def get(self, query: dict) -> dict:
         """
         Method for getting data from collection
@@ -36,6 +50,17 @@ class Client:
         """
         try:
             return self.collection.find_one(query)
+        except Exception as e:
+            print('Error:', e)
+
+    def get_all(self) -> dict:
+        """
+        Method for getting all data from collection
+        :param query: dictionary with field name and value
+        :return: the document that matches the query
+        """
+        try:
+            return self.collection.find({})
         except Exception as e:
             print('Error:', e)
 
