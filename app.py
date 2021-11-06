@@ -3,6 +3,7 @@ import tkinter.messagebox as message_box
 from database import Client
 
 import os
+import pprint
 
 routes_client = Client(os.getenv('DB_PASS', 'password'), 'medivac', 'routes')
 cars_client = Client(os.getenv('DB_PASS', 'password'), 'medivac', 'cars')
@@ -29,6 +30,7 @@ def insert_route():
             'car': car
         }
         result = routes_client.insert(route)
+        pprint.pprint(result)
         if result:
             entries['route_name'].delete(0, 'end')
             entries['place_from'].delete(0, 'end')
@@ -52,6 +54,7 @@ def insert_car():
     if car_name:
         car = {'name': car_name}
         result = cars_client.insert(car)
+        pprint.pprint(result)
         if result:
             entries['car_name'].delete(0, 'end')
             show()
@@ -71,6 +74,7 @@ def insert_place():
     if place_name:
         place = {'name': place_name}
         result = places_client.insert(place)
+        pprint.pprint(result)
         if result:
             entries['place_name'].delete(0, 'end')
             show()
@@ -89,6 +93,7 @@ def delete_route():
     route_name = entries['route_name'].get()
     if route_name:
         result = routes_client.delete({'name': route_name})
+        pprint.pprint(result)
         if result:
             entries['route_name'].delete(0, 'end')
             show()
@@ -107,6 +112,7 @@ def delete_car():
     car_name = entries['car_name'].get()
     if car_name:
         result = cars_client.delete({'name': car_name})
+        pprint.pprint(result)
         if result:
             entries['car_name'].delete(0, 'end')
             show()
@@ -125,6 +131,7 @@ def delete_place():
     place_name = entries['place_name'].get()
     if place_name:
         result = places_client.delete({'name': place_name})
+        pprint.pprint(result)
         if result:
             entries['place_name'].delete(0, 'end')
             show()
@@ -152,6 +159,7 @@ def update_route():
             'price': price,
             'car': car,
         })
+        pprint.pprint(result)
         if result:
             entries['route_name'].delete(0, 'end')
             entries['place_from'].delete(0, 'end')
@@ -190,6 +198,7 @@ def get_route():
     route_name = entries['route_name'].get()
     if route_name:
         route = routes_client.get({'name': route_name})
+        pprint.pprint(route)
         if route:
             message = f"""
                 Name: {route.get('name')}
@@ -214,6 +223,7 @@ def get_car():
     car_name = entries['car_name'].get()
     if car_name:
         car = cars_client.get({'name': car_name})
+        pprint.pprint(car)
         if car:
             message = f"""
                 Name: {car.get('name')}
@@ -234,6 +244,7 @@ def get_place():
     place_name = entries['place_name'].get()
     if place_name:
         place = places_client.get({'name': place_name})
+        pprint.pprint(place)
         if place:
             message = f"""
                 Name: {place.get('name')}
