@@ -4,11 +4,9 @@ For full documentation visit repository [page](https://github.com/mezidia/mediva
 
 To see how to use our app, go to the [next](autostation.md) page. To see how to work with databases, use links below.
 
-## Databases
+## MongoDB
 
-* `SQLite` - [Overview](sqlite.md#overview), [connector](sqlite.md#connector) and [example](sqlite.md#example).
-* `PostgreSQL` - [Overview](postgresql.md#overview), [connector](postgresql.md#connector) and [example](postgresql.md#example).
-* `MySQL` - [Overview](mysql.md#overview), [connector](mysql.md#connector) and [example](mysql.md#example).
+* `MongoDB` - [Overview](mongo.md#overview), [connector](mongo.md#connector) and [example](mongo.md#example).
 
 ## Models
 
