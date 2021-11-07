@@ -306,8 +306,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#connector" class="md-nav__link">
-    Connector
+  <a href="#usage" class="md-nav__link">
+    Usage
   </a>
   
 </li>
@@ -362,8 +362,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#connector" class="md-nav__link">
-    Connector
+  <a href="#usage" class="md-nav__link">
+    Usage
   </a>
   
 </li>
@@ -395,57 +395,66 @@
                 <h1 id="mongodb">MongoDB</h1>
 <h2 id="overview">Overview</h2>
 <p>MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas. MongoDB is developed by MongoDB Inc. and licensed under the Server Side Public License (SSPL).</p>
-<h2 id="connector">Connector</h2>
-<p>We developed our <a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py">class</a> to make a work with
+<h2 id="usage">Usage</h2>
+<p>We used <a href="https://github.com/mezidia/medivac/blob/main/database.py">pymongo library</a> to make a work with
 database easier. Constructor of the class has a path to database as a variable.</p>
 <p>There are several main methods:</p>
 <ul>
-<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L27-L58">create_table</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L60-L92">insert</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L94-L111">get</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L113-L133">update</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L135-L154">delete</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L156-L162">clear_table</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L164-L168">close</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/app.py#L13-L45">insert route</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/app.py#L48-L65">insert car</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/app.py#L68-L85">insert place</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/app.py#L88-L104">delete route</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/app.py#L107-L123">delete car</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/app.py#L126-L142">delete place</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/app.py#L145-L174">update route</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/app.py#L177-L182">update car</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/app.py#L185-L190">update place</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/app.py#L193-L215">get route</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/app.py#L218-L236">get car</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/app.py#L239-L257">get place</a></li>
 </ul>
 <p>All these methods has docstrings, so you can read what they do and which parameters takes.</p>
 <h2 id="example">Example</h2>
-<p>There is <a href="https://github.com/mezidia/medivac/blob/main/mysql_api/example.py">example file</a>,
+<p>There is <a href="https://github.com/mezidia/medivac/blob/main/app.py">file with implementation</a>,
 but you can also view the code below:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">mysql_api.connector</span> <span class="kn">import</span> <span class="n">MySQL</span>
-<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">host</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">db_name</span>
+<div class="highlight"><pre><span></span><code><span class="n">routes_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_PASS&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">),</span> <span class="s1">&#39;medivac&#39;</span><span class="p">,</span> <span class="s1">&#39;routes&#39;</span><span class="p">)</span>
+<span class="n">cars_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_PASS&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">),</span> <span class="s1">&#39;medivac&#39;</span><span class="p">,</span> <span class="s1">&#39;cars&#39;</span><span class="p">)</span>
+<span class="n">places_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;DB_PASS&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">),</span> <span class="s1">&#39;medivac&#39;</span><span class="p">,</span> <span class="s1">&#39;places&#39;</span><span class="p">)</span>
 
-<span class="n">database</span> <span class="o">=</span> <span class="n">MySQL</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">db_name</span><span class="p">)</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">create_table</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="s1">&#39;id INT AUTO_INCREMENT PRIMARY KEY&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;name VARCHAR(45) NOT NULL&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;age INT&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;gender VARCHAR(45)&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;nationality VARCHAR(45)&#39;</span>
-<span class="p">])</span>
+<span class="k">def</span> <span class="nf">insert_route</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function for inserting data into &#39;routes&#39; table</span>
+<span class="sd">    :return: MessageBox call</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">route_name</span> <span class="o">=</span> <span class="n">entries</span><span class="p">[</span><span class="s1">&#39;route_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">place_from</span> <span class="o">=</span> <span class="n">entries</span><span class="p">[</span><span class="s1">&#39;place_from&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">place_to</span> <span class="o">=</span> <span class="n">entries</span><span class="p">[</span><span class="s1">&#39;place_to&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">entries</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">car</span> <span class="o">=</span> <span class="n">entries</span><span class="p">[</span><span class="s1">&#39;car_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;(name, age, gender, nationality)&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s1">&#39;James&#39;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;USA&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;Leila&#39;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">,</span> <span class="s1">&#39;France&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;Brigitte&#39;</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">,</span> <span class="s1">&#39;England&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;Mike&#39;</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;Denmark&#39;</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;Elizabeth&#39;</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">,</span> <span class="s1">&#39;Canada&#39;</span><span class="p">)</span>
-<span class="p">])</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;SELECT * from users&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Expected output:</span>
-
-<span class="sd">[(&#39;Leila&#39;, 32, &#39;female&#39;, &#39;France&#39;)]</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s2">&quot;name = &#39;Valentyn&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;id = 2&#39;</span><span class="p">)</span>
-
-<span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;id = 5&#39;</span><span class="p">)</span>
-
-<span class="n">database</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">entries</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="n">route</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">route_name</span><span class="p">,</span>
+            <span class="s1">&#39;place_from&#39;</span><span class="p">:</span> <span class="n">place_from</span><span class="p">,</span>
+            <span class="s1">&#39;place_to&#39;</span><span class="p">:</span> <span class="n">place_to</span><span class="p">,</span>
+            <span class="s1">&#39;price&#39;</span><span class="p">:</span> <span class="n">price</span><span class="p">,</span>
+            <span class="s1">&#39;car&#39;</span><span class="p">:</span> <span class="n">car</span>
+        <span class="p">}</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">routes_client</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">route</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+            <span class="n">entries</span><span class="p">[</span><span class="s1">&#39;route_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">)</span>
+            <span class="n">entries</span><span class="p">[</span><span class="s1">&#39;place_from&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">)</span>
+            <span class="n">entries</span><span class="p">[</span><span class="s1">&#39;place_to&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">)</span>
+            <span class="n">entries</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">)</span>
+            <span class="n">entries</span><span class="p">[</span><span class="s1">&#39;car_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">)</span>
+            <span class="n">show</span><span class="p">()</span>
+            <span class="n">message_box</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s1">&#39;Insert Status&#39;</span><span class="p">,</span> <span class="s1">&#39;Inserted successfully&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">message_box</span><span class="o">.</span><span class="n">showerror</span><span class="p">(</span><span class="s1">&#39;Insert Status&#39;</span><span class="p">,</span> <span class="s1">&#39;An error occurred while inserting&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">message_box</span><span class="o">.</span><span class="n">showerror</span><span class="p">(</span><span class="s1">&#39;Insert Status&#39;</span><span class="p">,</span> <span class="s1">&#39;All fields are required&#39;</span><span class="p">)</span>
 </code></pre></div>
                 
               
