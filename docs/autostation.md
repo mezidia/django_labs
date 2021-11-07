@@ -22,8 +22,6 @@ You can do different operations here:
 - update data;
 - delete data;
 - get data;
-- export data from _MySQL_ to _SQLite_;
-- export data from _SQLite_ to _PostgreSQL_.
 
 ## Routes
 
@@ -66,10 +64,7 @@ To insert a car you need to fill the **name of the car** like this and press but
 
 ### Update
 
-To update a car you need to fill the **id of the car** and changed **name of the car** like this and then press button
-"update" in the section "Work with routes":
-
-![](images/UpdateCars.png)
+You can't to update the place in our app.
 
 ### Delete
 
@@ -96,7 +91,7 @@ To insert a place you need to fill the **name of the place** like this and press
 
 ### Update
 
-You can't to update the place in our app
+You can't to update the place in our app.
 
 ### Delete
 
