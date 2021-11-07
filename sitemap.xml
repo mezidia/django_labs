@@ -11,6 +11,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://example.com/database/</loc>
+         <lastmod>2021-11-07</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://example.com/models/</loc>
          <lastmod>2021-11-07</lastmod>
          <changefreq>daily</changefreq>
