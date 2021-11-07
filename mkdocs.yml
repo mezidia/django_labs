@@ -4,6 +4,7 @@ nav:
     - Home: index.md
     - Autostation: autostation.md
     - MongoDB: mongo.md
+    - Database: database.md
 theme:
     name: material
     palette:
