@@ -3,10 +3,7 @@ site_url: https://example.com/
 nav:
     - Home: index.md
     - Autostation: autostation.md
-    - MySQL: mysql.md
-    - SQLite: sqlite.md
-    - PostgreSQL: postgresql.md
-    - Models: models.md
+    - MongoDB: mongo.md
 theme:
     name: material
     palette:
