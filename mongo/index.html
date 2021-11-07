@@ -9,14 +9,14 @@
       
       
       
-        <link rel="canonical" href="https://example.com/sqlite/">
+        <link rel="canonical" href="https://example.com/mongo/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
-        <title>SQLite - Autostation</title>
+        <title>MongoDB - Autostation</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sqlite" class="md-skip">
+        <a href="#mongodb" class="md-skip">
           Skip to content
         </a>
       
@@ -99,7 +99,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SQLite
+              MongoDB
             
           </span>
         </div>
@@ -262,11 +262,67 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../mongo/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          MongoDB
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         MongoDB
       </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connector" class="md-nav__link">
+    Connector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -331,54 +387,53 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/mezidia/medivac/edit/master/docs/sqlite.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/mezidia/medivac/edit/master/docs/mongo.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="sqlite">SQLite</h1>
+                <h1 id="mongodb">MongoDB</h1>
 <h2 id="overview">Overview</h2>
-<p>SQLite is a C-language library that implements a <strong>small</strong>, <strong>fast</strong>, <strong>self-contained</strong>, <strong>high-reliability</strong>, <strong>full-featured</strong>, SQL database engine. SQLite is the most used database engine in the world. SQLite is built into all mobile phones and most computers and comes bundled inside countless other applications that people use every day. <a href="https://www.sqlite.org/about.html">More Information...</a></p>
+<p>MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas. MongoDB is developed by MongoDB Inc. and licensed under the Server Side Public License (SSPL).</p>
 <h2 id="connector">Connector</h2>
-<p>We developed our <a href="https://github.com/mezidia/medivac/blob/main/sqlite_api/connector.py">class</a> to make a work with
+<p>We developed our <a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py">class</a> to make a work with
 database easier. Constructor of the class has a path to database as a variable.</p>
 <p>There are several main methods:</p>
 <ul>
-<li><a href="https://github.com/mezidia/medivac/blob/main/sqlite_api/connector.py#L25-L56">create_table</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/sqlite_api/connector.py#L58-L90">insert</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/sqlite_api/connector.py#L92-L109">get</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/sqlite_api/connector.py#L111-L131">update</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/sqlite_api/connector.py#L133-L152">delete</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/sqlite_api/connector.py#L154-L160">clear_table</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/sqlite_api/connector.py#L162-L166">close</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L27-L58">create_table</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L60-L92">insert</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L94-L111">get</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L113-L133">update</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L135-L154">delete</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L156-L162">clear_table</a></li>
+<li><a href="https://github.com/mezidia/medivac/blob/main/mysql_api/connector.py#L164-L168">close</a></li>
 </ul>
 <p>All these methods has docstrings, so you can read what they do and which parameters takes.</p>
 <h2 id="example">Example</h2>
-<p>There is <a href="https://github.com/mezidia/medivac/blob/main/sqlite_api/example.py">example file</a>, but you can also view the code below:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sqlite_api.connector</span> <span class="kn">import</span> <span class="n">SQLite</span>
+<p>There is <a href="https://github.com/mezidia/medivac/blob/main/mysql_api/example.py">example file</a>,
+but you can also view the code below:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">mysql_api.connector</span> <span class="kn">import</span> <span class="n">MySQL</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">host</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">db_name</span>
 
-<span class="n">path_to_database</span> <span class="o">=</span> <span class="s1">&#39;./sqlite3.db&#39;</span>
-<span class="n">database</span> <span class="o">=</span> <span class="n">SQLite</span><span class="p">(</span><span class="n">path_to_database</span><span class="p">)</span>
+<span class="n">database</span> <span class="o">=</span> <span class="n">MySQL</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">db_name</span><span class="p">)</span>
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">create_table</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="s1">&#39;id INTEGER PRIMARY KEY AUTOINCREMENT&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;name TEXT NOT NULL&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;age INTEGER&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;gender TEXT&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;nationality TEXT&#39;</span>
+    <span class="s1">&#39;id INT AUTO_INCREMENT PRIMARY KEY&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;name VARCHAR(45) NOT NULL&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;age INT&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gender VARCHAR(45)&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;nationality VARCHAR(45)&#39;</span>
 <span class="p">])</span>
-<span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">True</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;nationality&#39;</span><span class="p">),</span> <span class="p">[</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;(name, age, gender, nationality)&#39;</span><span class="p">,</span> <span class="p">[</span>
     <span class="p">(</span><span class="s1">&#39;James&#39;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;USA&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;Leila&#39;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">,</span> <span class="s1">&#39;France&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;Brigitte&#39;</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">,</span> <span class="s1">&#39;England&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;Mike&#39;</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;male&#39;</span><span class="p">,</span> <span class="s1">&#39;Denmark&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;Elizabeth&#39;</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="s1">&#39;female&#39;</span><span class="p">,</span> <span class="s1">&#39;Canada&#39;</span><span class="p">)</span>
 <span class="p">])</span>
-<span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">True</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;SELECT * from users WHERE id = 2&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;SELECT * from users&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Expected output:</span>
@@ -386,11 +441,9 @@ database easier. Constructor of the class has a path to database as a variable.<
 <span class="sd">[(&#39;Leila&#39;, 32, &#39;female&#39;, &#39;France&#39;)]</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;name = &quot;Maxim&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;id = 2&#39;</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">True</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s2">&quot;name = &#39;Valentyn&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;id = 2&#39;</span><span class="p">)</span>
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;id = 5&#39;</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">True</span>
 
 <span class="n">database</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </code></pre></div>
@@ -414,6 +467,26 @@ database easier. Constructor of the class has a path to database as a variable.<
       
         
 <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../autostation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Autostation" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Autostation
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
