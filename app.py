@@ -484,7 +484,8 @@ def create_some_data():
     """
     Function for create start data
     """
-    if False:
+    if session_mysql.query(Car).count() == 0 and session_mysql.query(Place).count() == 0 and \
+            session_mysql.query(Route).count() == 0:
         cars_values = [
             {'name': 'Glovo'},
             {'name': 'Raketa'},
