@@ -406,79 +406,78 @@ places_list.place(x=570, y=50)
 
 # Create listboxes section end
 
+def export_to_sqlite():
+    """
+    Function for exporting data from MySQL to SQLite databases
+    :return: MessageBox call
+    """
+    try:
+        connection = session_mysql.connection()
+        s_cars = select([Car])
+        s_places = select([Place])
+        s_routes = select([Route])
+        cars = connection.execute(s_cars).fetchall()
+        places = connection.execute(s_places).fetchall()
+        routes = connection.execute(s_routes).fetchall()
 
-# def export_to_sqlite():
-#     """
-#     Function for exporting data from MySQL to SQLite databases
-#     :return: MessageBox call
-#     """
-#     try:
-#         database_proxy.initialize(mysql_database)
-#         routes = Route.select()
-#         cars = Car.select()
-#         places = Place.select()
-#
-#         route = []
-#         car = []
-#         place = []
-#
-#         for i in range(len(routes)):
-#             route.append(routes[i].__dict__['__data__'])
-#         for i in range(len(cars)):
-#             car.append(cars[i].__dict__['__data__'])
-#         for i in range(len(places)):
-#             place.append(places[i].__dict__['__data__'])
-#
-#         database_proxy.initialize(sqlite_database)
-#         Route.drop_table()
-#         Car.drop_table()
-#         Place.drop_table()
-#         database_proxy.create_tables([Car, Place, Route])
-#
-#         append_data(car, place, route)
-#
-#         database_proxy.initialize(mysql_database)
-#     except (DatabaseError) as e:
-#         print(e)
-#         return message_box.showerror('Exporting Status', 'Error was occurred while exporting')
-#     return message_box.showinfo('Exporting Status', 'Export from MySQL to SQLite was successful')
-#
-#
-# def export_to_postgresql():
-#     """
-#     Function for exporting data from SQLite to PostgreSQL databases
-#     :return: MessageBox call
-#     """
-#     try:
-#         database_proxy.initialize(sqlite_database)
-#         routes = Route.select()
-#         cars = Car.select()
-#         places = Place.select()
-#
-#         route = []
-#         car = []
-#         place = []
-#
-#         for i in range(len(routes)):
-#             route.append(routes[i].__dict__['__data__'])
-#         for i in range(len(cars)):
-#             car.append(cars[i].__dict__['__data__'])
-#         for i in range(len(places)):
-#             place.append(places[i].__dict__['__data__'])
-#
-#         database_proxy.initialize(postgresql_database)
-#         Route.drop_table()
-#         Car.drop_table()
-#         Place.drop_table()
-#         database_proxy.create_tables([Car, Place, Route])
-#
-#         append_data(car, place, route)
-#
-#         database_proxy.initialize(mysql_database)
-#     except (DatabaseError) as e:
-#         print(e)
-#         return message_box.showerror('Exporting Status', 'Error was occurred while exporting')
-#     return message_box.showinfo('Exporting Status', 'Export from SQLite to PostgreSQL was successful')
+        session_sqlite.query(Route).delete()
+        session_sqlite.query(Place).delete()
+        session_sqlite.query(Car).delete()
+        session_sqlite.commit()
+        for car in cars:
+            car_object = Car(id=car[0], name=car[1])
+            session_sqlite.add(car_object)
+            session_sqlite.commit()
+        for place in places:
+            place_object = Place(id=place[0], name=place[1])
+            session_sqlite.add(place_object)
+            session_sqlite.commit()
+        for route in routes:
+            route_object = Route(id=route[0], name=route[1], place_from=route[2], place_to=route[3], price=route[4],
+                                 car=route[5])
+            session_sqlite.add(route_object)
+            session_sqlite.commit()
+    except Exception as e:
+        print(e)
+        return message_box.showerror('Exporting Status', 'Error was occurred while exporting')
+    return message_box.showinfo('Exporting Status', 'Export from MySQL to SQLite was successful')
+
+
+def export_to_postgresql():
+    """
+    Function for exporting data from SQLite to PostgreSQL databases
+    :return: MessageBox call
+    """
+    try:
+        connection = session_sqlite.connection()
+        s_cars = select([Car])
+        s_places = select([Place])
+        s_routes = select([Route])
+        cars = connection.execute(s_cars).fetchall()
+        places = connection.execute(s_places).fetchall()
+        routes = connection.execute(s_routes).fetchall()
+
+        session_postgresql.query(Route).delete()
+        session_postgresql.query(Place).delete()
+        session_postgresql.query(Car).delete()
+        session_postgresql.commit()
+        for car in cars:
+            car_object = Car(id=car[0], name=car[1])
+            session_postgresql.add(car_object)
+            session_postgresql.commit()
+        for place in places:
+            place_object = Place(id=place[0], name=place[1])
+            session_postgresql.add(place_object)
+            session_postgresql.commit()
+        for route in routes:
+            route_object = Route(id=route[0], name=route[1], place_from=route[2], place_to=route[3], price=route[4],
+                                 car=route[5])
+            session_postgresql.add(route_object)
+            session_postgresql.commit()
+    except Exception as e:
+        print(e)
+        return message_box.showerror('Exporting Status', 'Error was occurred while exporting')
+    return message_box.showinfo('Exporting Status', 'Export from SQLite to PostgreSQL was successful')
 
 
 def create_some_data():
@@ -524,10 +523,10 @@ def create_some_data():
 
 
 export_to_sqlite_button = Button(root, text='Export from MySQL to SQLite', font=('italic', 10), bg='white',
-                                 command='export_to_sqlite')
+                                 command=export_to_sqlite)
 export_to_sqlite_button.place(x=290, y=260)
 export_to_postgre_button = Button(root, text='Export from SQLite to PostgreSQL', font=('italic', 10), bg='white',
-                                  command='export_to_postgresql')
+                                  command=export_to_postgresql)
 export_to_postgre_button.place(x=290, y=320)
 
 create_some_data()
