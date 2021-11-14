@@ -12,20 +12,20 @@ class Route(Base):
     place_to = Column(String(45), nullable=False)
     price = Column(Float, nullable=False)
     time = Column(DateTime, nullable=False)
-    car = Column(Integer, nullable=False)
+    car = Column(String(45), nullable=False)
 
     __table_args__ = (ForeignKeyConstraint(['car'], ['cars.name']),
-                      ForeignKeyConstraint(['place_from'], ['place.name']),
-                      ForeignKeyConstraint(['place_to'], ['place.name']),)
+                      ForeignKeyConstraint(['place_from'], ['places.name']),
+                      ForeignKeyConstraint(['place_to'], ['places.name']),)
 
 
 class Car(Base):
     __tablename__ = 'cars'
     id = Column(Integer, primary_key=True, nullable=False, unique=True)
-    name = Column(String(45), nullable=False)
+    name = Column(String(45), nullable=False, unique=True)
 
 
 class Place(Base):
     __tablename__ = 'places'
     id = Column(Integer, primary_key=True, nullable=False, unique=True)
-    name = Column(String(45), nullable=False)
+    name = Column(String(45), nullable=False, unique=True)
