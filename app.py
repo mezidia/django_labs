@@ -226,11 +226,11 @@ def get_route():
 
         if route:
             message = f"""
-                Name: {route.get('name')}
-                From: {route.get('place_from')}
-                To: {route.get('place_to')}
-                Price: {route.get('price')}
-                Car ID: {route.get('car')}
+                Name: {route.name}
+                From: {route.place_from}
+                To: {route.place_to}
+                Price: {route.price}
+                Car ID: {route.car}
                 """
             entries['route_name'].delete(0, 'end')
             message_box.showinfo('Fetch Status', message)
@@ -248,10 +248,9 @@ def get_car():
     car_name = entries['car_name'].get()
     if car_name:
         car = session_mysql.query(Car).filter(Car.name == car_name).one()
-
         if car:
             message = f"""
-                Name: {car.get('name')}
+                Name: {car.name}
                 """
             entries['car_name'].delete(0, 'end')
             message_box.showinfo('Fetch Status', message)
@@ -272,7 +271,7 @@ def get_place():
 
         if place:
             message = f"""
-                Name: {place.get('name')}
+                Name: {place.name}
                 """
             entries['place_name'].delete(0, 'end')
             message_box.showinfo('Fetch Status', message)
@@ -287,20 +286,20 @@ def show():
     Function for filling the listboxes with the data from database
     :return: nothing to return
     """
-    routes = select(Route)
-    cars = select(Car)
-    places = select(Place)
+    routes = engine_mysql.connect().execute(select(Route)).fetchall()
+    cars = engine_mysql.connect().execute(select(Car)).fetchall()
+    places = engine_mysql.connect().execute(select(Place)).fetchall()
     routes_list.delete(0, routes_list.size())
     cars_list.delete(0, cars_list.size())
     places_list.delete(0, places_list.size())
     for route in routes:
-        insert_data = route.get('name')
+        insert_data = route[1]
         routes_list.insert(routes_list.size() + 1, insert_data)
     for car in cars:
-        insert_data = car.get('name')
+        insert_data = car[1]
         cars_list.insert(cars_list.size() + 1, insert_data)
     for place in places:
-        insert_data = place.get('name')
+        insert_data = place[1]
         places_list.insert(places_list.size() + 1, insert_data)
 
 
@@ -398,7 +397,7 @@ def create_some_data():
     """
     Function for create start data
     """
-    if True:
+    if False:
         cars_values = [
             {'name': 'Glovo'},
             {'name': 'Raketa'},
@@ -416,9 +415,7 @@ def create_some_data():
             {'name': 'Odesa-Alushta', 'place_from': places_values[1]['name'], 'place_to': places_values[2]['name'],
              'price': 137.0, 'car': cars_values[2]['name']},
             {'name': 'Alushta-Kyiv', 'place_from': places_values[2]['name'], 'place_to': places_values[0]['name'],
-             'price': 100.0, 'car': cars_values[1]['name']},
-            {'name': 'Vinnytsia-Alushta', 'place_from': places_values[3]['name'], 'place_to': places_values[2]['name'],
-             'price': 87.0, 'car': cars_values[1]['name']}
+             'price': 100.0, 'car': cars_values[1]['name']}
         ]
         for car_object in cars_values:
             car = Car(name=car_object['name'])
@@ -429,12 +426,12 @@ def create_some_data():
             session_mysql.add(place)
             session_mysql.commit()
         for route_object in routes_values:
-            place = Route(name=route_object['name'],
+            route = Route(name=route_object['name'],
                           place_from=route_object['place_from'],
                           place_to=route_object['place_to'],
                           price=route_object['price'],
                           car=route_object['car'])
-            session_mysql.add(place)
+            session_mysql.add(route)
             session_mysql.commit()
 
 
