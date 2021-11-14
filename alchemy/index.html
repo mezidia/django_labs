@@ -9,14 +9,14 @@
       
       
       
-        <link rel="canonical" href="https://example.com/database/">
+        <link rel="canonical" href="https://example.com/alchemy/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
-        <title>Database - Autostation</title>
+        <title>SQLAlchemy - Autostation</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#overview" class="md-skip">
+        <a href="#sqlalchemy" class="md-skip">
           Skip to content
         </a>
       
@@ -99,7 +99,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Database
+              SQLAlchemy
             
           </span>
         </div>
@@ -262,21 +262,6 @@
 
   
   
-  
-    <li class="md-nav__item">
-      <a href="../mongo/" class="md-nav__link">
-        MongoDB
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
     
   
   
@@ -285,14 +270,16 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Database
+          SQLAlchemy
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Database
+        SQLAlchemy
       </a>
       
         
@@ -301,6 +288,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
@@ -317,16 +306,77 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#methods" class="md-nav__link">
-    Methods
+  <a href="#models" class="md-nav__link">
+    Models
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-logic" class="md-nav__link">
-    Code logic
+  <a href="#core" class="md-nav__link">
+    Core
   </a>
+  
+    <nav class="md-nav" aria-label="Core">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insert" class="md-nav__link">
+    Insert
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    Update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete" class="md-nav__link">
+    Delete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get" class="md-nav__link">
+    Get
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session" class="md-nav__link">
+    Session
+  </a>
+  
+    <nav class="md-nav" aria-label="Session">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insert_1" class="md-nav__link">
+    Insert
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete_1" class="md-nav__link">
+    Delete
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -356,6 +406,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -371,16 +423,77 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#methods" class="md-nav__link">
-    Methods
+  <a href="#models" class="md-nav__link">
+    Models
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-logic" class="md-nav__link">
-    Code logic
+  <a href="#core" class="md-nav__link">
+    Core
   </a>
+  
+    <nav class="md-nav" aria-label="Core">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insert" class="md-nav__link">
+    Insert
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    Update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete" class="md-nav__link">
+    Delete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get" class="md-nav__link">
+    Get
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session" class="md-nav__link">
+    Session
+  </a>
+  
+    <nav class="md-nav" aria-label="Session">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insert_1" class="md-nav__link">
+    Insert
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete_1" class="md-nav__link">
+    Delete
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -396,27 +509,98 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/mezidia/medivac/edit/master/docs/database.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/mezidia/medivac/edit/master/docs/alchemy.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                  <h1>Database</h1>
-                
-                <h2 id="overview">Overview</h2>
-<p>In case we are using pymongo, we have created methods which are common for all database.</p>
-<h2 id="methods">Methods</h2>
-<p>Here you can see all methods, which we have created:</p>
-<ul>
-<li><a href="https://github.com/mezidia/medivac/blob/main/database.py#L24-L33">insert</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/database.py#L35-L44">insert many</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/database.py#L46-L55">get</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/database.py#L57-L66">get all</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/database.py#L68-L78">update</a></li>
-<li><a href="https://github.com/mezidia/medivac/blob/main/database.py#L80-L89">delete</a></li>
-</ul>
-<h2 id="code-logic">Code logic</h2>
-<p><strong>Methods</strong> are used in an implementation like <a href="https://github.com/mezidia/medivac/blob/main/app.py#L13-L45">there</a></p>
+                <h1 id="sqlalchemy">SQLAlchemy</h1>
+<h2 id="overview">Overview</h2>
+<p>SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL.</p>
+<p>It provides a full suite of well known enterprise-level persistence patterns, designed for efficient and high-performing database access, adapted into a simple and Pythonic domain language.</p>
+<h2 id="models">Models</h2>
+<p>We developed our <a href="https://github.com/mezidia/medivac/blob/main/models.py">models</a> of tables:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">ForeignKeyConstraint</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
+
+<span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">Route</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;routes&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">45</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">place_from</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">45</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">place_to</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">45</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Float</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">car</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">45</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">(</span><span class="n">ForeignKeyConstraint</span><span class="p">([</span><span class="s1">&#39;car&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;cars.name&#39;</span><span class="p">]),</span>
+                      <span class="n">ForeignKeyConstraint</span><span class="p">([</span><span class="s1">&#39;place_from&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;places.name&#39;</span><span class="p">]),</span>
+                      <span class="n">ForeignKeyConstraint</span><span class="p">([</span><span class="s1">&#39;place_to&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;places.name&#39;</span><span class="p">]),)</span>
+
+
+<span class="k">class</span> <span class="nc">Car</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;cars&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">45</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Place</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;places&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">(</span><span class="mi">45</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="core">Core</h2>
+<p>Here we show our use of <a href="https://docs.sqlalchemy.org/en/14/core/">SQLAlchemy Core</a>:</p>
+<h3 id="insert">Insert</h3>
+<div class="highlight"><pre><span></span><code><span class="n">connection</span> <span class="o">=</span> <span class="n">engine_mysql</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="n">ins</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">Route</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">ins</span><span class="p">,</span>
+                       <span class="n">name</span><span class="o">=</span><span class="n">route_name</span><span class="p">,</span>
+                       <span class="n">place_from</span><span class="o">=</span><span class="n">place_from</span><span class="p">,</span>
+                       <span class="n">place_to</span><span class="o">=</span><span class="n">place_to</span><span class="p">,</span>
+                       <span class="n">price</span><span class="o">=</span><span class="n">price</span><span class="p">,</span>
+                       <span class="n">car</span><span class="o">=</span><span class="n">car</span>
+                       <span class="p">)</span>
+</code></pre></div>
+<h3 id="update">Update</h3>
+<div class="highlight"><pre><span></span><code><span class="n">connection</span> <span class="o">=</span> <span class="n">engine_mysql</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">update</span><span class="p">(</span><span class="n">Route</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+    <span class="n">Route</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">route_name</span>
+<span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span>
+    <span class="n">place_from</span><span class="o">=</span><span class="n">place_from</span><span class="p">,</span>
+    <span class="n">place_to</span><span class="o">=</span><span class="n">place_to</span><span class="p">,</span>
+    <span class="n">price</span><span class="o">=</span><span class="n">price</span><span class="p">,</span>
+    <span class="n">car</span><span class="o">=</span><span class="n">car</span>
+<span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="delete">Delete</h3>
+<div class="highlight"><pre><span></span><code><span class="n">connection</span> <span class="o">=</span> <span class="n">engine_mysql</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">delete</span><span class="p">(</span><span class="n">Route</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">Route</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">route_name</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="get">Get</h3>
+<div class="highlight"><pre><span></span><code><span class="n">connection</span> <span class="o">=</span> <span class="n">engine_mysql</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">select</span><span class="p">([</span><span class="n">Route</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+    <span class="n">Route</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">route_name</span>
+<span class="p">)</span>
+<span class="n">route</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="session">Session</h2>
+<p>Here we show our use of <a href="https://docs.sqlalchemy.org/en/14/orm/session.html">SQLAlchemy Session</a>:</p>
+<h3 id="insert_1">Insert</h3>
+<div class="highlight"><pre><span></span><code><span class="n">car_object</span> <span class="o">=</span> <span class="n">Car</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">car</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="n">car</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">to_session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">car_object</span><span class="p">)</span>
+<span class="n">to_session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="delete_1">Delete</h3>
+<div class="highlight"><pre><span></span><code><span class="n">to_session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Route</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+<span class="n">to_session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Place</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+<span class="n">to_session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Car</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+<span class="n">to_session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</code></pre></div>
                 
               
               
@@ -441,7 +625,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../mongo/" class="md-footer__link md-footer__link--prev" aria-label="Previous: MongoDB" rel="prev">
+        <a href="../autostation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Autostation" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -450,7 +634,7 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              MongoDB
+              Autostation
             </div>
           </div>
         </a>
