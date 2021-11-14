@@ -1,30 +1,21 @@
 from tkinter import Tk, Label, Entry, Button, Listbox
 import tkinter.messagebox as message_box
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, select, insert, update, delete
 from sqlalchemy.orm import Session
-from sqlalchemy.sql.expression import true
+import pandas as pd
+
 from models import Base, Place, Car, Route
-# import psycopg2
-# from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-# # Устанавливаем соединение с postgres
-# connection = psycopg2.connect(user="root", password="Hogger")
-# connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-
-# import pymysql
-# pymysql.install_as_MySQLdb()
-
-# import pandas as pd
-
-# engine_sqlite = create_engine('sqlite:///app.sqlite')
-engine_mysql = create_engine(f'mysql+mysqldb://{user}:{pass}@localhost/{dbname}')
-# engine_postgresql = create_engine(f'postgresql+psycopg2://{user}:{pass}@localhost/{dbname}')
-# Base.metadata.create_all(engine_sqlite)
+engine_sqlite = create_engine('sqlite:///app.sqlite')
+engine_mysql = create_engine('mysql+pymysql://root:Password@localhost/medivac')
+engine_postgresql = create_engine('postgresql+psycopg2://postgres:Password@localhost/medivac')
+Base.metadata.create_all(engine_sqlite)
 Base.metadata.create_all(engine_mysql)
-# Base.metadata.create_all(engine_postgresql)
-# session_sqlite = Session(bind=engine_sqlite)
+Base.metadata.create_all(engine_postgresql)
+session_sqlite = Session(bind=engine_sqlite)
 session_mysql = Session(bind=engine_mysql)
-# session_postgresql = Session(bind=engine_postgresql)
+session_postgresql = Session(bind=engine_postgresql)
+
 
 def insert_route():
     """
