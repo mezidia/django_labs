@@ -1,14 +1,20 @@
 from tkinter import Tk, Label, Entry, Button, Listbox
 import tkinter.messagebox as message_box
-from database import Client
+from sqlalchemy import create_engine, select
+from sqlalchemy.orm import Session
+from models import Base, Place, Car, Route
 
-import os
-import pprint
+import pandas as pd
 
-routes_client = Client(os.getenv('DB_PASS', 'password'), 'medivac', 'routes')
-cars_client = Client(os.getenv('DB_PASS', 'password'), 'medivac', 'cars')
-places_client = Client(os.getenv('DB_PASS', 'password'), 'medivac', 'places')
-
+engine_sqlite = create_engine('sqlite:///app.sqlite')
+engine_mysql = create_engine(f'mysql+mysqldb://{user}:{pass}@localhost/{dbname}')
+engine_postgresql = create_engine(f'postgresql+psycopg2://{user}:{pass}@localhost/{dbname}')
+Base.metadata.create_all(engine_sqlite)
+Base.metadata.create_all(engine_sqlite)
+Base.metadata.create_all(engine_sqlite)
+session_sqlite = Session(bind=engine_sqlite)
+session_mysql = Session(bind=engine_mysql)
+session_postgresql = Session(bind=engine_postgresql)
 
 def insert_route():
     """
@@ -22,16 +28,17 @@ def insert_route():
     car = entries['car_name'].get()
 
     if all(entries.values()):
-        route = {
-            'name': route_name,
-            'place_from': place_from,
-            'place_to': place_to,
-            'price': price,
-            'car': car
-        }
-        result = routes_client.insert(route)
-        pprint.pprint(result)
-        if result:
+        route = Route(
+            name=route_name,
+            place_from=place_from,
+            place_to=place_to,
+            price=price,
+            car=car
+        )
+        try:
+            session_mysql.add(route)
+            session_mysql.commit()
+
             entries['route_name'].delete(0, 'end')
             entries['place_from'].delete(0, 'end')
             entries['place_to'].delete(0, 'end')
@@ -39,7 +46,7 @@ def insert_route():
             entries['car_name'].delete(0, 'end')
             show()
             message_box.showinfo('Insert Status', 'Inserted successfully')
-        else:
+        except:
             message_box.showerror('Insert Status', 'An error occurred while inserting')
     else:
         message_box.showerror('Insert Status', 'All fields are required')
@@ -52,14 +59,14 @@ def insert_car():
     """
     car_name = entries['car_name'].get()
     if car_name:
-        car = {'name': car_name}
-        result = cars_client.insert(car)
-        pprint.pprint(result)
-        if result:
+        car = Car(name=car_name)
+        try:
+            session_mysql.add(car)
+            session_mysql.commit()
             entries['car_name'].delete(0, 'end')
             show()
             message_box.showinfo('Insert Status', 'Inserted successfully')
-        else:
+        except:
             message_box.showerror('Insert Status', 'An error occurred while inserting')
     else:
         message_box.showerror('Insert Status', 'All fields are required')
@@ -72,14 +79,15 @@ def insert_place():
     """
     place_name = entries['place_name'].get()
     if place_name:
-        place = {'name': place_name}
-        result = places_client.insert(place)
-        pprint.pprint(result)
-        if result:
+        place = Place(name=place_name)
+        try:
+            session_mysql.add(place)
+            session_mysql.commit()
+
             entries['place_name'].delete(0, 'end')
             show()
             message_box.showinfo('Insert Status', 'Inserted successfully')
-        else:
+        except:
             message_box.showerror('Insert Status', 'An error occurred while inserting')
     else:
         message_box.showerror('Insert Status', 'All fields are required')
@@ -92,13 +100,15 @@ def delete_route():
     """
     route_name = entries['route_name'].get()
     if route_name:
-        result = routes_client.delete({'name': route_name})
-        pprint.pprint(result)
-        if result:
+        route = session_mysql.query(Route).filter(Route.name == route_name).one()
+        try:
+            session_mysql.delete(route)
+            session_mysql.commit()
+
             entries['route_name'].delete(0, 'end')
             show()
             message_box.showinfo('Delete Status', 'Deleted successfully')
-        else:
+        except:
             message_box.showerror('Delete Status', 'An error occurred while deleting')
     else:
         message_box.showerror('Delete Status', 'Name of the route is compulsory for delete')
@@ -111,13 +121,15 @@ def delete_car():
     """
     car_name = entries['car_name'].get()
     if car_name:
-        result = cars_client.delete({'name': car_name})
-        pprint.pprint(result)
-        if result:
+        car = session_mysql.query(Car).filter(Car.name == car_name).one()
+        try:
+            session_mysql.delete(car)
+            session_mysql.commit()
+
             entries['car_name'].delete(0, 'end')
             show()
             message_box.showinfo('Delete Status', 'Deleted successfully')
-        else:
+        except:
             message_box.showerror('Delete Status', 'An error occurred while deleting')
     else:
         message_box.showerror('Delete Status', 'Id of the car is compulsory for delete')
@@ -130,13 +142,15 @@ def delete_place():
     """
     place_name = entries['place_name'].get()
     if place_name:
-        result = places_client.delete({'name': place_name})
-        pprint.pprint(result)
-        if result:
+        place = session_mysql.query(Place).filter(Place.name == place_name).one()
+        try:
+            session_mysql.delete(place)
+            session_mysql.commit()
+
             entries['place_name'].delete(0, 'end')
             show()
             message_box.showinfo('Delete Status', 'Deleted successfully')
-        else:
+        except:
             message_box.showerror('Delete Status', 'An error occurred while deleting')
     else:
         message_box.showerror('Delete Status', 'Name of the route is compulsory for delete')
@@ -153,14 +167,15 @@ def update_route():
     price = entries['price'].get()
     car = entries['car_name'].get()
     if all(entries.values()):
-        result = routes_client.update({'name': route_name}, {
-            'place_from': place_from,
-            'place_to': place_to,
-            'price': price,
-            'car': car,
-        })
-        pprint.pprint(result)
-        if result:
+        route = session_mysql.query(Route).filter(Route.name == route_name).one()
+        route.place_from = place_from
+        route.place_to = place_to
+        route.price = price
+        route.car = car
+        try:
+            session_mysql.add(route)
+            session_mysql.commit()
+
             entries['route_name'].delete(0, 'end')
             entries['place_from'].delete(0, 'end')
             entries['place_to'].delete(0, 'end')
@@ -168,7 +183,7 @@ def update_route():
             entries['car_name'].delete(0, 'end')
             show()
             message_box.showinfo('Update Status', 'Updated successfully')
-        else:
+        except:
             message_box.showerror('Update Status', 'An error occurred while updating')
     else:
         message_box.showerror('Update Status', 'All fields are required')
@@ -197,8 +212,8 @@ def get_route():
     """
     route_name = entries['route_name'].get()
     if route_name:
-        route = routes_client.get({'name': route_name})
-        pprint.pprint(route)
+        route = session_mysql.query(Route).filter(Route.name == route_name).one()
+
         if route:
             message = f"""
                 Name: {route.get('name')}
@@ -222,8 +237,8 @@ def get_car():
     """
     car_name = entries['car_name'].get()
     if car_name:
-        car = cars_client.get({'name': car_name})
-        pprint.pprint(car)
+        car = session_mysql.query(Car).filter(Car.name == car_name).one()
+
         if car:
             message = f"""
                 Name: {car.get('name')}
@@ -243,8 +258,8 @@ def get_place():
     """
     place_name = entries['place_name'].get()
     if place_name:
-        place = places_client.get({'name': place_name})
-        pprint.pprint(place)
+        place = session_mysql.query(Place).filter(Place.name == place_name).one()
+
         if place:
             message = f"""
                 Name: {place.get('name')}
@@ -262,9 +277,9 @@ def show():
     Function for filling the listboxes with the data from database
     :return: nothing to return
     """
-    routes = routes_client.get_all()
-    cars = cars_client.get_all()
-    places = places_client.get_all()
+    routes = select(Route)
+    cars = select(Car)
+    places = select(Place)
     routes_list.delete(0, routes_list.size())
     cars_list.delete(0, cars_list.size())
     places_list.delete(0, places_list.size())
@@ -373,22 +388,18 @@ def create_some_data():
     """
     Function for create start data
     """
-    if cars_client.count == 0 and places_client.count == 0 and routes_client.count == 0:
+    if len(select(Car)) == 0 and len(select(Place)) == 0 and len(select(Route)) == 0:
         cars_values = [
             {'name': 'Glovo'},
             {'name': 'Raketa'},
             {'name': 'Medivac'}
         ]
-        _ = cars_client.insert_many(cars_values)
-
         places_values = [
             {'name': 'Kyiv'},
             {'name': 'Odesa'},
             {'name': 'Alushta'},
             {'name': 'Vinnytsia'}
         ]
-        _ = places_client.insert_many(places_values)
-
         routes_values = [
             {'name': 'Kyiv-Odesa', 'place_from': places_values[0]['name'], 'place_to': places_values[1]['name'],
              'price': 23.32, 'car': cars_values[0]['name']},
@@ -399,7 +410,22 @@ def create_some_data():
             {'name': 'Vinnytsia-Alushta', 'place_from': places_values[3]['name'], 'place_to': places_values[2]['name'],
              'price': 87.0, 'car': cars_values[1]['name']}
         ]
-        _ = routes_client.insert_many(routes_values)
+        for car_object in cars_values:
+            car = Car(name=car_object['name'])
+            session_mysql.add(car)
+            session_mysql.commit()
+        for place_object in places_values:
+            place = Place(name=place_object['name'])
+            session_mysql.add(place)
+            session_mysql.commit()
+        for route_object in routes_values:
+            place = Route(name=route_object['name'],
+                          place_from=route_object['place_from'],
+                          place_to=route_object['place_to'],
+                          price=route_object['price'],
+                          car=route_object['car'])
+            session_mysql.add(place)
+            session_mysql.commit()
 
 
 create_some_data()
