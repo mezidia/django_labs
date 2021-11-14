@@ -110,8 +110,9 @@ def delete_route():
     """
     route_name = entries['route_name'].get()
     if route_name:
-        route = session_mysql.query(Route).filter(Route.name == route_name).one()
         try:
+            route = session_mysql.query(Route).filter(Route.name == route_name).one()
+
             session_mysql.delete(route)
             session_mysql.commit()
 
@@ -131,8 +132,9 @@ def delete_car():
     """
     car_name = entries['car_name'].get()
     if car_name:
-        car = session_mysql.query(Car).filter(Car.name == car_name).one()
         try:
+            car = session_mysql.query(Car).filter(Car.name == car_name).one()
+
             session_mysql.delete(car)
             session_mysql.commit()
 
@@ -152,15 +154,17 @@ def delete_place():
     """
     place_name = entries['place_name'].get()
     if place_name:
-        place = session_mysql.query(Place).filter(Place.name == place_name).one()
         try:
+            place = session_mysql.query(Place).filter(Place.name == place_name).one()
+
             session_mysql.delete(place)
             session_mysql.commit()
 
             entries['place_name'].delete(0, 'end')
             show()
             message_box.showinfo('Delete Status', 'Deleted successfully')
-        except:
+        except Exception as e:
+            print(e)
             message_box.showerror('Delete Status', 'An error occurred while deleting')
     else:
         message_box.showerror('Delete Status', 'Name of the route is compulsory for delete')
@@ -204,7 +208,7 @@ def update_car():
     Function for updating a row in 'cars' table
     :return: MessageBox call
     """
-    message_box.showinfo('Update Status', 'Place can not be updated')
+    message_box.showinfo('Update Status', 'Car can not be updated')
 
 
 def update_place():
@@ -230,7 +234,7 @@ def get_route():
                 From: {route.place_from}
                 To: {route.place_to}
                 Price: {route.price}
-                Car ID: {route.car}
+                Car name: {route.car}
                 """
             entries['route_name'].delete(0, 'end')
             message_box.showinfo('Fetch Status', message)
