@@ -1,42 +1,31 @@
-from peewee import Model, CharField, PrimaryKeyField, IntegerField, ForeignKeyField, FloatField
-from peewee import Proxy
+from sqlalchemy import Integer, String, Column, Float, DateTime, ForeignKeyConstraint
+from sqlalchemy.ext.declarative import declarative_base
 
-database_proxy = Proxy()
-
-
-# It is for an example
-class User(Model):
-    id = PrimaryKeyField(unique=True)
-    name = CharField()
-    age = IntegerField()
-    gender = CharField()
-    nationality = CharField()
+Base = declarative_base()
 
 
-class BaseModel(Model):
-    id = PrimaryKeyField(unique=True)
-    name = CharField(unique=True)
+class Route(Base):
+    __tablename__ = 'routes'
+    id = Column(Integer, primary_key=True, nullable=False, unique=True)
+    name = Column(String(45), nullable=False)
+    place_from = Column(String(45), nullable=False)
+    place_to = Column(String(45), nullable=False)
+    price = Column(Float, nullable=False)
+    time = Column(DateTime, nullable=False)
+    car = Column(Integer, nullable=False)
 
-    class Meta:
-        database = database_proxy
-        order_by = 'id'
-
-
-class Car(BaseModel):
-    class Meta:
-        db_table = 'cars'
-
-
-class Place(BaseModel):
-    class Meta:
-        db_table = 'places'
+    __table_args__ = (ForeignKeyConstraint(['car'], ['cars.name']),
+                      ForeignKeyConstraint(['place_from'], ['place.name']),
+                      ForeignKeyConstraint(['place_to'], ['place.name']),)
 
 
-class Route(BaseModel):
-    place_from = ForeignKeyField(Place, field='name', on_delete='CASCADE')
-    place_to = ForeignKeyField(Place, field='name', on_delete='CASCADE')
-    price = FloatField()
-    car = ForeignKeyField(Car, field='id', on_delete='CASCADE')
+class Car(Base):
+    __tablename__ = 'cars'
+    id = Column(Integer, primary_key=True, nullable=False, unique=True)
+    name = Column(String(45), nullable=False)
 
-    class Meta:
-        db_table = 'routes'
+
+class Place(Base):
+    __tablename__ = 'places'
+    id = Column(Integer, primary_key=True, nullable=False, unique=True)
+    name = Column(String(45), nullable=False)
