@@ -38,16 +38,16 @@ def insert_route():
     car = entries['car_name'].get()
 
     if all(entries.values()):
-        route = Route(
-            name=route_name,
-            place_from=place_from,
-            place_to=place_to,
-            price=price,
-            car=car
-        )
         try:
-            session_mysql.add(route)
-            session_mysql.commit()
+            connection = engine_mysql.connect()
+            ins = insert(Route)
+            _ = connection.execute(ins,
+                                   name=route_name,
+                                   place_from=place_from,
+                                   place_to=place_to,
+                                   price=price,
+                                   car=car
+                                   )
 
             entries['route_name'].delete(0, 'end')
             entries['place_from'].delete(0, 'end')
@@ -69,10 +69,10 @@ def insert_car():
     """
     car_name = entries['car_name'].get()
     if car_name:
-        car = Car(name=car_name)
         try:
-            session_mysql.add(car)
-            session_mysql.commit()
+            connection = engine_mysql.connect()
+            ins = insert(Car)
+            _ = connection.execute(ins, name=car_name)
             entries['car_name'].delete(0, 'end')
             show()
             message_box.showinfo('Insert Status', 'Inserted successfully')
@@ -89,10 +89,10 @@ def insert_place():
     """
     place_name = entries['place_name'].get()
     if place_name:
-        place = Place(name=place_name)
         try:
-            session_mysql.add(place)
-            session_mysql.commit()
+            connection = engine_mysql.connect()
+            ins = insert(Place)
+            _ = connection.execute(ins, name=place_name)
 
             entries['place_name'].delete(0, 'end')
             show()
@@ -111,11 +111,9 @@ def delete_route():
     route_name = entries['route_name'].get()
     if route_name:
         try:
-            route = session_mysql.query(Route).filter(Route.name == route_name).one()
-
-            session_mysql.delete(route)
-            session_mysql.commit()
-
+            connection = engine_mysql.connect()
+            s = delete(Route).where(Route.name == route_name)
+            _ = connection.execute(s)
             entries['route_name'].delete(0, 'end')
             show()
             message_box.showinfo('Delete Status', 'Deleted successfully')
@@ -133,10 +131,9 @@ def delete_car():
     car_name = entries['car_name'].get()
     if car_name:
         try:
-            car = session_mysql.query(Car).filter(Car.name == car_name).one()
-
-            session_mysql.delete(car)
-            session_mysql.commit()
+            connection = engine_mysql.connect()
+            s = delete(Car).where(Car.name == car_name)
+            _ = connection.execute(s)
 
             entries['car_name'].delete(0, 'end')
             show()
@@ -155,10 +152,9 @@ def delete_place():
     place_name = entries['place_name'].get()
     if place_name:
         try:
-            place = session_mysql.query(Place).filter(Place.name == place_name).one()
-
-            session_mysql.delete(place)
-            session_mysql.commit()
+            connection = engine_mysql.connect()
+            s = delete(Place).where(Place.name == place_name)
+            _ = connection.execute(s)
 
             entries['place_name'].delete(0, 'end')
             show()
@@ -181,14 +177,17 @@ def update_route():
     price = entries['price'].get()
     car = entries['car_name'].get()
     if all(entries.values()):
-        route = session_mysql.query(Route).filter(Route.name == route_name).one()
-        route.place_from = place_from
-        route.place_to = place_to
-        route.price = price
-        route.car = car
         try:
-            session_mysql.add(route)
-            session_mysql.commit()
+            connection = engine_mysql.connect()
+            s = update(Route).where(
+                Route.name == route_name
+            ).values(
+                place_from=place_from,
+                place_to=place_to,
+                price=price,
+                car=car
+            )
+            _ = connection.execute(s)
 
             entries['route_name'].delete(0, 'end')
             entries['place_from'].delete(0, 'end')
@@ -226,8 +225,11 @@ def get_route():
     """
     route_name = entries['route_name'].get()
     if route_name:
-        route = session_mysql.query(Route).filter(Route.name == route_name).one()
-
+        connection = engine_mysql.connect()
+        s = select([Route]).where(
+            Route.name == route_name
+        )
+        route = connection.execute(s).first()
         if route:
             message = f"""
                 Name: {route.name}
@@ -251,7 +253,11 @@ def get_car():
     """
     car_name = entries['car_name'].get()
     if car_name:
-        car = session_mysql.query(Car).filter(Car.name == car_name).one()
+        connection = engine_mysql.connect()
+        s = select([Car]).where(
+            Car.name == car_name
+        )
+        car = connection.execute(s).first()
         if car:
             message = f"""
                 Name: {car.name}
@@ -271,8 +277,11 @@ def get_place():
     """
     place_name = entries['place_name'].get()
     if place_name:
-        place = session_mysql.query(Place).filter(Place.name == place_name).one()
-
+        connection = engine_mysql.connect()
+        s = select([Place]).where(
+            Place.name == place_name
+        )
+        place = connection.execute(s).first()
         if place:
             message = f"""
                 Name: {place.name}
@@ -397,6 +406,81 @@ places_list.place(x=570, y=50)
 
 # Create listboxes section end
 
+
+# def export_to_sqlite():
+#     """
+#     Function for exporting data from MySQL to SQLite databases
+#     :return: MessageBox call
+#     """
+#     try:
+#         database_proxy.initialize(mysql_database)
+#         routes = Route.select()
+#         cars = Car.select()
+#         places = Place.select()
+#
+#         route = []
+#         car = []
+#         place = []
+#
+#         for i in range(len(routes)):
+#             route.append(routes[i].__dict__['__data__'])
+#         for i in range(len(cars)):
+#             car.append(cars[i].__dict__['__data__'])
+#         for i in range(len(places)):
+#             place.append(places[i].__dict__['__data__'])
+#
+#         database_proxy.initialize(sqlite_database)
+#         Route.drop_table()
+#         Car.drop_table()
+#         Place.drop_table()
+#         database_proxy.create_tables([Car, Place, Route])
+#
+#         append_data(car, place, route)
+#
+#         database_proxy.initialize(mysql_database)
+#     except (DatabaseError) as e:
+#         print(e)
+#         return message_box.showerror('Exporting Status', 'Error was occurred while exporting')
+#     return message_box.showinfo('Exporting Status', 'Export from MySQL to SQLite was successful')
+#
+#
+# def export_to_postgresql():
+#     """
+#     Function for exporting data from SQLite to PostgreSQL databases
+#     :return: MessageBox call
+#     """
+#     try:
+#         database_proxy.initialize(sqlite_database)
+#         routes = Route.select()
+#         cars = Car.select()
+#         places = Place.select()
+#
+#         route = []
+#         car = []
+#         place = []
+#
+#         for i in range(len(routes)):
+#             route.append(routes[i].__dict__['__data__'])
+#         for i in range(len(cars)):
+#             car.append(cars[i].__dict__['__data__'])
+#         for i in range(len(places)):
+#             place.append(places[i].__dict__['__data__'])
+#
+#         database_proxy.initialize(postgresql_database)
+#         Route.drop_table()
+#         Car.drop_table()
+#         Place.drop_table()
+#         database_proxy.create_tables([Car, Place, Route])
+#
+#         append_data(car, place, route)
+#
+#         database_proxy.initialize(mysql_database)
+#     except (DatabaseError) as e:
+#         print(e)
+#         return message_box.showerror('Exporting Status', 'Error was occurred while exporting')
+#     return message_box.showinfo('Exporting Status', 'Export from SQLite to PostgreSQL was successful')
+
+
 def create_some_data():
     """
     Function for create start data
@@ -438,6 +522,13 @@ def create_some_data():
             session_mysql.add(route)
             session_mysql.commit()
 
+
+export_to_sqlite_button = Button(root, text='Export from MySQL to SQLite', font=('italic', 10), bg='white',
+                                 command='export_to_sqlite')
+export_to_sqlite_button.place(x=290, y=260)
+export_to_postgre_button = Button(root, text='Export from SQLite to PostgreSQL', font=('italic', 10), bg='white',
+                                  command='export_to_postgresql')
+export_to_postgre_button.place(x=290, y=320)
 
 create_some_data()
 show()
