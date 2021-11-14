@@ -3,8 +3,7 @@ site_url: https://example.com/
 nav:
     - Home: index.md
     - Autostation: autostation.md
-    - MongoDB: mongo.md
-    - Database: database.md
+    - SQLAlchemy: alchemy.md
 theme:
     name: material
     palette:

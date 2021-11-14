@@ -107,6 +107,20 @@ To get a car you need to fill the **name of the place** like this and then press
 
 ![](images/GetPlaces.png)
 
+## Export
+
+### To SQLite
+
+To export Database to SQLite click this button
+
+![](images/ExportSQLite.png)
+
+### To PostgreSQl
+
+To export Database to PostgreSQL click this button
+
+![](images/ExportPostgreSQL.png)
+
 ## Code of the app
 
 The full length of the app is near **500 lines**, so it is better to watch the code at
