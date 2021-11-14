@@ -15,8 +15,8 @@ class Route(Base):
     car = Column(Integer, nullable=False)
 
     __table_args__ = (ForeignKeyConstraint(['car'], ['cars.name']),
-                      ForeignKeyConstraint(['place_from'], ['place.name']),
-                      ForeignKeyConstraint(['place_to'], ['place.name']),)
+                      ForeignKeyConstraint(['place_from'], ['places.name']),
+                      ForeignKeyConstraint(['place_to'], ['places.name']),)
 
 
 class Car(Base):
