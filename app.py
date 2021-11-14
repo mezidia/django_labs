@@ -406,37 +406,57 @@ places_list.place(x=570, y=50)
 
 # Create listboxes section end
 
+def show_csv(data: list) -> None:
+    """
+    Function for showing data in csv format
+    :return: nothing to return
+    """
+    df = pd.DataFrame(data)
+    print(df.to_csv(index=False))
+
+
+def export_data(from_session: Session, to_session: Session) -> None:
+    """
+    Function for exporting data from one database to another one
+    :return: nothing to return
+    """
+    connection = from_session.connection()
+    s_cars = select([Car])
+    s_places = select([Place])
+    s_routes = select([Route])
+    cars = connection.execute(s_cars).fetchall()
+    places = connection.execute(s_places).fetchall()
+    routes = connection.execute(s_routes).fetchall()
+    show_csv(cars)
+    show_csv(places)
+    show_csv(routes)
+
+    to_session.query(Route).delete()
+    to_session.query(Place).delete()
+    to_session.query(Car).delete()
+    to_session.commit()
+    for car in cars:
+        car_object = Car(id=car[0], name=car[1])
+        to_session.add(car_object)
+        to_session.commit()
+    for place in places:
+        place_object = Place(id=place[0], name=place[1])
+        to_session.add(place_object)
+        to_session.commit()
+    for route in routes:
+        route_object = Route(id=route[0], name=route[1], place_from=route[2], place_to=route[3], price=route[4],
+                             car=route[5])
+        to_session.add(route_object)
+        to_session.commit()
+
+
 def export_to_sqlite():
     """
     Function for exporting data from MySQL to SQLite databases
     :return: MessageBox call
     """
     try:
-        connection = session_mysql.connection()
-        s_cars = select([Car])
-        s_places = select([Place])
-        s_routes = select([Route])
-        cars = connection.execute(s_cars).fetchall()
-        places = connection.execute(s_places).fetchall()
-        routes = connection.execute(s_routes).fetchall()
-
-        session_sqlite.query(Route).delete()
-        session_sqlite.query(Place).delete()
-        session_sqlite.query(Car).delete()
-        session_sqlite.commit()
-        for car in cars:
-            car_object = Car(id=car[0], name=car[1])
-            session_sqlite.add(car_object)
-            session_sqlite.commit()
-        for place in places:
-            place_object = Place(id=place[0], name=place[1])
-            session_sqlite.add(place_object)
-            session_sqlite.commit()
-        for route in routes:
-            route_object = Route(id=route[0], name=route[1], place_from=route[2], place_to=route[3], price=route[4],
-                                 car=route[5])
-            session_sqlite.add(route_object)
-            session_sqlite.commit()
+        export_data(session_mysql, session_sqlite)
     except Exception as e:
         print(e)
         return message_box.showerror('Exporting Status', 'Error was occurred while exporting')
@@ -449,31 +469,7 @@ def export_to_postgresql():
     :return: MessageBox call
     """
     try:
-        connection = session_sqlite.connection()
-        s_cars = select([Car])
-        s_places = select([Place])
-        s_routes = select([Route])
-        cars = connection.execute(s_cars).fetchall()
-        places = connection.execute(s_places).fetchall()
-        routes = connection.execute(s_routes).fetchall()
-
-        session_postgresql.query(Route).delete()
-        session_postgresql.query(Place).delete()
-        session_postgresql.query(Car).delete()
-        session_postgresql.commit()
-        for car in cars:
-            car_object = Car(id=car[0], name=car[1])
-            session_postgresql.add(car_object)
-            session_postgresql.commit()
-        for place in places:
-            place_object = Place(id=place[0], name=place[1])
-            session_postgresql.add(place_object)
-            session_postgresql.commit()
-        for route in routes:
-            route_object = Route(id=route[0], name=route[1], place_from=route[2], place_to=route[3], price=route[4],
-                                 car=route[5])
-            session_postgresql.add(route_object)
-            session_postgresql.commit()
+        export_data(session_sqlite, session_postgresql)
     except Exception as e:
         print(e)
         return message_box.showerror('Exporting Status', 'Error was occurred while exporting')
