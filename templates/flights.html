@@ -24,10 +24,10 @@
         <tbody>
         {% for flight in flights %}
             <tr>
-                <th scope="row">{{ flight.id }}</th>
-                <td><a href="/flight/{{ flight.id }}">{{ flight.plane }}</a></td>
+                <th scope="row"><a href="/flight/{{ flight.id }}">{{ flight.id }}</a></th>
+                <td>{{ flight.plane }}</td>
                 <td>{{ flight.destination_from }}</td>
-                <td>{{ flight.destionation_to }}</td>
+                <td>{{ flight.destination_to }}</td>
                 <td>{{ flight.flight_created }}</td>
                 <td>{{ flight.arrival_date }}</td>
                 <td>{{ flight.departure_date }}</td>
