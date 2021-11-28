@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block title %}
+    Усі рейси
+{% endblock %}
 {% block body %}
     <h1 class="text-center pt-5">Список наявних рейсів</h1>
     {% if flights|length < 1 %}
