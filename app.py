@@ -36,7 +36,7 @@ def flights():
 @app.route('/flight/<int:id>')
 def flight(id: int):
     founded_flight = Flight.query.get_or_404(id)
-    return render_template('index.html', flight=founded_flight)
+    return render_template('flight.html', flight=founded_flight)
 
 
 if __name__ == '__main__':
