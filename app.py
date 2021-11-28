@@ -38,6 +38,11 @@ def about():
     return render_template('about.html')
 
 
+@app.route('/contacts')
+def contacts():
+    return render_template('contacts.html')
+
+
 @app.route('/flight/<int:id>')
 def flight(id: int):
     founded_flight = Flight.query.get_or_404(id)
