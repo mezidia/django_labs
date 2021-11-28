@@ -24,8 +24,19 @@ class Flight(db.Model):
 
 @app.route('/')
 def index():
-    flights = Flight.query.order_by(Flight.flight_created).all()
-    return render_template('index.html', flights=flights)
+    return render_template('index.html')
+
+
+@app.route('/flights')
+def flights():
+    available_flights = Flight.query.order_by(Flight.flight_created).all()
+    return render_template('flights.html', flights=available_flights)
+
+
+@app.route('/flight/<int:id>')
+def flight(id: int):
+    founded_flight = Flight.query.get_or_404(id)
+    return render_template('index.html', flight=founded_flight)
 
 
 if __name__ == '__main__':
