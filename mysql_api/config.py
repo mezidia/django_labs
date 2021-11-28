@@ -1,5 +1,0 @@
-localhost = "localhost"
-host="127.0.0.1"
-user="root"
-password="Hogger"
-db_name="medivac"
