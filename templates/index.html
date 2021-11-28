@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
 {% block body %}
     <h1>Hi</h1>
+    {% for flight in flights %}
+        {{ flight }}
+    {% endfor %}
+
 {% endblock %}

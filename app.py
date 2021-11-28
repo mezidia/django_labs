@@ -13,9 +13,9 @@ class Flight(db.Model):
     destination_from = db.Column(db.String(200), default='Лос Сантос')
     destination_to = db.Column(db.String(200), default='Сан Фіерро')
     flight_created = db.Column(db.DateTime, default=datetime.utcnow())
-    departure_date = db.Column(db.DateTime)
-    arrival_date = db.Column(db.DateTime)
-    duration = db.Column(db.Float)
+    departure_date = db.Column(db.String(200))
+    arrival_date = db.Column(db.String(200))
+    duration = db.Column(db.String(200))
     price = db.Column(db.Float)
 
     def __repr__(self):
@@ -23,8 +23,9 @@ class Flight(db.Model):
 
 
 @app.route('/')
-def hello_world():
-    return render_template('index.html')
+def index():
+    flights = Flight.query.order_by(Flight.flight_created).all()
+    return render_template('index.html', flights=flights)
 
 
 if __name__ == '__main__':
