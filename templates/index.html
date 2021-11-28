@@ -1,8 +1,36 @@
 {% extends 'base.html' %}
 {% block body %}
     <h1>Hi</h1>
-    {% for flight in flights %}
-        {{ flight }}
-    {% endfor %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Plane</th>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Flight created</th>
+            <th scope="col">Arrival date</th>
+            <th scope="col">Departure date</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for flight in flights %}
+            <tr>
+                <th scope="row">{{ flight.id }}</th>
+                <td>{{ flight.plane }}</td>
+                <td>{{ flight.destination_from }}</td>
+                <td>{{ flight.destionation_to }}</td>
+                <td>{{ flight.flight_created }}</td>
+                <td>{{ flight.arrival_date }}</td>
+                <td>{{ flight.departure_date }}</td>
+                <td>{{ flight.duration }}</td>
+                <td>{{ flight.price }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 
 {% endblock %}
