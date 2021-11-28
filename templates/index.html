@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block body %}
     <h1>Hi</h1>
+    {% if flights|length < 1 %}
+    <h4>Наразі немає жодного польоту</h4>
+    {% else %}
     <table class="table">
         <thead>
         <tr>
@@ -19,7 +22,7 @@
         {% for flight in flights %}
             <tr>
                 <th scope="row">{{ flight.id }}</th>
-                <td>{{ flight.plane }}</td>
+                <td><a href="/flight/{{ flight.id }}">{{ flight.plane }}</a></td>
                 <td>{{ flight.destination_from }}</td>
                 <td>{{ flight.destionation_to }}</td>
                 <td>{{ flight.flight_created }}</td>
@@ -31,6 +34,5 @@
         {% endfor %}
         </tbody>
     </table>
-
-
+    {% endif %}
 {% endblock %}
