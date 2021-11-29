@@ -1,8 +1,8 @@
-site_name: Autostation
+site_name: Medivac
 site_url: https://example.com/
 nav:
     - Home: index.md
-    - Autostation: autostation.md
+    - Flask: flask.md
     - SQLAlchemy: alchemy.md
 theme:
     name: material

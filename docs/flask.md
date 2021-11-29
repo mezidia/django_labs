@@ -23,7 +23,7 @@ You can do different operations here:
 - delete data;
 - get data;
 
-## Routes
+## Pages
 
 ### Insert
 
