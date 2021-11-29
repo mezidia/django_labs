@@ -1,127 +1,122 @@
-# Autostation app
+# Flask app
+
+## Overview
+
+Flask is a micro web framework written in Python. It is classified as a microframework because it does not require
+particular tools or libraries. It has no database abstraction layer, form validation, or any other components where
+pre-existing third-party libraries provide common functions. However, Flask supports extensions that can add application
+features as if they were implemented in Flask itself. Extensions exist for object-relational mappers, form validation,
+upload handling, various open authentication technologies and several common framework related tools.
 
 ## How to start
 
-First of all launch the script and see the opened window by the command in terminal:
+First launch the script by the command in terminal:
 
 ```bash
 python app.py
 ```
 
-You will see window like this:
+You will see output like this:
 
-![](images/Start.png)
+```bash
+FLASK_APP = app.py
+FLASK_ENV = development
+FLASK_DEBUG = 0
+In folder C:/Users/Maxim/Desktop/Projects/medivac
+C:\Users\Maxim\Desktop\Projects\medivac\venv\Scripts\python.exe -m flask run
+ * Serving Flask app 'app.py' (lazy loading)
+ * Environment: development
+ * Debug mode: off
+C:\Users\Maxim\Desktop\Projects\medivac\venv\lib\site-packages\flask_sqlalchemy\__init__.py:872: FSADeprecationWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True or False to suppress this warning.
+  warnings.warn(FSADeprecationWarning(
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+```
 
-Here you can see all available routes, cars and routes in the list boxes:
+Open the `http://127.0.0.1:5000/` in your browser
 
-![](images/Start.png)
-
-You can do different operations here:
-
-- insert data;
-- update data;
-- delete data;
-- get data;
+> To set the database, import from the app **db** and run the command _db.create_all()_
 
 ## Pages
 
-### Insert
+### Index
 
-To insert a route you need to fill the **name of the route**, **places from** and **to**, **price** of the route and
-**car identifier** like this and press button "insert" in the section "Work with routes":
+Here you can navigate to the other pages by following links, read information about our services etc.:
 
-![](images/InsertRoutes.png)
+![](images/index.png)
 
-### Update
+### About
 
-To update a route you need to fill the **name of the route** and all other fields - changed or not, but every field,
-like this and then press button "update" in the section "Work with routes":
+It is the simple page, where you can read more about our company:
 
-![](images/UpdateRoutes.png)
+![](images/about.png)
 
-### Delete
+### Contacts
 
-To delete a route you need to fill the **name of the route** like this and then press button "delete" in the section
-"Work with routes":
+Here you can contact with the administrator of the site and ask some questions:
 
-![](images/DeleteRoutes.png)
+![](images/contacts.png)
 
-### Get
+### Flight
 
-To get a route you need to fill the **name of the route** like this and then press button "get" in the section
-"Work with routes":
+On this page you can get all information about single flight:
 
-![](images/GetRoutes.png)
+![](images/flight.png)
 
-## Cars
+### Flights
 
-### Insert
+It is the page with the all available flights at the moment:
 
-To insert a car you need to fill the **name of the car** like this and press button "insert" in the section
-"Work with cars":
+![](images/flights.png)
 
-![](images/InsertCars.png)
+### Base.html
 
-### Update
+It is a template from which all pages are inherited.
 
-You can't to update the place in our app.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <title>{% block title %}Medivac{% endblock %}</title>
+    {% block head %}{% endblock %}
+</head>
+<body>
+{% include 'navbar.html' %}
+{% block body %}{% endblock %}
+<script src="https://getbootstrap.com/docs/5.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+```
 
-### Delete
+### Navbar.html
 
-To delete a car you need to fill the **id of the car** like this and then press button "delete" in the section
-"Work with cars":
+It's just a navbar of our site.
 
-![](images/DeleteCars.png)
-
-### Get
-
-To get a car you need to fill the **id of the car** like this and then press button "get" in the section
-"Work with cars":
-
-![](images/GetCars.png)
-
-## Places
-
-### Insert
-
-To insert a place you need to fill the **name of the place** like this and press button "insert" in the section
-"Work with places":
-
-![](images/InsertPlaces.png)
-
-### Update
-
-You can't to update the place in our app.
-
-### Delete
-
-To delete a place you need to fill the **name of the place** like this and then press button "delete" in the section
-"Work with places":
-
-![](images/DeletePlaces.png)
-
-### Get
-
-To get a car you need to fill the **name of the place** like this and then press button "get" in the section
-"Work with places":
-
-![](images/GetPlaces.png)
-
-## Export
-
-### To SQLite
-
-To export Database to SQLite click this button
-
-![](images/ExportSQLite.png)
-
-### To PostgreSQl
-
-To export Database to PostgreSQL click this button
-
-![](images/ExportPostgreSQL.png)
-
+```html
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="https://github.com/mezidia/medivac" target="_blank">Медівак</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Домашня сторінка</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/flights">Усі польоти</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+```
 ## Code of the app
 
-The full length of the app is near **500 lines**, so it is better to watch the code at
-[GitHub](https://github.com/mezidia/medivac/blob/main/app.py). You won't get lost, because there are many comments.
+The full length of the app is near **50 lines**, so it is better to watch the code at
+[GitHub](https://github.com/mezidia/medivac/blob/main/app.py).
