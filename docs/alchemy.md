@@ -2,9 +2,11 @@
 
 ## Overview
 
-SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL.
+SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and
+flexibility of SQL.
 
-It provides a full suite of well known enterprise-level persistence patterns, designed for efficient and high-performing database access, adapted into a simple and Pythonic domain language.
+It provides a full suite of well known enterprise-level persistence patterns, designed for efficient and high-performing
+database access, adapted into a simple and Pythonic domain language.
 
 ## Models
 
@@ -28,3 +30,16 @@ class Flight(db.Model):
 
 ## Query
 
+Since our task was not to use _ORM_, not many methods have been written, but there is one:
+
+### Get all flights
+
+```python
+available_flights = Flight.query.order_by(Flight.flight_created).all()
+```
+
+### Get a single flight
+
+```python
+founded_flight = Flight.query.get_or_404(id)
+```
