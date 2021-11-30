@@ -24,4 +24,3 @@ def flight(request, id):
     flight_object = Flight.objects.get(pk=id)
     context = {'flight': flight_object}
     return render(request, 'portal/flight.html', context)
-
