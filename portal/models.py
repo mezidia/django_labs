@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Flight(models.Model):
-    id = models.IntegerField(primary_key=True)
     plane = models.CharField(max_length=200, null=False)
     destination_from = models.CharField(max_length=200, default='Лос Сантос')
     destination_to = models.CharField(max_length=200, default='Сан Фіерро')
@@ -11,3 +10,6 @@ class Flight(models.Model):
     arrival_date = models.CharField(max_length=200)
     duration = models.CharField(max_length=200)
     price = models.FloatField()
+
+    def __str__(self):
+        return f'{self.destination_from} - {self.destination_to}'
