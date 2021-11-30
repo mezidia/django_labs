@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Flight
 
 
 def index(request):
@@ -6,4 +7,13 @@ def index(request):
 
 
 def flights(request):
-    return render(request, 'portal/index.html')
+    flights_data = Flight.objects.all().order_by('-flight_created')
+    context = {'flights': flights_data}
+    return render(request, 'portal/flights.html', context)
+
+
+def flight(request, id):
+    flight_object = Flight.objects.get(pk=id)
+    context = {'flight': flight_object}
+    return render(request, 'portal/flights.html', context)
+

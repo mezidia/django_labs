@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}
+    Усі рейси
+{% endblock %}
+{% block body %}
+    <h1 class="text-center pt-5">Список наявних рейсів</h1>
+    {% if flights|length < 1 %}
+    <h4>Наразі немає жодного польоту</h4>
+    {% else %}
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Літак</th>
+            <th scope="col">З</th>
+            <th scope="col">До</th>
+            <th scope="col">Рейс зареєстровано</th>
+            <th scope="col">Дата прибуття</th>
+            <th scope="col">Дата відправки</th>
+            <th scope="col">Час польоту</th>
+            <th scope="col">Ціна</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for flight in flights %}
+            <tr>
+                <th scope="row"><a href="{% url 'flight' flight.id %}">{{ flight.id }}</a></th>
+                <td>{{ flight.plane }}</td>
+                <td>{{ flight.destination_from }}</td>
+                <td>{{ flight.destination_to }}</td>
+                <td>{{ flight.flight_created }}</td>
+                <td>{{ flight.arrival_date }}</td>
+                <td>{{ flight.departure_date }}</td>
+                <td>{{ flight.duration }}</td>
+                <td>{{ flight.price }} гривень</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+{% endblock %}
