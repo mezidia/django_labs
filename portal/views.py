@@ -1,5 +1,5 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse('Hi')
+    return render(request, 'portal/index.html')
