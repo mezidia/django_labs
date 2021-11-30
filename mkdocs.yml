@@ -2,8 +2,8 @@ site_name: Medivac
 site_url: https://example.com/
 nav:
     - Home: index.md
-    - Flask: flask.md
-    - SQLAlchemy: alchemy.md
+    - Django: django.md
+    - Django ORM: orm.md
 theme:
     name: material
     palette:

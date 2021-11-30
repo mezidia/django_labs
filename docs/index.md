@@ -2,18 +2,18 @@
 
 For full documentation visit repository [page](https://github.com/mezidia/medivac).
 
-To see how to use our app, go to the [next](flask.md) page. To see how to work with databases go to
-the [last](alchemy.md)
+To see how to use our app, go to the [next](django.md) page. To see how to work with databases go to
+the [last](orm.md)
 page.
 
-## Flask
+## Django
 
-* [Overview](flask.md#overview)
-* [How to start](flask.md#how-to-start)
-* [Pages](flask.md#pages)
+* [Overview](django.md#overview)
+* [How to start](django.md#how-to-start)
+* [Pages](django.md#pages)
 
-## SQLAlchemy
+## Django ORM
 
-* [Overview](alchemy.md#overview)
-* [Models](alchemy.md#models)
-* [Query](alchemy.md#core)
+* [Overview](orm.md#overview)
+* [Models](orm.md#models)
+* [Query](orm.md#core)
