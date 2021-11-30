@@ -2,30 +2,30 @@
 
 ## Overview
 
-SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and
-flexibility of SQL.
-
-It provides a full suite of well known enterprise-level persistence patterns, designed for efficient and high-performing
-database access, adapted into a simple and Pythonic domain language.
+Once you’ve created your data models, Django automatically gives you a database-abstraction API that lets you create,
+retrieve, update and delete objects. This document explains how to use this API. Refer to the data model reference for
+full details of all the various model lookup options.
 
 ## Models
 
-We developed our [models](https://github.com/mezidia/medivac/blob/main/app.py#L10-L22) of tables:
+We developed our [models](https://github.com/mezidia/medivac/blob/main/portal/models.py) of tables:
 
 ```python
-class Flight(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    plane = db.Column(db.String(200), nullable=False)
-    destination_from = db.Column(db.String(200), default='Лос Сантос')
-    destination_to = db.Column(db.String(200), default='Сан Фіерро')
-    flight_created = db.Column(db.DateTime, default=datetime.utcnow())
-    departure_date = db.Column(db.String(200))
-    arrival_date = db.Column(db.String(200))
-    duration = db.Column(db.String(200))
-    price = db.Column(db.Float)
+from django.db import models
 
-    def __repr__(self):
-        return f'<Flight {self.id}>'
+
+class Flight(models.Model):
+    plane = models.CharField(max_length=200, null=False)
+    destination_from = models.CharField(max_length=200, default='Лос Сантос')
+    destination_to = models.CharField(max_length=200, default='Сан Фіерро')
+    flight_created = models.DateTimeField(auto_now_add=True)
+    departure_date = models.CharField(max_length=200)
+    arrival_date = models.CharField(max_length=200)
+    duration = models.CharField(max_length=200)
+    price = models.FloatField()
+
+    def __str__(self):
+        return f'{self.destination_from} - {self.destination_to}'
 ```
 
 ## Query
@@ -35,11 +35,11 @@ Since our task was not to use _ORM_, not many methods have been written, but the
 ### Get all flights
 
 ```python
-available_flights = Flight.query.order_by(Flight.flight_created).all()
+flights_data = Flight.objects.all().order_by('-flight_created')
 ```
 
 ### Get a single flight
 
 ```python
-founded_flight = Flight.query.get_or_404(id)
+flight_object = Flight.objects.get(pk=id)
 ```
