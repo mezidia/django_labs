@@ -6,6 +6,14 @@ def index(request):
     return render(request, 'portal/index.html')
 
 
+def about(request):
+    return render(request, 'portal/about.html')
+
+
+def contacts(request):
+    return render(request, 'portal/contacts.html')
+
+
 def flights(request):
     flights_data = Flight.objects.all().order_by('-flight_created')
     context = {'flights': flights_data}
