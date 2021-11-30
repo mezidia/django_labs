@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://example.com/flask/">
+        <link rel="canonical" href="https://example.com/orm/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
     
     
       
-        <title>Flask - Medivac</title>
+        <title>Django ORM - Medivac</title>
       
     
     
@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#flask-app" class="md-skip">
+        <a href="#sqlalchemy" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Flask
+              Django ORM
             
           </span>
         </div>
@@ -243,6 +243,21 @@
 
   
   
+  
+    <li class="md-nav__item">
+      <a href="../django/" class="md-nav__link">
+        Django
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
     
   
   
@@ -255,12 +270,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Flask
+          Django ORM
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Flask
+        Django ORM
       </a>
       
         
@@ -286,65 +301,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-start" class="md-nav__link">
-    How to start
+  <a href="#models" class="md-nav__link">
+    Models
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pages" class="md-nav__link">
-    Pages
+  <a href="#query" class="md-nav__link">
+    Query
   </a>
   
-    <nav class="md-nav" aria-label="Pages">
+    <nav class="md-nav" aria-label="Query">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#index" class="md-nav__link">
-    Index
+  <a href="#get-all-flights" class="md-nav__link">
+    Get all flights
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#about" class="md-nav__link">
-    About
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#contacts" class="md-nav__link">
-    Contacts
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flight" class="md-nav__link">
-    Flight
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flights" class="md-nav__link">
-    Flights
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#basehtml" class="md-nav__link">
-    Base.html
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#navbarhtml" class="md-nav__link">
-    Navbar.html
+  <a href="#get-a-single-flight" class="md-nav__link">
+    Get a single flight
   </a>
   
 </li>
@@ -354,32 +334,10 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#code-of-the-app" class="md-nav__link">
-    Code of the app
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../alchemy/" class="md-nav__link">
-        SQLAlchemy
-      </a>
     </li>
   
 
@@ -418,78 +376,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-start" class="md-nav__link">
-    How to start
+  <a href="#models" class="md-nav__link">
+    Models
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pages" class="md-nav__link">
-    Pages
+  <a href="#query" class="md-nav__link">
+    Query
   </a>
   
-    <nav class="md-nav" aria-label="Pages">
+    <nav class="md-nav" aria-label="Query">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#index" class="md-nav__link">
-    Index
+  <a href="#get-all-flights" class="md-nav__link">
+    Get all flights
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#about" class="md-nav__link">
-    About
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#contacts" class="md-nav__link">
-    Contacts
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flight" class="md-nav__link">
-    Flight
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#flights" class="md-nav__link">
-    Flights
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#basehtml" class="md-nav__link">
-    Base.html
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#navbarhtml" class="md-nav__link">
-    Navbar.html
+  <a href="#get-a-single-flight" class="md-nav__link">
+    Get a single flight
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#code-of-the-app" class="md-nav__link">
-    Code of the app
-  </a>
   
 </li>
       
@@ -505,99 +421,42 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/mezidia/medivac/edit/master/docs/flask.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/mezidia/medivac/edit/master/docs/orm.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
-<h1 id="flask-app">Flask app</h1>
+<h1 id="sqlalchemy">SQLAlchemy</h1>
 <h2 id="overview">Overview</h2>
-<p>Flask is a micro web framework written in Python. It is classified as a microframework because it does not require
-particular tools or libraries. It has no database abstraction layer, form validation, or any other components where
-pre-existing third-party libraries provide common functions. However, Flask supports extensions that can add application
-features as if they were implemented in Flask itself. Extensions exist for object-relational mappers, form validation,
-upload handling, various open authentication technologies and several common framework related tools.</p>
-<h2 id="how-to-start">How to start</h2>
-<p>First launch the script by the command in terminal:</p>
-<div class="highlight"><pre><span></span><code>python app.py
+<p>Once you’ve created your data models, Django automatically gives you a database-abstraction API that lets you create,
+retrieve, update and delete objects. This document explains how to use this API. Refer to the data model reference for
+full details of all the various model lookup options.</p>
+<h2 id="models">Models</h2>
+<p>We developed our <a href="https://github.com/mezidia/medivac/blob/main/portal/models.py">models</a> of tables:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+
+<span class="k">class</span> <span class="nc">Flight</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">plane</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">destination_from</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;Лос Сантос&#39;</span><span class="p">)</span>
+    <span class="n">destination_to</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;Сан Фіерро&#39;</span><span class="p">)</span>
+    <span class="n">flight_created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">departure_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">arrival_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">duration</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">destination_from</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">destination_to</span><span class="si">}</span><span class="s1">&#39;</span>
 </code></pre></div>
-<p>You will see output like this:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">FLASK_APP</span> <span class="o">=</span> app.py
-<span class="nv">FLASK_ENV</span> <span class="o">=</span> development
-<span class="nv">FLASK_DEBUG</span> <span class="o">=</span> <span class="m">0</span>
-In folder C:/Users/Maxim/Desktop/Projects/medivac
-C:<span class="se">\U</span>sers<span class="se">\M</span>axim<span class="se">\D</span>esktop<span class="se">\P</span>rojects<span class="se">\m</span>edivac<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ython.exe -m flask run
- * Serving Flask app <span class="s1">&#39;app.py&#39;</span> <span class="o">(</span>lazy loading<span class="o">)</span>
- * Environment: development
- * Debug mode: off
-C:<span class="se">\U</span>sers<span class="se">\M</span>axim<span class="se">\D</span>esktop<span class="se">\P</span>rojects<span class="se">\m</span>edivac<span class="se">\v</span>env<span class="se">\l</span>ib<span class="se">\s</span>ite-packages<span class="se">\f</span>lask_sqlalchemy<span class="se">\_</span>_init__.py:872: FSADeprecationWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default <span class="k">in</span> the future.  Set it to True or False to suppress this warning.
-  warnings.warn<span class="o">(</span>FSADeprecationWarning<span class="o">(</span>
- * Running on http://127.0.0.1:5000/ <span class="o">(</span>Press CTRL+C to quit<span class="o">)</span>
+<h2 id="query">Query</h2>
+<p>Since our task was not to use <em>ORM</em>, not many methods have been written, but there is one:</p>
+<h3 id="get-all-flights">Get all flights</h3>
+<div class="highlight"><pre><span></span><code><span class="n">flights_data</span> <span class="o">=</span> <span class="n">Flight</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-flight_created&#39;</span><span class="p">)</span>
 </code></pre></div>
-<p>Open the <code>http://127.0.0.1:5000/</code> in your browser</p>
-<blockquote>
-<p>To set the database, import from the app <strong>db</strong> and run the command <em>db.create_all()</em></p>
-</blockquote>
-<h2 id="pages">Pages</h2>
-<h3 id="index">Index</h3>
-<p>Here you can navigate to the other pages by following links, read information about our services etc.:</p>
-<p><img alt="" src="../images/index.png" /></p>
-<h3 id="about">About</h3>
-<p>It is the simple page, where you can read more about our company:</p>
-<p><img alt="" src="../images/about.png" /></p>
-<h3 id="contacts">Contacts</h3>
-<p>Here you can contact with the administrator of the site and ask some questions:</p>
-<p><img alt="" src="../images/contacts.png" /></p>
-<h3 id="flight">Flight</h3>
-<p>On this page you can get all information about single flight:</p>
-<p><img alt="" src="../images/flight.png" /></p>
-<h3 id="flights">Flights</h3>
-<p>It is the page with the all available flights at the moment:</p>
-<p><img alt="" src="../images/flights.png" /></p>
-<h3 id="basehtml">Base.html</h3>
-<p>It is a template from which all pages are inherited.</p>
-<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ url_for(&#39;static&#39;, filename=&#39;css/bootstrap.css&#39;) }}&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{% block title %}Medivac{% endblock %}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-    {% block head %}{% endblock %}
-<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-{% include &#39;navbar.html&#39; %}
-{% block body %}{% endblock %}
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://getbootstrap.com/docs/5.1/dist/js/bootstrap.bundle.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+<h3 id="get-a-single-flight">Get a single flight</h3>
+<div class="highlight"><pre><span></span><code><span class="n">flight_object</span> <span class="o">=</span> <span class="n">Flight</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="navbarhtml">Navbar.html</h3>
-<p>It's just a navbar of our site.</p>
-<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">nav</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar navbar-expand-md navbar-dark fixed-top bg-dark&quot;</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container-fluid&quot;</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-brand&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://github.com/mezidia/medivac&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span><span class="p">&gt;</span>Медівак<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-toggler&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">data-bs-toggle</span><span class="o">=</span><span class="s">&quot;collapse&quot;</span> <span class="na">data-bs-target</span><span class="o">=</span><span class="s">&quot;#navbarCollapse&quot;</span>
-                    <span class="na">aria-controls</span><span class="o">=</span><span class="s">&quot;navbarCollapse&quot;</span> <span class="na">aria-expanded</span><span class="o">=</span><span class="s">&quot;false&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;Toggle navigation&quot;</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-toggler-icon&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-            <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;collapse navbar-collapse&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;navbarCollapse&quot;</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-nav me-auto mb-2 mb-md-0&quot;</span><span class="p">&gt;</span>
-                    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item&quot;</span><span class="p">&gt;</span>
-                        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-link active&quot;</span> <span class="na">aria-current</span><span class="o">=</span><span class="s">&quot;page&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/&quot;</span><span class="p">&gt;</span>Домашня сторінка<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-                    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-                    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item&quot;</span><span class="p">&gt;</span>
-                        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-link&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/flights&quot;</span><span class="p">&gt;</span>Усі польоти<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-                    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-                <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
-</code></pre></div>
-<h2 id="code-of-the-app">Code of the app</h2>
-<p>The full length of the app is near <strong>50 lines</strong>, so it is better to watch the code at
-<a href="https://github.com/mezidia/medivac/blob/main/app.py">GitHub</a>.</p>
 
               
             </article>
@@ -616,7 +475,7 @@ C:<span class="se">\U</span>sers<span class="se">\M</span>axim<span class="se">\
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+        <a href="../django/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Django" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -625,26 +484,11 @@ C:<span class="se">\U</span>sers<span class="se">\M</span>axim<span class="se">\
               <span class="md-footer__direction">
                 Previous
               </span>
-              Home
+              Django
             </div>
           </div>
         </a>
       
-      
-        
-        <a href="../alchemy/" class="md-footer__link md-footer__link--next" aria-label="Next: SQLAlchemy" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              SQLAlchemy
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
       
     </nav>
   

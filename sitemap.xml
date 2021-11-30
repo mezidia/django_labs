@@ -6,12 +6,12 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/alchemy/</loc>
+         <loc>https://example.com/django/</loc>
          <lastmod>2021-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://example.com/flask/</loc>
+         <loc>https://example.com/orm/</loc>
          <lastmod>2021-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>

@@ -8,14 +8,14 @@
       
       
       
-        <link rel="canonical" href="https://example.com/alchemy/">
+        <link rel="canonical" href="https://example.com/django/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
     
     
       
-        <title>SQLAlchemy - Medivac</title>
+        <title>Django - Medivac</title>
       
     
     
@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sqlalchemy" class="md-skip">
+        <a href="#django-app" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SQLAlchemy
+              Django
             
           </span>
         </div>
@@ -243,21 +243,6 @@
 
   
   
-  
-    <li class="md-nav__item">
-      <a href="../flask/" class="md-nav__link">
-        Flask
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
     
   
   
@@ -270,12 +255,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          SQLAlchemy
+          Django
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        SQLAlchemy
+        Django
       </a>
       
         
@@ -301,30 +286,65 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#models" class="md-nav__link">
-    Models
+  <a href="#how-to-start" class="md-nav__link">
+    How to start
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#query" class="md-nav__link">
-    Query
+  <a href="#pages" class="md-nav__link">
+    Pages
   </a>
   
-    <nav class="md-nav" aria-label="Query">
+    <nav class="md-nav" aria-label="Pages">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#get-all-flights" class="md-nav__link">
-    Get all flights
+  <a href="#index" class="md-nav__link">
+    Index
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-a-single-flight" class="md-nav__link">
-    Get a single flight
+  <a href="#about" class="md-nav__link">
+    About
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contacts" class="md-nav__link">
+    Contacts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flight" class="md-nav__link">
+    Flight
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flights" class="md-nav__link">
+    Flights
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basehtml" class="md-nav__link">
+    Base.html
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navbarhtml" class="md-nav__link">
+    Navbar.html
   </a>
   
 </li>
@@ -338,6 +358,21 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../orm/" class="md-nav__link">
+        Django ORM
+      </a>
     </li>
   
 
@@ -376,30 +411,65 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#models" class="md-nav__link">
-    Models
+  <a href="#how-to-start" class="md-nav__link">
+    How to start
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#query" class="md-nav__link">
-    Query
+  <a href="#pages" class="md-nav__link">
+    Pages
   </a>
   
-    <nav class="md-nav" aria-label="Query">
+    <nav class="md-nav" aria-label="Pages">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#get-all-flights" class="md-nav__link">
-    Get all flights
+  <a href="#index" class="md-nav__link">
+    Index
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-a-single-flight" class="md-nav__link">
-    Get a single flight
+  <a href="#about" class="md-nav__link">
+    About
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contacts" class="md-nav__link">
+    Contacts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flight" class="md-nav__link">
+    Flight
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flights" class="md-nav__link">
+    Flights
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basehtml" class="md-nav__link">
+    Base.html
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navbarhtml" class="md-nav__link">
+    Navbar.html
   </a>
   
 </li>
@@ -421,40 +491,91 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/mezidia/medivac/edit/master/docs/alchemy.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/mezidia/medivac/edit/master/docs/django.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
-<h1 id="sqlalchemy">SQLAlchemy</h1>
+<h1 id="django-app">Django app</h1>
 <h2 id="overview">Overview</h2>
-<p>SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and
-flexibility of SQL.</p>
-<p>It provides a full suite of well known enterprise-level persistence patterns, designed for efficient and high-performing
-database access, adapted into a simple and Pythonic domain language.</p>
-<h2 id="models">Models</h2>
-<p>We developed our <a href="https://github.com/mezidia/medivac/blob/main/app.py#L10-L22">models</a> of tables:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Flight</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">plane</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">destination_from</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;Лос Сантос&#39;</span><span class="p">)</span>
-    <span class="n">destination_to</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;Сан Фіерро&#39;</span><span class="p">)</span>
-    <span class="n">flight_created</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">())</span>
-    <span class="n">departure_date</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">200</span><span class="p">))</span>
-    <span class="n">arrival_date</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">200</span><span class="p">))</span>
-    <span class="n">duration</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">200</span><span class="p">))</span>
-    <span class="n">price</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Float</span><span class="p">)</span>
+<p>Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Built by
+experienced developers, it takes care of much of the hassle of web development, so you can focus on writing your app
+without needing to reinvent the wheel. It’s free and open source.</p>
+<h2 id="how-to-start">How to start</h2>
+<p>First launch the script by the command in terminal:</p>
+<div class="highlight"><pre><span></span><code>python manage.py runserver
+</code></pre></div>
+<p>You will see output like this:</p>
+<div class="highlight"><pre><span></span><code>Watching <span class="k">for</span> file changes with StatReloader
+Performing system checks...
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;Flight </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">&gt;&#39;</span>
+System check identified no issues <span class="o">(</span><span class="m">0</span> silenced<span class="o">)</span>.
+November <span class="m">30</span>, <span class="m">2021</span> - <span class="m">15</span>:56:00
+Django version <span class="m">3</span>.2.9, using settings <span class="s1">&#39;medivac.settings&#39;</span>
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
 </code></pre></div>
-<h2 id="query">Query</h2>
-<p>Since our task was not to use <em>ORM</em>, not many methods have been written, but there is one:</p>
-<h3 id="get-all-flights">Get all flights</h3>
-<div class="highlight"><pre><span></span><code><span class="n">available_flights</span> <span class="o">=</span> <span class="n">Flight</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">Flight</span><span class="o">.</span><span class="n">flight_created</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<p>Open the <code>http://127.0.0.1:8000/</code> in your browser</p>
+<blockquote>
+<p>To set the database, run the command <em>python manage.py migrate</em></p>
+</blockquote>
+<h2 id="pages">Pages</h2>
+<h3 id="index">Index</h3>
+<p>Here you can navigate to the other pages by following links, read information about our services etc.:</p>
+<p><img alt="" src="../images/index.png" /></p>
+<h3 id="about">About</h3>
+<p>It is the simple page, where you can read more about our company:</p>
+<p><img alt="" src="../images/about.png" /></p>
+<h3 id="contacts">Contacts</h3>
+<p>Here you can contact with the administrator of the site and ask some questions:</p>
+<p><img alt="" src="../images/contacts.png" /></p>
+<h3 id="flight">Flight</h3>
+<p>On this page you can get all information about single flight:</p>
+<p><img alt="" src="../images/flight.png" /></p>
+<h3 id="flights">Flights</h3>
+<p>It is the page with the all available flights at the moment:</p>
+<p><img alt="" src="../images/flights.png" /></p>
+<h3 id="basehtml">Base.html</h3>
+<p>It is a template from which all pages are inherited.</p>
+<div class="highlight"><pre><span></span><code>{% load static %}
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% static &#39;css/bootstrap.css&#39; %}&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{% block title %}Медівак{% endblock %}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    {% block head %}{% endblock %}
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+{% include &#39;includes/navbar.html&#39; %}
+{% block body %}{% endblock %}
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://getbootstrap.com/docs/5.1/dist/js/bootstrap.bundle.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </code></pre></div>
-<h3 id="get-a-single-flight">Get a single flight</h3>
-<div class="highlight"><pre><span></span><code><span class="n">founded_flight</span> <span class="o">=</span> <span class="n">Flight</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">get_or_404</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+<h3 id="navbarhtml">Navbar.html</h3>
+<p>It's just a navbar of our site.</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">nav</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar navbar-expand-md navbar-dark fixed-top bg-dark&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container-fluid&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-brand&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://github.com/mezidia/medivac&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span><span class="p">&gt;</span>Медівак<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-toggler&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">data-bs-toggle</span><span class="o">=</span><span class="s">&quot;collapse&quot;</span> <span class="na">data-bs-target</span><span class="o">=</span><span class="s">&quot;#navbarCollapse&quot;</span>
+                    <span class="na">aria-controls</span><span class="o">=</span><span class="s">&quot;navbarCollapse&quot;</span> <span class="na">aria-expanded</span><span class="o">=</span><span class="s">&quot;false&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;Toggle navigation&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-toggler-icon&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;collapse navbar-collapse&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;navbarCollapse&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-nav me-auto mb-2 mb-md-0&quot;</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item&quot;</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-link active&quot;</span> <span class="na">aria-current</span><span class="o">=</span><span class="s">&quot;page&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;index&#39; %}&quot;</span><span class="p">&gt;</span>Домашня сторінка<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item&quot;</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-link&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;flights&#39; %}&quot;</span><span class="p">&gt;</span>Усі польоти<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
 </code></pre></div>
 
               
@@ -474,7 +595,7 @@ database access, adapted into a simple and Pythonic domain language.</p>
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../flask/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Flask" rel="prev">
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -483,11 +604,26 @@ database access, adapted into a simple and Pythonic domain language.</p>
               <span class="md-footer__direction">
                 Previous
               </span>
-              Flask
+              Home
             </div>
           </div>
         </a>
       
+      
+        
+        <a href="../orm/" class="md-footer__link md-footer__link--next" aria-label="Next: Django ORM" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Django ORM
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
       
     </nav>
   
