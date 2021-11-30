@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
     <title>{% block title %}Медівак{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
     {% block head %}{% endblock %}
 </head>
 <body>
-    {% block body %}
-        No content here
-    {% endblock %}
+{% include 'includes/navbar.html' %}
+{% block body %}{% endblock %}
+<script src="https://getbootstrap.com/docs/5.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
